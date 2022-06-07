@@ -1,0 +1,19 @@
+set nocompatible
+set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo
+set number relativenumber
+syntax on
+set backspace=indent,eol,start
+
+
+set encoding=utf-8
+set splitbelow splitright
+
+set wildmode=longest,list,full
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+
+set mouse=ni

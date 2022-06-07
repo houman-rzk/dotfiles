@@ -1,0 +1,500 @@
+ls
+ls -la
+rm .bashrc
+vim .bashrc
+vim .config/vim/vimrc
+rm .viminfo
+ls
+ls -la
+rm .asdf.swp 
+ln -s .config/shell/bashrc .bashrc
+vim asdf
+vim .bash_profile 
+ls
+ls -la
+rm .bashrc 
+rm .viminfo
+kill -9 -1
+ls
+vim
+rm bashrcDetected 
+ls
+ls -la
+vim .config/shell/bashrc
+vim .bash_profile 
+kill -9 -1
+alias
+vim .bash_aliases
+vim .config/shell/bash_aliases 
+ls
+ls -la
+ln -s .config/shell/bashrc .bashrc
+rm .viminfo 
+exit
+vim
+alias
+cd .local/src/st
+vim ~/.config/shell/bash_aliases 
+. bashrc
+source ~/.bashrc
+alias
+small-res
+vim ~/.config/shell/bash_aliases 
+source ~/.bashrc
+small-res
+vim ~/.config/vim/vimrc 
+echo PS1
+echo $PS1
+echo $PS1
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m$
+
+
+
+
+large-res
+echo $PS1
+echo $PS1
+echo $PS1
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\W\e[0m$ '
+cd .local/src/st
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1;38m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1;39m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1;37m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1;38m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1;37m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[1m\u@\h\e[0m:\e[1;34m\w\e[0m$ '
+export PS1='\e[136;m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='\e[1;36;m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='\e[1;36;m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+vim ~/.bashrc
+cd .local/src/asdf
+cd .local/src/st
+asdf
+asdf
+as
+cat .bash_profile 
+cat .bash_profile 
+cat .bash_profile 
+cat .bash_profile 
+mv basrc .bashrc
+tput
+echo $PS1
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+vim .bashrc
+export PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
+export PS1='$(tput bold)\u@\h'
+export PS1='$(tput bold)$(tput setaf 3)\u@\h'
+export PS1='$(tput bold)$(tput setaf 3)\u$(tput setaf 2)@\h'
+export PS1='$(tput bold)$(tput setaf 3)\u$(tput setaf 2)@$(tput setaf 4)\h'
+export PS1='$(tput bold)$(tput setaf 3)\u$(tput setaf 2)@$(tput setaf 4)\h$(tput setaf 7):$(tput setaf 5)\w$(tput setaf 7)$ $(tput sgr0)'
+cd .local/src/st
+cd
+echo $PS1
+vim .bashrc
+vim .bashrc
+vim .config/vim/vimrc
+vim
+ls
+ls -la
+rm .viminfo 
+vim .config/vim/vimrc
+ls -la
+vim .bashrc
+vim .config/vim/vimrc 
+vim .config/vim/vimrc 
+ls -la
+rm .viminfo
+vim .bashrc
+mv .bashrc basrc
+asd
+fas
+dfa
+sdf
+asdf
+clea
+clear
+mv .bashrc basrc
+cd .local/src/st
+git status
+git diff
+vim asdf
+vim config.h
+make && sudo make clean install
+shopt -s checkwinsize
+ssssssssssssssssssssssssssssssssssssssssss:
+echo $COLUMNS
+export COLUMNS=180
+echo $PS1
+vim ~/.bashrc
+vim ~/.bashrc
+cd
+mv basrc .bashrc
+vim .bashrc
+cd .local/src/st
+ls
+git status
+rm st-selectionbg-alpha-0.8.2.diff xrandrfontsize-0.8.4-20211224-2f6e597.diff 
+git status
+git log
+vim ~/.bashrc
+git diff
+vim config.h
+ls
+cp ~/st-invert-0.8.4.diff .
+less ~/a.out 
+ls ~
+rm ~/*
+ls
+kill -9 -1
+cat .bash_profile 
+cat .bash_profile 
+cat .bash_profile 
+cat .bash_profile 
+echo $VIMRC
+echo $MYVIMRC
+vim $MYVIMRC
+vim $MYVIMRC
+vim $MYVIMRC
+vim $MYVIMRC
+vim $MYVIMRC
+vim -u
+vim -u /dev/null
+ls -la
+rm \:wq 
+rm .viminfo 
+ls -la
+ls
+cd .local/src/st
+tsurf
+ls
+cp config.h config.modified
+vim st-invert-0.8.4.diff 
+patch < st-invert-0.8.4.diff 
+vim x.c.rej
+vim .bash_profile 
+cd .local/src/st
+ls
+vim *rej*
+git status
+git logall
+git loga
+git log
+git status
+patch < st-invert-0.8.4.diff 
+vim x.c.rej 
+make
+sudo make clean install
+vim config.h
+vim st-invert-0.8.4.diff 
+ls *rej*
+vim config.h.rej
+vim st.c.rej 
+git status
+git restore config.h x.c
+git status
+vim config.h
+diff config.h config.modified 
+vim config.h
+ls
+ls
+git status
+cp config.h-* ..
+ls ..
+vim ~/.bash_profile 
+ls
+git status
+git clean -fn
+git clean -f
+git status
+git diff
+git commit -a -m "Changed shell to 'bash'"
+mv .bashrc basrc
+mv basrc .bashrc
+ls -la
+rm .viminfo
+ls
+vim .bashrc
+ls -la
+rm .viminfo 
+alias
+ls -la
+vim .bashrc
+ls -la
+vim .bashrc
+vim $MYVIMRC 
+ls -la
+rm .viminfo
+ls -la
+vim asdf
+ls -la
+rm .viminfo
+vim asdf
+ls -la
+ls -la
+vim asdf
+ls -la
+ls -la
+rm .viminfo 
+ls -la
+vim asdf
+ls -la
+ls la
+ls -la
+rm .viminfo 
+ls -la
+vim asfd
+ls -la
+vim asdf
+ls -la
+ls -la
+rm .viminfo 
+vim asdf
+ls -la
+rm .viminfo 
+vim asdf
+ls -la
+rm .viminfo 
+ls -la
+vim asfd
+small-res 
+ls -la
+rm .viminfo
+ls -la
+vim -u $MYVIMRC 
+ls -la
+rm .viminfo
+vim asdf
+ls -la
+rm .viminfo
+vim asdf
+ls -la
+vim asdf
+ls -la
+ls -la
+rm .viminfo
+ls -la
+vim asdf
+ls -la
+ls -la
+vim asdf
+ls -la
+ls -la
+rm .viminfo
+vim $MYVIMRC 
+ls -la
+less .config/vim/viminfo 
+alias
+vim $MYVIMRC 
+ls -la
+rm .viminfo 
+vim $MYVIMRC 
+ls -la
+alias
+vim
+vim $MYVIMRC 
+rm .viminfo 
+vim $MYVIMRC 
+ls -la
+rm .viminfo 
+ls
+ls -kla
+ls -la
+rm .config/vim/viminfo 
+vim $MYVIMRC 
+ls -la
+ls
+vim ~MYVIMRC
+vim $MYVIMRC 
+rm .viminfor
+rm .viminfo 
+ls -la
+vim $MYVIMRC 
+ls -la
+alias
+rm .viminfo
+vim -u $MYVIMRC 
+ls -la
+echo $MYVIMRC 
+vim $MYVIMRC 
+rm .viminfor
+rm .viminfo
+ls -la
+vim -u $MYVIMRC 
+ls -la
+vim
+ls -la
+vim $MYVIMRC 
+ls -la
+vim $MYVIMRC 
+ls -la
+vim $MYVIMRC 
+ls -la
+rm .viminfo
+ls -la
+vim $MYVIMRC 
+ls -la
+vim $MYVIMRC 
+rm .viminfo
+ls
+ls -la
+rm .config/vim/viminfo
+vim $MYVIMRC 
+ls -la
+vim $MYVIMRC 
+vim $MYVIMRC 
+vim $MYVIMRC 
+large-res 
+ls -la
+rm .viminfo 
+ls -la
+vim asfd
+ls -la
+vim .bash_profile 
+mv .dbus dbs
+ls -la
+ls -la
+kill -9 -1
+ls -la
+rm dbs
+rm dbs -r
+find /etc/ -iname 'dbus.conf'
+sudo find /etc/ -iname 'dbus.conf'
+sudo find /etc/ -iname '*dbus.conf*'
+sudo find / -iname '*dbus.conf*'
+vim /usr/lib/sysusers.d/dbus.conf
+less /usr/share/dbus-1/system.conf 
+less /usr/share/dbus-1/session.conf 
+cd .local/src/st
+ls
+ls -la
+git status
+make
+make clean install
+sudo make clean install
+ls -la
+q
+exit
+ls .local/share/
+find . -type d
+find -type d
+find . -type d
+q:
+ls la
+ls
+rm dir
+rm dir -r
+find . -type d > tree
+mkdir test
+cp tree test
+cd test
+ls
+vim dir-tree
+chmod u+x dir-tree 
+ls -la
+./dir-tree < tree
+q:q
+vim dir-tree 
+./dir-tree < tree
+ls 16
+ls -l
+ls -l
+cd ..
+ls -la
+ls -la
+cd test
+ls
+rm 16 -r
+vim tree
+./dir-tree < tree
+ls -la
+cd ..
+ls -la
+rm tree test -r
+ls -la
+cd .local/src/st
+git status
+git push origin master
+vim st.1
+cd ../dwm
+ls -la
+rm LICENSE README 
+sxiv dwm.png 
+file dwm.png 
+cd ..
+ls
+cp config.h-* st
+ls
+ls st
+rm config.h-*
+ls
+cd st
+ls -la
+mv config.h config.old
+cp config.h-dracula config.h
+make && sudo make clean install
+ls
+rm config.h
+mv config.old config.h
+make && sudo make clean install
+cd ..
+cd
+ls
+ls -l
+ls -la
+git init .
+git config --global init.defaultBranch master
+git log
+git status
+git status
+git add .config/ .local/
+git status
+git remove .local/src/*
+git rm .local/src/* .local/share/*
+git rm .local/src/* .local/share/* -r
+ls
+git status
+ls -la
+rm .git -rf
+git init .
+git status
+git add .local
+rm .git -rf
+git init .
+git status
+git add .config
+git status
+rm .config/x11/asdf
+ls -la
+git status
+git rm .config/x11/asdf
+git rm .config/git/git-credentials
+git status
+ls .config/git/git-credentials 
+less .config/git/git-credentials
+git rm --cached .config/git/git-credentials
+less .config/git/git-credentials
+git status
+ls .local
+git add .local/bin
+git status
+ls .local
+ls -la .local
+rm .local/.bashrc 
+ls -la
+git status
+mkdir dir
+touch dir/file
+git add -d dir
+git status
+~~~~~~~;5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ls -la
+git status | head -n 100
