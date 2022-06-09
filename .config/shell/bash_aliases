@@ -1,4 +1,4 @@
 alias vim="vim -u $MYVIMRC"
 alias small-res='xrandr --output Virtual-1 --mode 1024x768'
 alias large-res='xrandr --output Virtual-1 --mode 1920x1080'
-
+alias mk='make && sudo make clean install'
