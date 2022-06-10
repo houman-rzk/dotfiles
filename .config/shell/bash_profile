@@ -3,7 +3,7 @@
 #
 
 
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/bin/statusbar"
 
 
 # Default programs
@@ -25,6 +25,7 @@ export MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 export XAUTHORITY="$XDG_CONFIG_HOME/x11/Xauthority"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 export XDG_RUNTIME_DIR="$XDG_CACHE_HOME"
+export ALIASESFILE="$XDG_CONFIG_HOME/shell/aliases"
 
 
 [[ -f "$XDG_CONFIG_HOME/shell/bashrc" ]] && source "$XDG_CONFIG_HOME/shell/bashrc"

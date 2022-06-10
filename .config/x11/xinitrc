@@ -56,4 +56,6 @@ fi
 
 . "$XDG_CONFIG_HOME/x11/xprofile"
 
+dwmblocks &
+
 exec dwm

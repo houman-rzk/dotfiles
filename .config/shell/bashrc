@@ -10,6 +10,7 @@
 #PS1='\e[1;36m\u@\h\e[0m:\e[1;34m\w\e[0m\e[1m$\e[0m '
 PS1='\[$(tput bold)$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h\[$(tput setaf 7)\]:\[$(tput setaf 5)\]\w\[$(tput setaf 7)\]$ \[$(tput sgr0)\]'
 
-[[ -f "$XDG_CONFIG_HOME/shell/bash_aliases" ]] && source "$XDG_CONFIG_HOME/shell/bash_aliases"
+#[[ -f "$XDG_CONFIG_HOME/shell/aliases" ]] && source "$XDG_CONFIG_HOME/shell/aliases"
+[[ -f "$ALIASESFILE" ]] && source "$ALIASESFILE"
 
 set enable-keypad on

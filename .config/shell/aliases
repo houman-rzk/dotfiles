@@ -1,4 +1,9 @@
 alias vim="vim -u $MYVIMRC"
+alias la='ls -la'
 alias small-res='xrandr --output Virtual-1 --mode 1024x768'
 alias large-res='xrandr --output Virtual-1 --mode 1920x1080'
 alias mk='make && sudo make clean install'
+alias lo='kill -9 -1'
+alias td='tsurf dwm.suckless.org/patches'
+alias mo='mk && lo'
+alias src='cd ~/.local/src/'
