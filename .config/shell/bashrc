@@ -14,3 +14,5 @@ PS1='\[$(tput bold)$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h\
 [[ -f "$ALIASESFILE" ]] && source "$ALIASESFILE"
 
 set enable-keypad on
+
+set -o vi

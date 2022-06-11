@@ -11,6 +11,8 @@ export EDITOR="vim"
 export TERMINANL="st"
 
 
+
+export LC_COLLATE="C"
 export HOME="/home/ache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
