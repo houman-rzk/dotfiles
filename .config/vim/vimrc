@@ -16,4 +16,6 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 
-set mouse=ni
+set mouse=a
+
+autocmd VimEnter * silent !echo -ne '\e[1 q'

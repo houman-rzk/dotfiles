@@ -15,7 +15,7 @@ wmpid(){ # This function is needed if there are multiple instances of the window
 
 case "$(printf "🔒 lock\n🚪 logout\n🔃 reboot\n🔴 shutdown\n💤 sleep" | dmenu -i -p 'Action: ')" in
 	'🔒 lock') slock ;;
-	"🚪 logout") kill -TERM "$(wmpid)" ;;
+	"🚪 logout") kill -9 -1 ;;
 	'💤 sleep') slock $ctl suspend -i ;;
 	'🔃 reboot') sudo reboot ;;
 	'🔴 shutdown') sudo shutdown -hP now ;;

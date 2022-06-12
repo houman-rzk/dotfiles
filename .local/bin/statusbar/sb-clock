@@ -17,7 +17,9 @@ case $(date '+%I') in
 esac
 
 case $BLOCK_BUTTON in
-	1) touch ~/file
+#	1) touch ~/file
 esac
+
+touch ~/"$BLOCK_BUTTON"
 
 date "+%a %b %d $clock%R"

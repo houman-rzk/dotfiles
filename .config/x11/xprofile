@@ -8,14 +8,10 @@ xrandr --output Virtual-1 --mode 1920x1080
 
 setxkbmap -layout es
 
-autostart="xcompmgr" #xrdb"
-#autostart="picom"
+autostart="xcompmgr"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
 done >/dev/null 2>&1
 
 setbg
-
-
-#[ -n "$xrdbpid" ] && wait "$xrdbpid"
