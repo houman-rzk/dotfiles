@@ -13,7 +13,6 @@ fi
 
 runtabbed() {
 	tabbed -cdn tabbed-surf -r 2 surf -e '' "$uri" >"$xidfile" \
-	#tabbed -cn tabbed-surf -r 2 surf -e '' "$uri" >"$xidfile" \
 		2>/dev/null &
 }
 
@@ -30,4 +29,3 @@ else
 		surf -e "$xid" "$uri" >/dev/null 2>&1 &
 	fi
 fi
-

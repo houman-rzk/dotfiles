@@ -4,12 +4,11 @@
 
 export PATH="$PATH:$HOME/.local/bin:$HOME/.local/bin/statusbar"
 
-
 # Default programs
-export EDITOR="vim"
 export TERMINANL="st"
+export EDITOR="nvim"
 
-export LC_COLLATE="C"
+#export LC_COLLATE="C"
 #export HOME="/home/ache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -23,13 +22,13 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 export HISTFILE="$XDG_CACHE_HOME/shell/history"
 #export GIT_CONFIG="$XDG_CONFIG_HOME/git/gitconfig"
-export VIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+#export VIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+#export EDITOR="vim -u $VIMRC"
 export XAUTHORITY="$XDG_CONFIG_HOME/x11/Xauthority"
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export XDG_RUNTIME_DIR="$XDG_CACHE_HOME"
 #export ALIASRC="${XDG_CONFIG_HOME:-$HOME/.config/shell}/aliasrc"
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
 
-#[[ -f "$ALIASRC" ]] && source "$ALIASRC"
-
+#Start x; this line should always be the last one
 exec startx $XINITRC

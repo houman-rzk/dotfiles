@@ -2,7 +2,7 @@
 
 selected="$(shuf -e "$PHOTOS_DIR"/* -n 1)"
 
-[[ -f "$BACKGROUND_LINK" ]] && rm "$BACKGROUND_LINK"
+[ -f "$BACKGROUND_LINK" ] && rm "$BACKGROUND_LINK"
 
 ln -s "$selected" "$BACKGROUND_LINK"
 

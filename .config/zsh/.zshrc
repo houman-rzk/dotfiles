@@ -20,7 +20,8 @@ _comp_options+=(globdots)		# Include hidden files.
 bindkey -v
 export KEYTIMEOUT=1
 autoload edit-command-line ; zle -N edit-command-line	# Enables 'edit-command-line' command to edit the current command
-zstyle :zle:edit-command-line editor vim -u $VIMRC -f	# Sets the editor that will edit the command
+#zstyle :zle:edit-command-line editor vim -u $VIMRC -f		# Sets the editor that will edit the command
+zstyle :zle:edit-command-line editor nvim -f		# Sets the editor that will edit the command
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -35,14 +36,21 @@ bindkey '^[[H' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
-bindkey -v '^[.' insert-last-word
+bindkey '^[.' insert-last-word
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^F' history-incremental-pattern-search-forward
+bindkey -M vicmd '^R' history-incremental-pattern-search-backward
+bindkey -M vicmd '^F' history-incremental-pattern-search-forward
+bindkey -M vicmd '^[.' insert-last-word
+bindkey -M vicmd '^[[P' vi-delete-char
+bindkey -M vicmd '^?' vi-backward-delete-char
+bindkey -M visual '^[[P' vi-delete
 
 # Edit line in vim with ctrl-x.
 bindkey '^x' edit-command-line
 bindkey -M vicmd '^x' edit-command-line
-bindkey -M vicmd '^[[P' vi-delete-char
-bindkey -M vicmd '^?' vi-backward-delete-char
-bindkey -M visual '^[[P' vi-delete
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
@@ -61,5 +69,7 @@ zle-line-init() {
 
 zle -N zle-line-init
 #preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+#precmd() {print -n "\033kst $USER@$HOST:$PWD\033\134"}
+precmd() {print -n "\033kst $PWD\033\134"}
 
 [[ -f "$ALIASRC" ]] && source "$ALIASRC"

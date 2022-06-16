@@ -12,10 +12,13 @@ getforecast() { curl -sf "wttr.in" > "$weatherreport" || exit 1 ;}
 # Some very particular and terse stream manipulation. We get the maximum
 # precipitation chance and the daily high and low from the downloaded file and
 # display them with coresponding emojis.
-showweather() { printf "%s" "$(sed '16q;d' "$weatherreport" |
-	grep -wo "[0-9]*%" | sort -rn | sed "s/^/"💧"/g;1q" | tr -d '\n')"
-sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " 🥶" $1 "°","🌞" $2 "°"}' ;}
+#showweather() { printf "%s" "$(sed '16q;d' "$weatherreport" |
+#	grep -wo "[0-9]*%" | sort -rn | sed "s/^/"💧"/g;1q" | tr -d '\n')"
+#sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ❄" $1 "°","🟡" $2 "°"}' ;}
 
+showweather() {
+#printf "%s" "$(sed '16q;d' "$weatherreport" | grep -wo "[0-9]*%" | sort -rn | sed "s/^/"💧"/g;1q" | tr -d '\n')"
+	sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+//g | awk '{print "🌤" $1 "°"}';}
 #case $BLOCK_BUTTON in
 #	1) setsid -f "$TERMINAL" -e less -Srf "$weatherreport" ;;
 #	2) getforecast && showweather ;;

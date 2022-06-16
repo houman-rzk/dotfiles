@@ -22,4 +22,4 @@ esac
 
 touch ~/"$BLOCK_BUTTON"
 
-date "+%a %b %d $clock%R"
+date "+%a %b %d $clock %R"

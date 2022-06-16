@@ -1,11 +1,38 @@
-alias vim="vim -u $VIMRC"
-alias la='ls -la'
-alias small-res='xrandr --output Virtual-1 --mode 1024x768'
-alias large-res='xrandr --output Virtual-1 --mode 1920x1080'
-alias mk='make && sudo make clean install'
-alias lo='kill -9 -1'
-alias td='tsurf dwm.suckless.org/patches'
-alias mo='mk && lo'
-alias sc='cd ~/.local/src/ && ls -a'
-alias s="source ~/.config/zsh/.zshrc"
-alias vs="vim ~/.config/zsh/.zshrc"
+#!/bin/sh
+
+# Use superior neovim
+alias vim="nvim" vimdiff="nvim -d"
+
+# Remove need for sudo in these commands
+for command in pacman shutdown reboot ; do
+	alias "$command"="sudo $command"
+done ; unset command
+
+# Add some color to your life
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto"
+
+# Shorter commands
+alias \
+	la='ls -la' \
+	mk='make && sudo make clean install' \
+	lo='kill -9 -1' \
+	td='tsurf duckduckgo.com' \
+	mo='mk && lo' \
+	s="source ~/.config/zsh/.zshrc" \
+	off="shutdown -h now" \
+	tst="tabbed -r2 st -w '' && exit" \
+	ka="killall" \
+	g="git" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	p="pacman"
+
+# Main aliases
+alias \
+	sigblocks="pkill -RTMIN+2 dwmblocks" \
+	vs="$EDITOR ~/.config/zsh/.zshrc && . ~/.config/zsh/.zshrc" \
+	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile > /tmp/profile.tmp && . /tmp/profile.tmp" \
+	va="$EDITOR $ALIASRC && . $ALIASRC" 
