@@ -1,0 +1,25 @@
+set shell sh
+
+set shellopts '-eu'
+
+set scrolloff 10
+map <enter> shell
+map <c-r> reload
+map <c-s> set hidden!
+
+cmd open ${{
+	case $(file --mime-type -b "$f") in
+		video/*) setsid -f mpv "$f" >/dev/null 2>&1 ;;
+		image/*) setsid -f sxiv "$f" >/dev/null 2>&1 ;;
+		text/*) $EDITOR "$fx" ;;
+		*) for f in $fx ; do $OPENER "$f" >/dev/null 2>&1 ; done ;;
+	esac
+}}
+
+cmd on-cd &{{
+    printf "\033]0;lf $PWD\007" > /dev/tty
+}}
+on-cd
+
+cmd q quit
+map D delete
