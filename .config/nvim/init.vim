@@ -4,7 +4,18 @@
 "  \ V /| | | | | | | | | (__ 
 "   \_/ |_|_| |_| |_|_|  \___|
 
+
 let mapleader=" "
+
+if empty(glob("$XDG_CONFIG_HOME/nvim/autoload/plug.vim"))
+	silent execute '!mkdir -p $XDG_CONFIG_HOME/nvim/autoload/'
+	silent execute '!curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > $XDG_CONFIG_HOME/nvim/autoload/plug.vim'
+	autocmd VimEnter * PlugInstall
+endif
+
+call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
+Plug 'junegunn/goyo.vim'
+call plug#end()
 
 " Some basiscs
 	set number relativenumber
@@ -12,6 +23,7 @@ let mapleader=" "
 	"set backspace=indent,eol,start
 	set encoding=utf-8
 	set splitbelow splitright
+	set noswapfile
 
 " Enable autocompletion
 	set wildmode=longest,list,full
@@ -33,4 +45,7 @@ let mapleader=" "
 	set mouse=a
 
 " Eye candy stuff
-	:colorscheme peachpuff
+	colorscheme peachpuff
+
+" Enable goyo reading mode
+	map <leader>f :Goyo<CR>

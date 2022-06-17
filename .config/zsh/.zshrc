@@ -20,8 +20,7 @@ _comp_options+=(globdots)		# Include hidden files.
 bindkey -v
 export KEYTIMEOUT=1
 autoload edit-command-line ; zle -N edit-command-line	# Enables 'edit-command-line' command to edit the current command
-#zstyle :zle:edit-command-line editor vim -u $VIMRC -f		# Sets the editor that will edit the command
-zstyle :zle:edit-command-line editor nvim -f		# Sets the editor that will edit the command
+zstyle :zle:edit-command-line editor $EDITOR -f		# Sets the editor that will edit the command
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -68,10 +67,11 @@ zle-line-init() {
 }
 
 zle -N zle-line-init
-#preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-#precmd() {print -n "\033kst $USER@$HOST:$PWD\033\134"}
+
+# Set window title
 precmd() {print -n "\033kst $PWD\033\134"}
 
 [[ -f "$ALIASRC" ]] && source "$ALIASRC"
 
+# Load plugins; should always be last
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
