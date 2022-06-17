@@ -35,4 +35,5 @@ alias \
 	sigblocks="pkill -RTMIN+2 dwmblocks" \
 	vs="$EDITOR ~/.config/zsh/.zshrc && . ~/.config/zsh/.zshrc" \
 	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile > /tmp/profile.tmp && . /tmp/profile.tmp" \
+	es="edit-script"
 	va="$EDITOR $ALIASRC && . $ALIASRC" 

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+command -v "$1" >/dev/null 2>&1 || { echo "Command '$1' does not exist" ; exit ; }
+
+$EDITOR $(which "$1")

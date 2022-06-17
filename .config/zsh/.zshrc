@@ -73,3 +73,5 @@ zle -N zle-line-init
 precmd() {print -n "\033kst $PWD\033\134"}
 
 [[ -f "$ALIASRC" ]] && source "$ALIASRC"
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null

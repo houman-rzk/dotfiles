@@ -5,9 +5,9 @@ xrandr --output Virtual-1 --mode 1920x1080
 #xrandr --output Virtual-1 --mode 1600x900
 
 setxkbmap -layout es
-remaps
+remaps &
 
-autostart="xcompmgr"
+autostart="xcompmgr dunst"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
