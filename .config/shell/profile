@@ -5,7 +5,7 @@
 export PATH="$PATH:$HOME/.local/bin:$HOME/.local/bin/statusbar"
 
 # Default programs
-export TERMINANL="st"
+export TERMINAL="st"
 export EDITOR="nvim"
 
 #export LC_COLLATE="C"
@@ -29,6 +29,7 @@ export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export XDG_RUNTIME_DIR="$XDG_CACHE_HOME"
 #export ALIASRC="${XDG_CONFIG_HOME:-$HOME/.config/shell}/aliasrc"
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
+export CM_HISTLENGTH=30
 
 #Start x; this line should always be the last one
-exec startx $XINITRC
+exec startx "$XINITRC"

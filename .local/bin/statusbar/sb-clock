@@ -17,9 +17,7 @@ case $(date '+%I') in
 esac
 
 case $BLOCK_BUTTON in
-#	1) touch ~/file
+	1) notify-send "Calendar" "$(cal)" ;;
 esac
 
-touch ~/"$BLOCK_BUTTON"
-
-date "+%a %b %d $clock %R"
+date "+%a %b %d $clock %R:%S"

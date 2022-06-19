@@ -7,7 +7,7 @@ xrandr --output Virtual-1 --mode 1920x1080
 setxkbmap -layout es
 remaps &
 
-autostart="xcompmgr dunst"
+autostart="xcompmgr dunst clipmenud"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &

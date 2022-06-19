@@ -59,6 +59,8 @@ dwmblocks &
 
 . "$XDG_CONFIG_HOME/x11/xprofile"
 
-pkill -RTMIN+2 dwmblocks
+for i in $(seq 1 30); do
+	pkill -RTMIN+"$i" dwmblocks
+done
 
 exec dwm

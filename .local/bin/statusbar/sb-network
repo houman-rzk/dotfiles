@@ -2,6 +2,12 @@
 
 logo="🌐 "
 
-ping -c 1 9.9.9.9 >/dev/null 2>&1 || ping -c 1 archlinux.org >/dev/null 2>&1 || logo="❌ "
+test() { ping -c 1 9.9.9.9 >/dev/null 2>&1 || ping -c 1 archlinux.org >/dev/null 2>&1 || logo="❌ ";}
+
+case $BLOCK_BUTTON in
+	2) setsid -f "$TERMINAL" -e nmtui ;;
+esac
+
+test
 
 echo -n "$logo"
