@@ -1,5 +1,5 @@
 #!/bin/sh
-
+<<"C"
 case $(date '+%I') in
 	"00") clock="🕛" ;;
 	"01") clock="🕐" ;;
@@ -15,9 +15,13 @@ case $(date '+%I') in
 	"11") clock="🕚" ;;
 	"12") clock="🕛" ;;
 esac
+C
 
 case $BLOCK_BUTTON in
-	1) notify-send "Calendar" "$(cal)" ;;
+	1) notify-send "Calendar" "$(cal -m --color=always | sed "s/..7m/<b><span color=\"orange\">/;s|..27m|</span></b>|")" ;;
+	2) ;;
+	3) notify-send "Time & Calendar Module" "\- Left-click to see calendar
+\- Middle-click " ;;
 esac
 
-date "+%a %b %d $clock %R:%S"
+date "+%R"

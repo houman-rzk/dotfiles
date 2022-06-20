@@ -30,6 +30,7 @@ export XDG_RUNTIME_DIR="$XDG_CACHE_HOME"
 #export ALIASRC="${XDG_CONFIG_HOME:-$HOME/.config/shell}/aliasrc"
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
 export CM_HISTLENGTH=30
+#export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
 
 #Start x; this line should always be the last one
 exec startx "$XINITRC"

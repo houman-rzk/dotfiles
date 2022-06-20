@@ -1,0 +1,28 @@
+#!/bin/sh
+
+min_width=1600
+min_ratio=1.5
+max_ratio=2
+
+[ "$#" -ne 1 ] && echo "ERROR: Incorrect number of arguments (should be only one) && exit 1"
+
+mkdir "$1/all.tmp"
+[ -d "$1/sorted" ] && rm -r "$1/sorted"
+mkdir "$1/sorted"
+
+find "$1" -name all.tmp -prune -o -type f -exec cp '{}' "$1/all.tmp" ';'
+
+for i in all.tmp/* ; do
+	case "$(file --mime-type -b "$i")" in
+		image/jpeg) width="$(file "$i" | rev | cut -d ',' -f2 | rev | sed 's/ //g' | cut -d 'x' -f1)" && height="$(file "$i" | rev | cut -d ',' -f2 | rev | sed 's/ //g' | cut -d 'x' -f2)" ;;
+		image/png) width="$(file "$i" | rev | cut -d ',' -f3 | rev | sed 's/ //g' | cut -d 'x' -f1)" && height="$(file "$i" | rev | cut -d ',' -f3 | rev | sed 's/ //g' | cut -d 'x' -f2)" ;; 
+	esac
+
+	ratio="$(echo "scale=2; $width / $height" | bc -l)"
+
+	[ "$width" -ge "$min_width" ] && [ "$(echo "$ratio >= $min_ratio && $ratio <= $max_ratio" | bc -l)" -eq 1 ] && cp "$i" "$1/sorted"
+done
+
+rm -r "$1/all.tmp"
+
+echo DONE

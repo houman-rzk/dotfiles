@@ -17,24 +17,26 @@ alias \
 # Shorter commands
 alias \
 	la='ls -la' \
-	mk='make && sudo make clean install' \
-	lo='kill -9 -1' \
-	td='tsurf duckduckgo.com' \
-	mo='mk && lo' \
-	s="source ~/.config/zsh/.zshrc" \
-	off="shutdown -h now" \
-	tst="tabbed -r2 st -w '' && exit" \
 	ka="killall" \
 	g="git" \
 	e="$EDITOR" \
 	v="$EDITOR" \
+	es="edit-script" \
+	tt="taskwarrior-tui" \
+	as="add-script" \
+	pi="pacman -S" \
+	pui="pacman -Syu" \
 	p="pacman"
 
 # Main aliases
 alias \
-	sigblocks="pkill -RTMIN+2 dwmblocks" \
+	mk='make && sudo make clean install' \
+	lo='kill -9 -1' \
+	td='tsurf duckduckgo.com' \
+	mo='mk && lo' \
+	off="shutdown -h now" \
+	tst="tabbed -r2 st -w '' && exit" \
 	vs="$EDITOR ~/.config/zsh/.zshrc && . ~/.config/zsh/.zshrc" \
 	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile > /tmp/profile.tmp && . /tmp/profile.tmp" \
-	es="edit-script" \
 	va="$EDITOR $ALIASRC && . $ALIASRC" \
 	vimrc="$EDITOR $XDG_CONFIG_HOME/$EDITOR/init.vim"

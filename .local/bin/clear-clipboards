@@ -1,0 +1,5 @@
+#!/bin/sh
+
+xclip -sel clip < /dev/null
+xclip -sel pri < /dev/null
+xclip -sel buffer-cut < /dev/null
