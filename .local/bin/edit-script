@@ -2,4 +2,4 @@
 
 command -v "$1" >/dev/null 2>&1 || { echo "Command '$1' does not exist" && exit 1 ;}
 
-"$EDITOR" "$(which "$1")"
+"$EDITOR" "$(which "$1")" && shellcheck -s sh "$(which "$1")"

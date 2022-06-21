@@ -1,11 +1,11 @@
 #!/bin/sh
 
-selected="$(shuf -e "$PHOTOS_DIR"/* -n 1)"
+[ "$(wc -l "$XDG_DATA_HOME/wallpapers-file" 2>/dev/null | awk '{print $1}')" -eq 0 ] && create-wallpapers-file
 
-[ -f "$BACKGROUND_LINK" ] && rm "$BACKGROUND_LINK"
+[ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
 
-ln -s "$selected" "$BACKGROUND_LINK"
+ln -s "$(head -n 1 "$XDG_DATA_HOME/wallpapers-file")" "$WALLPAPER_LINK"
 
-xwallpaper --output Virtual-1 --zoom $BACKGROUND_LINK
+tail -n +2 "$XDG_DATA_HOME/wallpapers-file" > /tmp/wallpapers-file.tmp && mv /tmp/wallpapers-file.tmp "$XDG_DATA_HOME/wallpapers-file"
 
-exit
+xwallpaper --output Virtual-1 --zoom "$WALLPAPER_LINK"

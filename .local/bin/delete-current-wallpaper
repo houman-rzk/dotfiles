@@ -1,0 +1,5 @@
+#!/bin/sh
+
+current="$(readlink -f "$XDG_DATA_HOME/bg")"
+
+mv "$current" "$WALLPAPERS_DIR/Sorted.deleted" && setbg
