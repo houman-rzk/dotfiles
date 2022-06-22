@@ -20,9 +20,11 @@ export XDG_RUNTIME_DIR="$XDG_CACHE_HOME/runtime-dir"
 
 export CM_HISTLENGTH=30 # Clipmenu displayed length
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
+export DOWNLOADS_DIR="$XDG_DATA_HOME/Downloads"
 export PICTURES_DIR="$XDG_DATA_HOME/Pictures"
 export WALLPAPERS_DIR="$PICTURES_DIR/Wallpapers"
 export WALLPAPER_LINK="$XDG_DATA_HOME/bg"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 #Start x; this line should always be the last one
 exec startx "$XINITRC"

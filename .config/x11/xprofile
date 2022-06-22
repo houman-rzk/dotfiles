@@ -5,12 +5,9 @@ xrandr --output Virtual-1 --mode 1920x1080
 #xrandr --output Virtual-1 --mode 1600x900
 
 setxkbmap -layout es
-remaps &
 
-autostart="xcompmgr dunst clipmenud"
+autostart="xcompmgr setbg dunst clipmenud remaps"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
 done >/dev/null 2>&1
-
-setbg

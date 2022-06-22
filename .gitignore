@@ -9,11 +9,12 @@
 .config/x11/Xauthority
 .config/x11/xresources
 .dbus/
-.local/share/
 .local/src/
+.local/share/
 .mozilla/
 Downloads/
 TODO
 dwm
 new/
 xyz/
+ALFA

@@ -4,7 +4,7 @@
 alias vim="nvim" vimdiff="nvim -d"
 
 # Remove need for sudo in these commands
-for command in pacman shutdown reboot ; do
+for command in pacman shutdown reboot mount umount ; do
 	alias "$command"="sudo $command"
 done ; unset command
 
@@ -25,15 +25,18 @@ alias \
 	tt="taskwarrior-tui" \
 	as="add-script" \
 	pi="pacman -S" \
-	pui="pacman -Syu" \
+	piu="pacman -Syu" \
+	trr="transmission-remote" \
+	td="transmission-daemon" \
 	p="pacman"
 
 # Main aliases
 alias \
 	mk='make && sudo make clean install' \
 	lo='kill -9 -1' \
-	td='tsurf duckduckgo.com' \
 	mo='mk && lo' \
+	trackers='get-trackers' \
+	monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero" \
 	off="shutdown -h now" \
 	tst="tabbed -r2 st -w '' && exit" \
 	vs="$EDITOR ~/.config/zsh/.zshrc && . ~/.config/zsh/.zshrc" \
