@@ -27,4 +27,4 @@ export WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 #Start x; this line should always be the last one
-exec startx "$XINITRC"
+exec startx "$XINITRC" >/dev/null 2>&1
