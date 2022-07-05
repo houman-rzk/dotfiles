@@ -2,6 +2,8 @@
 	name = ache
 	email = ache@ache.com
 [credential]
-	helper = store --file ~/.config/git/git-credentials
+	helper = store
 [init]
 	defaultBranch = master
+[credetial]
+	helper = store

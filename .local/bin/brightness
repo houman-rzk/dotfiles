@@ -1,0 +1,17 @@
+#!/bin/sh
+
+[ "$#" -ne 1 ] && echo "Incorrect number of arguments (should be only one)" && exit 1
+
+send_notification() {
+	brightness="$(printf "%.0f\n" "$(brillo -G)")"
+	dunstify -a "brightness" -u low -r 1 -h int:value:"$brightness" -i "brightness-$1" "Brightness: $brightness%" -t 1000
+}
+
+STEP=5
+
+case $1 in
+	down) brillo -q -U $STEP ;;
+	up) brillo -q -A $STEP ;;
+esac
+
+send_notification "$1"

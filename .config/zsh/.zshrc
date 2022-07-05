@@ -1,5 +1,10 @@
 # zsh config file
 
+# Plugins and themes
+plugins=(vi-mode sudo archlinux web-search)
+#ZSH_THEME="random"
+source $ZSH/oh-my-zsh.sh
+
 # Enable colors and change prompt:
 autoload -U colors && colors		# Load colors
 PS1="%B%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$reset_color%}%B:%{$fg[magenta]%}%~%{$fg[red]%}%{$reset_color%}%B$%b "
@@ -46,6 +51,10 @@ bindkey -M vicmd '^[.' insert-last-word
 bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^?' vi-backward-delete-char
 bindkey -M visual '^[[P' vi-delete
+bindkey '^ ' autosuggest-accept
+bindkey -r '^s'
+bindkey -M vicmd '^s' sudo-command-line
+bindkey -M viins '^s' sudo-command-line
 
 # Edit line in vim with ctrl-x.
 bindkey '^x' edit-command-line
@@ -69,9 +78,11 @@ zle-line-init() {
 zle -N zle-line-init
 
 # Set window title
-precmd() {print -n "\033kst $PWD\033\134"}
+#precmd() {print -n "\033kst $PWD\033\134"}
 
+# Source aliases
 [[ -f "$ALIASRC" ]] && source "$ALIASRC"
 
-# Load plugins; should always be last
+# Load other plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
