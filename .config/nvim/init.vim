@@ -25,7 +25,7 @@ Plug 'itchyny/lightline.vim'
 
 " Theme
 Plug 'morhetz/gruvbox'
-"Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'shinchu/lightline-gruvbox.vim'
 
 " Tree
 Plug 'scrooloose/nerdtree'
@@ -71,9 +71,9 @@ call plug#end()
 	set mouse=a
 
 " Eye candy stuff
-	"colorscheme peachpuff
 	colorscheme gruvbox
 	let g:gruvbox_contrast_dark = "hard"
+	colorscheme peachpuff
 
 " Enable goyo reading mode
 	map <leader>f :Goyo<CR>
@@ -81,3 +81,9 @@ call plug#end()
 " Enable built-in autocomplete
 	filetype plugin on
 	set omnifunc=syntaxcomplete#Complete
+
+" Some shortcuts
+"	Run current file
+	map <leader>r :w \| !%<CR>
+"	Check current file
+	map <leader>c :w \| !shellcheck %<CR>

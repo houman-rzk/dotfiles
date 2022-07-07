@@ -5,6 +5,8 @@
 # Decrease key repeat delay to 300ms and increase key repeat rate to 50 per second.
 xset r rate 300 50
 
+setxkbmap -layout es
+
 # Map the caps lock key to super
 #setxkbmap -option caps:super
 # Map the caps lock key to escape

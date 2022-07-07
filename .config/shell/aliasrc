@@ -28,6 +28,7 @@ alias \
 	piu="pacman -Syu" \
 	trr="transmission-remote" \
 	td="transmission-daemon" \
+	untar="tar -xvf" \
 	p="pacman"
 
 # Main aliases

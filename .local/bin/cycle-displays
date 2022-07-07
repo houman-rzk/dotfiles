@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Display Profiles (remember to append them to the "array" below)
+INTERNAL_ONLY="xrandr --fb 1366x768 --output "$EXTERNAL_DISPLAY" --off --noprimary --output "$INTERNAL_DISPLAY" --mode 1366x768 --primary"
+EXTERNAL_ONLY="xrandr --fb 1920x1080 --output "$INTERNAL_DISPLAY" --off --noprimary --output "$EXTERNAL_DISPLAY" --mode 1920x1080 --primary"
+INTERNAL_LEFT="xrandr --output "$INTERNAL_DISPLAY" --primary --mode 1366x768 --left-of "$EXTERNAL_DISPLAY" --noprimary"
+INTERNAL_RIGHT="xrandr --output "$INTERNAL_DISPLAY" --noprimary --mode 1366x768 --right-of "$EXTERNAL_DISPLAY" --primary"
+
+[ $# -eq 1 ] && eval \$"$1" && xwallpaper --zoom "$WALLPAPER_LINK" && exit 0
+
+set INTERNAL_ONLY EXTERNAL_ONLY INTERNAL_LEFT INTERNAL_RIGHT
+
+CURRENT_PROFILE="$(cat "$DISPLAY_FILE")"
+
+i=1
+while [ $i -le $# ]; do
+	[ "$1" = "$CURRENT_PROFILE" ] && NEXT=$2
+	set -- "$@" "$1"
+	shift 1
+	i=$(( i + 1 ))
+done
+
+echo "$NEXT" > "$DISPLAY_FILE"
+
+cycle-displays "$NEXT"
+
+notify-send "$NEXT"

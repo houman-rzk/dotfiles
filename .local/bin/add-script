@@ -10,4 +10,4 @@ command -v "$1" >/dev/null 2>&1 && echo "ERROR: The script '$1' already exists" 
 { expr "$1" : 'sb-*' 1>/dev/null && DIR="$HOME/.local/bin/statusbar" ;} || DIR="$HOME/.local/bin"
 
 # Writes the script, checks it and makes it executable
-"$EDITOR" "$DIR/$1" && chmod u+x "$DIR/$1" && shellcheck -s sh "$DIR/$1"
+"$EDITOR" "$DIR/$1" && chmod u+x "$DIR/$1" && shellcheck "$DIR/$1"

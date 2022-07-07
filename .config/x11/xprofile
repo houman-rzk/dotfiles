@@ -1,13 +1,11 @@
-#/bin/sh
-
-#xrandr --output Virtual-1 --mode 1920x1080
-#xrandr --output Virtual-1 --mode 1024x768
-#xrandr --output Virtual-1 --mode 1600x900
+#!/bin/sh
 
 setxkbmap -layout es
 
-autostart="xcompmgr setbg dunst clipmenud remaps"
+autostart="autorandr xcompmgr setbg dunst clipmenud remaps"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
 done >/dev/null 2>&1
+
+cycle-displays "$DEFAULT_DISPLAY_PROFILE"

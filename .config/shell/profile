@@ -27,5 +27,15 @@ export WALLPAPERS_DIR="$PICTURES_DIR/Wallpapers"
 export WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
+# SCREEN CONFIG
+# Sets the default display profile (see 'cycle-displays' script)
+export DEFAULT_DISPLAY_PROFILE="INTERNAL_ONLY"
+export DISPLAY_FILE="/tmp/current_display_profile"
+echo "$DEFAULT_DISPLAY_PROFILE" > "$DISPLAY_FILE"
+
+# Default monitors (got them using 'xrandr -q')
+export INTERNAL_DISPLAY="eDP-1"
+export EXTERNAL_DISPLAY="HDMI-2"
+
 #Start x; this line should always be the last one
 exec startx "$XINITRC" >/dev/null 2>&1
