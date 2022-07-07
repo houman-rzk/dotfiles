@@ -3,11 +3,11 @@
 case $BLOCK_BUTTON in
 	1) dunstify -u low -r 1 "Tasks" "$(task | head -n -2 | tail -n +2)" ;;
 	2) "$TERMINAL" -e taskwarrior-tui ;;
-	3) dunstify -u low -r 1 "Task Module" "\- Left-click to show tasks
+	3) dunstify -u low -r 1 "Tasks Module" "\- Left-click to show tasks
 \- Middle-click to run task manager" ;;
 esac
 
 tasks="$(task | tail -n 1 | awk '{print $1}')"
-[ $tasks -ge 1 ] && tasks=" $tasks"
+[ "$tasks" -ge 1 ] && tasks=" $tasks"
 
 echo "$tasks"

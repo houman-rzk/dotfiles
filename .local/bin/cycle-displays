@@ -25,7 +25,9 @@ NEXT=$2
 # Store the next profile
 echo "$NEXT" > "$DISPLAY_FILE"
 
-eval \$"$NEXT" && xwallpaper --zoom "$WALLPAPER_LINK"
+eval \$"$NEXT"
+
+xwallpaper --zoom "$WALLPAPER_LINK"
 
 remaps &
 

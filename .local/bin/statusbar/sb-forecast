@@ -22,7 +22,7 @@ extractforecast() {
 case $BLOCK_BUTTON in
 	1) setsid -f "$TERMINAL" -f "monospace:size=10" -e less -Srf "$weatherreport" ;;
 	2) echo "$temp" ;; 
-	3) extractforecast && dunstify -u low -r 1 -t 3000 "🌈 Weather module" "\- Left click for full forecast.
+	3) extractforecast && dunstify -u low -r 1 -t 3000 "Weather module" "\- Left click for full forecast.
 - Middle click to update forecast.
 🟡$maxtemp ❄️$mintemp 💧$precip" ;;
 esac
