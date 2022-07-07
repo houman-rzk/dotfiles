@@ -7,9 +7,10 @@ test() { ping -c 1 9.9.9.9 >/dev/null 2>&1 || ping -c 1 archlinux.org >/dev/null
 test
 
 case $BLOCK_BUTTON in
-	1) notify-send "Internet module" "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;
+	1) dunstify -u low -r 1 "Internet module" "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;
 	2) setsid -f "$TERMINAL" -e nmtui ;;
-	3) notify-send "Internet module" "\- Left-click to get IP" "\- Middle-click to open connection manager (nmtui)" ;;
+	3) dunstify -u low -r 1 "Internet module" "\- Left-click to get public IP address
+\- Middle-click to open connection manager (nmtui)" ;;
 esac
 
 echo -n "$logo"

@@ -1,9 +1,9 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) notify-send "Tasks" "$(task | head -n -2 | tail -n +2)" ;;
+	1) dunstify -u low -r 1 "Tasks" "$(task | head -n -2 | tail -n +2)" ;;
 	2) "$TERMINAL" -e taskwarrior-tui ;;
-	3) notify-send "Task Module" "\- Left-click to show tasks
+	3) dunstify -u low -r 1 "Task Module" "\- Left-click to show tasks
 \- Middle-click to run task manager" ;;
 esac
 
