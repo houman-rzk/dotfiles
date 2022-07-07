@@ -24,4 +24,4 @@ case $BLOCK_BUTTON in
 \- Middle-click to ..." ;;
 esac
 
-date "+%R"
+date "+  %R  "

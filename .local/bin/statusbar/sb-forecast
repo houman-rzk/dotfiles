@@ -8,7 +8,7 @@ temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+
 
 [ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | awk '{print $4}' | sed s/+//g | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
 
-showweather () { echo "盛 $temp°" ;}
+showweather () { echo "  盛 $temp°  " ;}
 
 [ "$(stat -c %y "$weatherreport" | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || \
 	getforecast
