@@ -18,6 +18,7 @@ export HISTFILE="$XDG_DATA_HOME/shell/history"
 export XAUTHORITY="$XDG_CONFIG_HOME/x11/Xauthority"
 #export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export XDG_RUNTIME_DIR="$XDG_CACHE_HOME/runtime-dir"
+export LESSHISTFILE="-"
 
 export CM_HISTLENGTH=30 # Clipmenu displayed length
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
