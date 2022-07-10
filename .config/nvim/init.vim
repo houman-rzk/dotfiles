@@ -20,13 +20,14 @@ endif
 "	autocmd VimEnter * PluginInstall
 "endif
 
-"set nocompatible
-"filetype off
+"set nocompatible "Required by vundle
+"filetype off "Required by vundle
 
-"set rtp+=$XDG_CONFIG_HOME/nvim/bundle/Vundle.vim
-"call vundle#rc("$XDG_CONFIG_HOME/nvim/bundle")
-"call vundle#begin()
+"set rtp+=$XDG_CONFIG_HOME/nvim/bundle/Vundle.vim "Required by vundle
+"call vundle#rc("$XDG_CONFIG_HOME/nvim/bundle") "Required by vundle
+"call vundle#begin() "Required by vundle
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
+"Plugin 'junegunn/goyo.vim'
 Plug 'junegunn/goyo.vim'
 
 " Syntax highlighting
@@ -38,7 +39,7 @@ Plug 'maximbaz/lightline-ale'
 
 " Theme
 Plug 'morhetz/gruvbox'
-"Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'shinchu/lightline-gruvbox.vim'
 
 " Tree
 Plug 'preservim/nerdtree'
@@ -46,33 +47,25 @@ Plug 'preservim/nerdtree'
 " YouCompleteMe
 Plug 'ycm-core/YouCompleteMe' "Remember to install it by running 'python3 install.py --all' in '$XDG_CONFIG_HOME/nvim/bundle/YouCompleteMe'
 
-"call vundle#end()
-"filetype plugin indent on
+"call vundle#end() "Required by vundle
+"filetype plugin indent on "Required by vundle
 call plug#end()
 
 " Some basiscs
 	set number relativenumber
 	syntax on
-	"set backspace=indent,eol,start
+	set backspace=indent,eol,start
 	set encoding=utf-8
 	set splitbelow splitright
 	set noswapfile
-	set tabstop=4
-	set shiftwidth=4
-"	set expandtab
+    " Tabs
+	set tabstop=4 | set shiftwidth=4 | set expandtab
 
 " Enable autocompletion
 	set wildmode=longest,list,full
 
-" Split navigation shortcuts
-	map <C-h> <C-w>h
-	map <C-j> <C-w>j
-	map <C-k> <C-w>k
-	map <C-l> <C-w>l
-
-" Some more shortcuts
-	map <C-c> "+y
-	map <C-s> "*y
+" Disable search highlighting by default
+	set nohlsearch
 
 " Set the window title
 	set title
@@ -80,40 +73,45 @@ call plug#end()
 " Mouse settings
 	set mouse=a
 
-" Eye candy stuff
-	colorscheme gruvbox
-	let g:gruvbox_contrast_dark = "hard"
-	colorscheme peachpuff "Commenting this line will enable gruvbox[-dark] theme
-
-" Enable goyo reading mode
-	map <leader>g :Goyo<CR>
-
-" Disable search highlighting by default
-	set nohlsearch
-
-" Some shortcuts
+" Shortcuts
+	" Split navigation shortcuts
+	map <C-h> <C-w>h
+	map <C-j> <C-w>j
+	map <C-k> <C-w>k
+	map <C-l> <C-w>l
 	" Run current file
 	map <leader>r :w \| !%<CR>
 	" Check current file
 	map <leader>c :w \| !shellcheck %<CR>
 	" Write and quit
 	map <leader>w :wq<CR>
+    " Quit
+    map <leader>q :q!<CR>
+	" Clipboard shortcuts
+	map <C-c> "+y
+	map <C-s> "*y
 	" Toggle search highlighting
 	map <leader>h :set hlsearch!<CR>
 	" Disable search highlighting<CR>
 	map <esc> :noh<CR>
 
-
-" YouCompleteMe (plugin) remaps
+" Plugin shortcuts & config
+	" Goyo
+	map <leader>g :Goyo<CR>
+	" YouCompleteMe remaps
 	map <Tab> <C-n>
 	map <S-Tab> <C-p>
-
-" Lightline colorscheme
-"	let g:lightline = { 'colorscheme': 'wombat', }
-
-" NERDTree shortcuts & config
+	" NERDTree
 	nnoremap <leader>f :NERDTreeFind<CR>
 	nnoremap <leader>t :NERDTreeToggle<CR>
 	let NERDTreeMapActivateNode = "l"
 	let NERDTreeMapToggleHidden = "H"
 	let NERDTreeMapUpdir = 'h'
+
+" Eye candy
+	let g:gruvbox_contrast_dark = "hard"
+	" Enable transparent background when using gruvbox theme
+	let g:gruvbox_transparent_bg = 1 | autocmd VimEnter * hi Normal ctermbg=none
+	colorscheme gruvbox
+    " Lightline colorscheme
+	let g:lightline = { 'colorscheme': 'gruvbox' }
