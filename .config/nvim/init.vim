@@ -83,10 +83,13 @@ call plug#end()
 " Eye candy stuff
 	colorscheme gruvbox
 	let g:gruvbox_contrast_dark = "hard"
-"	colorscheme peachpuff "Commenting this line will enable gruvbox[-dark] theme
+	colorscheme peachpuff "Commenting this line will enable gruvbox[-dark] theme
 
 " Enable goyo reading mode
 	map <leader>g :Goyo<CR>
+
+" Disable search highlighting by default
+	set nohlsearch
 
 " Some shortcuts
 	" Run current file
@@ -95,6 +98,11 @@ call plug#end()
 	map <leader>c :w \| !shellcheck %<CR>
 	" Write and quit
 	map <leader>w :wq<CR>
+	" Toggle search highlighting
+	map <leader>h :set hlsearch!<CR>
+	" Disable search highlighting<CR>
+	map <esc> :noh<CR>
+
 
 " YouCompleteMe (plugin) remaps
 	map <Tab> <C-n>

@@ -7,3 +7,11 @@
 	defaultBranch = master
 [credetial]
 	helper = store
+[alias]
+	st = status
+	ci = commit -am
+	co = checkout
+	br = branch
+	logg = log --oneline --decorate --all --graph
+	ps = push origin master
+	pl = pull origin master
