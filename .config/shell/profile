@@ -17,7 +17,7 @@ export SAVEHIST=10000000
 export HISTFILE="$XDG_DATA_HOME/shell/history"
 export XAUTHORITY="$XDG_CONFIG_HOME/x11/Xauthority"
 #export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
-export XDG_RUNTIME_DIR="$XDG_CACHE_HOME/runtime-dir"
+export XDG_RUNTIME_DIR="$XDG_CACHE_HOME"
 export LESSHISTFILE="-"
 
 export CM_HISTLENGTH=30 # Clipmenu displayed length
@@ -33,10 +33,9 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export DEFAULT_DISPLAY_PROFILE="INTERNAL_ONLY"
 export DISPLAY_FILE="/tmp/current_display_profile"
 echo "$DEFAULT_DISPLAY_PROFILE" > "$DISPLAY_FILE"
-
 # Default monitors (got them using 'xrandr -q')
 export INTERNAL_DISPLAY="eDP-1"
 export EXTERNAL_DISPLAY="HDMI-2"
 
-#Start x; this line should always be the last one
+#Start X; this line should always be the last one
 exec startx "$XINITRC" >/dev/null 2>&1

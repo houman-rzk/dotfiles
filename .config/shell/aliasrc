@@ -24,11 +24,12 @@ alias \
 	es="edit-script" \
 	tt="taskwarrior-tui" \
 	as="add-script" \
-	pi="pacman -S" \
-	piu="pacman -Syu" \
 	trr="transmission-remote" \
 	td="transmission-daemon" \
 	untar="tar -xvf" \
+	pi="pacman -S" \
+	piu="pacman -Syu" \
+	pr="pacman -R" \
 	p="pacman"
 
 # Main aliases
