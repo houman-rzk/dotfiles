@@ -1,5 +1,5 @@
 # This should come first
-export PATH="$PATH$(find ~/.local/bin -type d -exec echo -n :'{}' ';')"
+export PATH="$PATH$(find $HOME/.local/bin -type d -exec echo -n :'{}' ';')"
 
 # Default programs
 export TERMINAL="st"
