@@ -32,7 +32,6 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 # Sets the default display profile (see 'cycle-displays' script)
 export DEFAULT_DISPLAY_PROFILE="INTERNAL_ONLY"
 export DISPLAY_FILE="/tmp/current_display_profile"
-echo "$DEFAULT_DISPLAY_PROFILE" > "$DISPLAY_FILE"
 # Default monitors (got them using 'xrandr -q')
 export INTERNAL_DISPLAY="eDP-1"
 export EXTERNAL_DISPLAY="HDMI-2"

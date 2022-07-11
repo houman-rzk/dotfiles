@@ -2,6 +2,8 @@
 
 setxkbmap -layout es
 
+echo "$DEFAULT_DISPLAY_PROFILE" > "$DISPLAY_FILE"
+
 autostart="autorandr xcompmgr setbg dunst clipmenud remaps"
 
 for prog in $autostart; do
