@@ -10,8 +10,7 @@ temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+
 
 showweather () { echo "  盛 $temp°  " ;}
 
-[ "$(stat -c %y "$weatherreport" | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || \
-	getforecast
+[ "$(stat -c %y "$weatherreport" | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || getforecast
 
 # get max/min/precip
 extractforecast() { 
