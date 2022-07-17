@@ -9,7 +9,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
-export LESSHISTFILE="-"
+export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH="$ZDOTDIR/oh-my-zsh"
 export HISTSIZE=10000000
@@ -23,7 +23,7 @@ export LESSHISTFILE="-"
 export CM_HISTLENGTH=30 # Clipmenu displayed length
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
 export DOWNLOADS_DIR="$XDG_DATA_HOME/Downloads"
-export PICTURES_DIR="$XDG_DATA_HOME/Pictures"
+export PICTURES_DIR="$XDG_DATA_HOME/Others/Pictures"
 export WALLPAPERS_DIR="$PICTURES_DIR/Wallpapers"
 export WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
@@ -34,7 +34,10 @@ export DEFAULT_DISPLAY_PROFILE="INTERNAL_ONLY"
 export DISPLAY_FILE="/tmp/current_display_profile"
 # Default monitors (got them using 'xrandr -q')
 export INTERNAL_DISPLAY="eDP-1"
-export EXTERNAL_DISPLAY="HDMI-2"
+export INTERNAL_DISPLAY_RES="1920x1080"
+export EXTERNAL_DISPLAY="HDMI-1"
+export EXTERNAL_DISPLAY_RES="1920x1080"
+
 
 #Start X; this line should always be the last one
 exec startx "$XINITRC" >/dev/null 2>&1

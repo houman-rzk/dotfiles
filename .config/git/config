@@ -1,6 +1,6 @@
 [user]
 	name = ache
-	email = ache@ache.com
+	email = null
 [credential]
 	helper = store
 [init]

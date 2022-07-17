@@ -4,7 +4,7 @@ setxkbmap -layout es
 
 echo "$DEFAULT_DISPLAY_PROFILE" > "$DISPLAY_FILE"
 
-autostart="autorandr xcompmgr setbg dunst clipmenud remaps"
+autostart="autorandr xcompmgr setbg dunst clipmenud remaps connect"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &

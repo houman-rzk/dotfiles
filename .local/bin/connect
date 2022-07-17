@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rfkill block bluetooth
+rfkill unblock wifi

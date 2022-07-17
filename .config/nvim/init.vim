@@ -45,7 +45,7 @@ Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'preservim/nerdtree'
 
 " YouCompleteMe
-Plug 'ycm-core/YouCompleteMe' "Remember to install it by running 'python3 install.py --all' in '$XDG_CONFIG_HOME/nvim/bundle/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe' "Remember to install it by running 'python3 install.py --all' in '$XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe'
 
 "call vundle#end() "Required by vundle
 "filetype plugin indent on "Required by vundle
