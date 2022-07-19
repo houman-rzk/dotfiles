@@ -1,0 +1,31 @@
+#!/bin/sh
+
+BATTERY="/sys/class/power_supply/BAT0"
+
+level="$(cat "$BATTERY"/capacity)"
+
+if [ "$level" -ge 80 ] ; then
+    icon=""
+elif [ "$level" -ge 60 ] ; then
+    icon=""
+elif [ "$level" -ge 40 ] ; then
+    icon=""
+elif [ "$level" -ge 20 ] ; then
+    icon=""
+elif [ "$level" -ge 0 ] ; then
+    icon=""
+fi
+
+if [ "$level" -lt 10 ] ; then
+    pad="  "
+elif [ "$level" -lt 100 ] ; then
+    pad=" "
+else
+    pad=""
+fi
+
+[ "$level" -le 25 ] && [ "$status" = "Discharging" ] && dunstify -u critical -r 1 -t 10000 "Battery dangerously low: $level%"
+
+sign=" " ; [ ! "$(cat "$BATTERY/status")" = "Discharging" ] && [ "$level" -ne 100 ] && sign="+"
+
+echo "$DWMBLOCKS_SPACE_PADDING$icon$pad$sign$level%$DWMBLOCKS_SPACE_PADDING"

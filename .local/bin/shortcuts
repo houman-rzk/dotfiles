@@ -1,0 +1,13 @@
+#!/bin/sh
+
+bmdirs="$XDG_CONFIG_HOME/shell/bm-dirs"
+
+zsh_named_dirs="$XDG_CONFIG_HOME/shell/zshnameddirrc"
+shell_shortcuts="$XDG_CONFIG_HOME/shell/shortcutrc"
+
+[ -f "$zsh_named_dirs" ] && rm "$zsh_named_dirs"
+
+while read -r arg1 arg2 ; do
+    echo "hash -d $arg1=$arg2" >> "$zsh_named_dirs"
+    echo "alias $arg1=\"cd $arg2 && ls\"" >> "$shell_shortcuts"
+done < "$bmdirs"

@@ -18,9 +18,9 @@ esac
 C
 
 case $BLOCK_BUTTON in
-	1) dunstify -u low -r 1 "Calendar" "$(cal -m --color=always | sed "s/..7m/<b><span color=\"orange\">/;s|..27m|</span></b>|")" ;;
+	1) dunstify -u low -r 1 -t 5000 "Calendar" "$(cal -m --color=always | sed "s/..7m/<b><span color=\"orange\">/;s|..27m|</span></b>|")" ;;
 	2) ;;
-	3) dunstify -u low -r 1 "Time & Calendar Module" "\- Left-click to see calendar
+	3) dunstify -u low -r 1 -t 5000 "Time & Calendar Module" "\- Left-click to see calendar
 \- Middle-click to ..." ;;
 esac
 

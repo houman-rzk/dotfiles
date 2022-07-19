@@ -1,0 +1,27 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+    1) amixer set Master toggle -q ;;
+    2) setsid -f "$TERMINAL" -e alsamixer ;;
+	3) dunstify -u low -r 1 -t 5000 "Volume Module" "\- Scroll up to increase volume
+\- Scroll down to decrease volume
+\- Middle-click to mute" ;;
+    4) amixer set Master 5%+ ; pkill -RTMIN+6 dwmblocks;;
+    5) amixer set Master 5%- ; pkill -RTMIN+6 dwmblocks;;
+esac
+
+volume="$(amixer get Master | sed '5q;d' | cut -d '[' -f2 | cut -d ']' -f1 | sed s/%$//)"
+status="$(amixer get Master | tail -n 1 | rev | cut -d ']' -f2 | cut -d '[' -f1 | rev)"
+
+if [ "$volume" -ge 66 ] && [ "$status" = "on" ] ; then
+    icon=""
+elif [ "$volume" -gt 33 ] && [ "$status" = "on" ] ; then
+    icon=""
+elif [ "$volume" -ge 0 ] && [ "$status" = "on" ] ; then
+    icon=""
+else
+    icon="ﱝ"
+fi
+
+printf "  $icon%7s\n" "$volume%  " 
+

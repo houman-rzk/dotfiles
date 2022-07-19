@@ -1,12 +1,12 @@
 #!/bin/sh
 
-[ ! -f "$XDG_DATA_HOME/wallpapers-file" ] && create-wallpapers-file
-[ "$(wc -l "$XDG_DATA_HOME/wallpapers-file" 2>/dev/null | awk '{print $1}')" -eq 0 ] && create-wallpapers-file
+#[ ! -f "$XDG_DATA_HOME/wallpapers-file" ] && create-wallpapers-file
+#[ "$(wc -l "$XDG_DATA_HOME/wallpapers-file" 2>/dev/null | awk '{print $1}')" -eq 0 ] && create-wallpapers-file
 
-[ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
+#[ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
 
-ln -s "$(head -n 1 "$XDG_DATA_HOME/wallpapers-file")" "$WALLPAPER_LINK"
+#ln -s "$(head -n 1 "$XDG_DATA_HOME/wallpapers-file")" "$WALLPAPER_LINK"
 
-tail -n +2 "$XDG_DATA_HOME/wallpapers-file" > /tmp/wallpapers-file.tmp && mv /tmp/wallpapers-file.tmp "$XDG_DATA_HOME/wallpapers-file"
+#tail -n +2 "$XDG_DATA_HOME/wallpapers-file" > /tmp/wallpapers-file.tmp && mv /tmp/wallpapers-file.tmp "$XDG_DATA_HOME/wallpapers-file"
 
 xwallpaper --zoom "$WALLPAPER_LINK"

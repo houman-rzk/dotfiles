@@ -3,6 +3,7 @@
 setxkbmap -layout es
 
 echo "$DEFAULT_DISPLAY_PROFILE" > "$DISPLAY_FILE"
+echo "$DEFAULT_REDSHIFT_VALUE" > "$REDSHIFT_FILE"
 
 autostart="autorandr xcompmgr setbg dunst clipmenud remaps connect"
 

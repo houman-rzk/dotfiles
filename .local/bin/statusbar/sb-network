@@ -7,10 +7,10 @@ test() { ping -c 1 9.9.9.9 >/dev/null 2>&1 || ping -c 1 archlinux.org >/dev/null
 test
 
 case $BLOCK_BUTTON in
-	1) dunstify -u low -r 1 "Internet module" "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;
-	2) setsid -f "$TERMINAL" -e nmtui ;;
-	3) dunstify -u low -r 1 "Internet module" "\- Left-click to get public IP address
+	1) dunstify -u low -r 1 -t 5000 "Internet module" "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;
+	2) setsid -f "$TERMINAL" -e nmtui && pkill -RTMIN+4 dwmblocks;;
+	3) dunstify -u low -r 1 -t 5000 "Internet module" "\- Left-click to get public IP address
 \- Middle-click to open connection manager (nmtui)" ;;
 esac
 
-echo -n "  $logo  "
+echo "  $logo  "

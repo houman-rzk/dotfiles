@@ -1,0 +1,5 @@
+src $HOME/.local/src
+h $HOME
+shrd $XDG_DATA_HOME/Others/Shared
+dl  $HOME/Downloads
+cf $XDG_CONFIG_HOME

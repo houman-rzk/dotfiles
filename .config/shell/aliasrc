@@ -30,6 +30,7 @@ alias \
 	pi="pacman -S" \
 	piu="pacman -Syu" \
 	pr="pacman -R" \
+    nc="ncmpcpp" \
 	p="pacman"
 
 # Main aliases
@@ -44,4 +45,5 @@ alias \
 	vs="$EDITOR ~/.config/zsh/.zshrc && . ~/.config/zsh/.zshrc" \
 	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile | tail -n +3 > /tmp/profile.tmp && . /tmp/profile.tmp" \
 	va="$EDITOR $ALIASRC && . $ALIASRC" \
+    bl="cat /sys/class/power_supply/BAT0/capacity" \
 	vimrc="$EDITOR $XDG_CONFIG_HOME/$EDITOR/init.vim"

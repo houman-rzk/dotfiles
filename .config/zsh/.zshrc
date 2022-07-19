@@ -80,8 +80,10 @@ zle -N zle-line-init
 # Set window title
 #precmd() {print -n "\033kst $PWD\033\134"}
 
-# Source aliases
+# Source command and directory aliases and shortcuts
 [[ -f "$ALIASRC" ]] && source "$ALIASRC"
+[ -f "$XDG_CONFIG_HOME/shell/zshnameddirrc" ] && source "$XDG_CONFIG_HOME/shell/zshnameddirrc"
+[ -f "$XDG_CONFIG_HOME/shell/shortcutrc" ] && source "$XDG_CONFIG_HOME/shell/shortcutrc"
 
 # Load other plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null

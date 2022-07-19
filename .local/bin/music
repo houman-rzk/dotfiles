@@ -1,0 +1,11 @@
+#!/bin/sh
+
+[ ! "$1" = "notify" ] && mpc "$1" >/dev/null 2>&1
+
+status="$(mpc | head -n 2 | tail -n 1 | cut -d '[' -f2 | cut -d ']' -f1)"
+
+case "$status" in
+    "playing") dunstify -u low -r 1 -t 2000 "$(mpc | head -n1)" ;;
+esac
+
+pkill -RTMIN+7 dwmblocks
