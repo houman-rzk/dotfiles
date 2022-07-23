@@ -3,6 +3,7 @@
 # Plugins and themes
 if [ -d $ZSH ] ; then
     #plugins=(vi-mode sudo archlinux web-search)
+    plugins=(sudo web-search)
     #ZSH_THEME="random"
     source $ZSH/oh-my-zsh.sh
 fi
