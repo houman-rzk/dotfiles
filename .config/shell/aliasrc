@@ -43,7 +43,7 @@ alias \
 	off="shutdown -h now" \
 	tst="tabbed -r2 st -w '' && exit" \
 	vs="$EDITOR ~/.config/zsh/.zshrc && . ~/.config/zsh/.zshrc" \
-	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile | tail -n +3 > /tmp/profile.tmp && . /tmp/profile.tmp" \
+	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile | tail -n +3 > /tmp/profile.tmp && . /tmp/profile.tmp && rm /tmp/profile.tmp" \
 	va="$EDITOR $ALIASRC && . $ALIASRC" \
     bl="cat /sys/class/power_supply/BAT0/capacity" \
     lf="lfrun" \

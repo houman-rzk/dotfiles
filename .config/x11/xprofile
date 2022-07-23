@@ -2,7 +2,7 @@
 
 setxkbmap -layout es
 
-autostart="autorandr xcompmgr setbg dunst clipmenud remaps connect"
+autostart="mpd autorandr xcompmgr setbg dunst clipmenud remaps connect profiles unclutter shortcuts"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
