@@ -6,13 +6,16 @@ getforecast() { curl -sf "wttr.in" > "$weatherreport" || exit 1 ;}
 
 showweather () { echo "  盛 $temp°  " ;}
 
+gettemp() {
+    temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+//g)"
+    [ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | awk '{print $4}' | sed s/+//g | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
+}
+
 [ "$(stat -c %y "$weatherreport" | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || getforecast
 
 [ "$(wc -l < "$weatherreport")" -eq 0 ] && getforecast
 
-temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+//g)"
-
-[ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | awk '{print $4}' | sed s/+//g | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
+gettemp
 
 # get max/min/precip
 extractforecast() { 
@@ -21,8 +24,9 @@ extractforecast() {
 	maxtemp="$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 's/m//g;$!d')" ;}
 
 case $BLOCK_BUTTON in
-	1) setsid -f "$TERMINAL" -f "monospace:size=10" -e less -Srf "$weatherreport" ;;
-	2) echo "$temp" ;; 
+	1) getforecast && gettemp && echo "$temp" ;; 
+	#2) setsid -f "$TERMINAL" -f "monospace:size=10" -e less -Srf "$weatherreport" ;;
+	2) xdotool key super+shift+w ;;
 	3) extractforecast && dunstify -u low -r 1 -t 5000 "Weather module" "\- Left click for full forecast.
 - Middle click to update forecast.
 🟡$maxtemp ❄️$mintemp 💧$precip" ;;

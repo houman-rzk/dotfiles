@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# Power Profiles (remember to append them to the "array" below and to add the correspinding case)
+PERFORMANCE="sudo cpupower frequency-set -u 3.4G ; sudo cpupower frequency-set -g performance"
+POWERSAVE="sudo cpupower frequency-set -u 400M"
+
+[ $# -eq 1 ] && eval \$"$1" && exit 0
+
+set PERFORMANCE POWERSAVE
+
+# Read the current profile (initially written by ~/.config/shell/profile)
+CURRENT_PROFILE="$(cat "$POWER_PROFILE_FILE")"
+
+i=1
+while [ "$1" != "$CURRENT_PROFILE" ] ; do
+	set -- "$@" "$1"
+	shift 1
+	i=$(( i + 1 ))
+done
+
+NEXT=$2
+
+# Store the next profile
+echo "$NEXT" > "$POWER_PROFILE_FILE"
+
+eval \$"$NEXT"
+
+case $NEXT in
+	PERFORMANCE) NAME="Performance" ;;
+	POWERSAVE) NAME="Powersave" ;;
+esac
+
+dunstify -a "Power Profile" -u low -r 1 "Power Profile: $NAME" -t 10000

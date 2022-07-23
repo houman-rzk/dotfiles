@@ -2,13 +2,10 @@
 
 setxkbmap -layout es
 
-echo "$DEFAULT_DISPLAY_PROFILE" > "$DISPLAY_FILE"
-echo "$DEFAULT_REDSHIFT_VALUE" > "$REDSHIFT_FILE"
-
 autostart="autorandr xcompmgr setbg dunst clipmenud remaps connect"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
 done >/dev/null 2>&1
 
-cycle-displays "$DEFAULT_DISPLAY_PROFILE"
+video-output "$DEFAULT_DISPLAY_PROFILE"

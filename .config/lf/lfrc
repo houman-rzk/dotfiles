@@ -2,14 +2,12 @@ set shell sh
 
 set shellopts '-eu'
 
-#set scrolloff 10
-map <enter> shell
-map <c-r> reload
-map <c-s> set hidden!
+set scrolloff 10
 
 cmd open ${{
 	case $(file --mime-type -b "$f") in
 		video/*) setsid -f mpv "$f" >/dev/null 2>&1 ;;
+		audio/*) mpv --audio-display=no "$f" ;;
 		image/*) setsid -f sxiv "$f" >/dev/null 2>&1 ;;
 		text/*) $EDITOR "$fx" ;;
 		application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
@@ -23,4 +21,13 @@ cmd on-cd &{{
 on-cd
 
 cmd q quit
+cmd setbg $setbg "$f"
+
+map <enter> shell
+map <c-r> reload
 map D delete
+map H set hidden!
+map <c-n> push $mkdir<space>
+
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner

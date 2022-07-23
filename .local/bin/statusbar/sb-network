@@ -8,7 +8,8 @@ test
 
 case $BLOCK_BUTTON in
 	1) dunstify -u low -r 1 -t 5000 "Internet module" "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;
-	2) setsid -f "$TERMINAL" -e nmtui && pkill -RTMIN+4 dwmblocks;;
+    #2) setsid -f "$TERMINAL" -e nmtui && pkill -RTMIN+4 dwmblocks;;
+	2) xdotool key super+shift+n ;;
 	3) dunstify -u low -r 1 -t 5000 "Internet module" "\- Left-click to get public IP address
 \- Middle-click to open connection manager (nmtui)" ;;
 esac

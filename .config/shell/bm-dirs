@@ -1,5 +1,6 @@
 src $HOME/.local/src
 h $HOME
-shrd $XDG_DATA_HOME/Others/Shared
-dl  $HOME/Downloads
+shrd $HOME/Shared
+dl  $DOWNLOADS_DIR
 cf $XDG_CONFIG_HOME
+bin $HOME/.local/bin

@@ -1,4 +1,4 @@
-def_key "n"
+def_key "M"
   show_browser
 
 def_key "="
@@ -9,9 +9,6 @@ def_key ">"
 
 def_key "<"
   previous
-
-def_key "c"
-    clear_playlist
 
 def_key "c"
     clear_main_playlist
@@ -93,3 +90,15 @@ def_key "x"
 
 def_key "P"
   show_playlist
+
+def_key "5"
+    show_playlist_editor
+
+def_key "O"
+    show_playlist_editor
+
+def_key "n"
+    next_found_item
+
+def_key "N"
+    previous_found_item

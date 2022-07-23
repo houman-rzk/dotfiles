@@ -1,23 +1,25 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-    1) amixer set Master toggle -q ;;
-    2) setsid -f "$TERMINAL" -e alsamixer ;;
-	3) dunstify -u low -r 1 -t 5000 "Volume Module" "\- Scroll up to increase volume
-\- Scroll down to decrease volume
-\- Middle-click to mute" ;;
-    4) amixer set Master 5%+ ; pkill -RTMIN+6 dwmblocks;;
-    5) amixer set Master 5%- ; pkill -RTMIN+6 dwmblocks;;
+    1) pulsemixer --toggle-mute ;;
+    #2) setsid -f "$TERMINAL" -e pulsemixer ;;
+    2) xdotool key super+shift+v ;;
+	3) dunstify -u low -r 1 -t 5000 "Volume Module" "\- Left-click to toggle mute
+\- Middle-click to open pulsemixer
+\- Scroll up to increase volume
+\- Scroll down to decrease volume" ;;
+    4) pulsemixer --change-volume +5 ; pkill -RTMIN+6 dwmblocks;;
+    5) pulsemixer --change-volume -5 ; pkill -RTMIN+6 dwmblocks;;
 esac
 
-volume="$(amixer get Master | sed '5q;d' | cut -d '[' -f2 | cut -d ']' -f1 | sed s/%$//)"
-status="$(amixer get Master | tail -n 1 | rev | cut -d ']' -f2 | cut -d '[' -f1 | rev)"
+volume="$(pulsemixer --get-volume | cut -d ' ' -f1)"
+mute="$(pulsemixer --get-mute)"
 
-if [ "$volume" -ge 66 ] && [ "$status" = "on" ] ; then
+if [ "$volume" -ge 66 ] && [ "$mute" -eq 0 ] ; then
     icon=""
-elif [ "$volume" -gt 33 ] && [ "$status" = "on" ] ; then
+elif [ "$volume" -gt 33 ] && [ "$mute" -eq 0 ] ; then
     icon=""
-elif [ "$volume" -ge 0 ] && [ "$status" = "on" ] ; then
+elif [ "$volume" -ge 0 ] && [ "$mute" -eq 0 ] ; then
     icon=""
 else
     icon="ﱝ"

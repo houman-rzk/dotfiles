@@ -1,3 +1,8 @@
 #!/bin/sh
 
+case $BLOCK_BUTTON in
+    2) xdotool key super+shift+r ;;
+    3) dunstify -u low -r 1 "Resources Module" "\-Middle click to open system monitor (htop)"
+esac
+
 echo "   $(free -h | awk '/^Mem/{print $3"/"$2}' | sed s/i//g)  "

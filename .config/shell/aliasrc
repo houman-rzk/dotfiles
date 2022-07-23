@@ -46,4 +46,6 @@ alias \
 	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile | tail -n +3 > /tmp/profile.tmp && . /tmp/profile.tmp" \
 	va="$EDITOR $ALIASRC && . $ALIASRC" \
     bl="cat /sys/class/power_supply/BAT0/capacity" \
+    lf="lfrun" \
+    set-tv-output="xrandr --fb 1360x768 --output $INTERNAL_DISPLAY --off --noprimary --output HDMI-1 --mode 1360x768 --primary ; pactl set-card-profile 0 output:hdmi-stereo-extra1+input:analog-stereo" \
 	vimrc="$EDITOR $XDG_CONFIG_HOME/$EDITOR/init.vim"

@@ -1,9 +1,11 @@
 # zsh config file
 
 # Plugins and themes
-#plugins=(vi-mode sudo archlinux web-search)
-#ZSH_THEME="random"
-#source $ZSH/oh-my-zsh.sh
+if [ -d $ZSH ] ; then
+    #plugins=(vi-mode sudo archlinux web-search)
+    #ZSH_THEME="random"
+    source $ZSH/oh-my-zsh.sh
+fi
 
 # Enable colors and change prompt:
 autoload -U colors && colors		# Load colors

@@ -14,20 +14,8 @@ if empty(glob("$XDG_CONFIG_HOME/nvim/autoload/plug.vim"))
 	autocmd VimEnter * PlugInstall
 endif
 
-" vundle
-"if empty(glob("$XDG_CONFIG_HOME/nvim/bundle/Vundle.vim"))
-"	silent execute '!git clone https://github.com/VundleVim/Vundle.vim.git $XDG_CONFIG_HOME/nvim/bundle/Vundle.vim'
-"	autocmd VimEnter * PluginInstall
-"endif
-
-"set nocompatible "Required by vundle
-"filetype off "Required by vundle
-
-"set rtp+=$XDG_CONFIG_HOME/nvim/bundle/Vundle.vim "Required by vundle
-"call vundle#rc("$XDG_CONFIG_HOME/nvim/bundle") "Required by vundle
-"call vundle#begin() "Required by vundle
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-"Plugin 'junegunn/goyo.vim'
+" Goyo
 Plug 'junegunn/goyo.vim'
 
 " Syntax highlighting
@@ -45,10 +33,8 @@ Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'preservim/nerdtree'
 
 " YouCompleteMe
-Plug 'ycm-core/YouCompleteMe' "Remember to install it by running 'python3 install.py --all' in '$XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe'
-
-"call vundle#end() "Required by vundle
-"filetype plugin indent on "Required by vundle
+" Remember to install it by running: python3 $XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe/install.py --all
+Plug 'ycm-core/YouCompleteMe'
 call plug#end()
 
 " Some basiscs
@@ -115,3 +101,9 @@ call plug#end()
 	colorscheme gruvbox
     " Lightline colorscheme
 	let g:lightline = { 'colorscheme': 'gruvbox' }
+
+" Autocommands
+    " When shortcut files are updated, renew shell config
+	autocmd BufWritePost bm-files,bm-dirs :!shortcuts
+    " Recompile and rerun dwmblocks on config edit
+	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks ; setsid -f dwmblocks }

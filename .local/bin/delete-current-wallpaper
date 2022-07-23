@@ -2,4 +2,6 @@
 
 current="$(readlink -f "$XDG_DATA_HOME/bg")"
 
-mv "$current" "$WALLPAPERS_DIR/Sorted.deleted" && setbg
+[ ! -d "$WALLPAPERS_DIR/Sorted.deleted" ] && mkdir "$WALLPAPERS_DIR/Sorted.deleted"
+
+mv "$current" "$WALLPAPERS_DIR/Sorted.deleted/" && setbg

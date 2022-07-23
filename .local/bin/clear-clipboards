@@ -3,3 +3,5 @@
 xclip -sel clip < /dev/null
 xclip -sel pri < /dev/null
 xclip -sel buffer-cut < /dev/null
+
+dunstify -u low -r 1 -t 5000 "Clipboards cleared"

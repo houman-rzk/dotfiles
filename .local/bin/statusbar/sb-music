@@ -5,7 +5,8 @@
 #BLOCK_BUTTON=2
 case $BLOCK_BUTTON in
     1) mpc toggle >/dev/null 2>&1 ;;
-    2) setsid -f "$TERMINAL" -e ncmpcpp ; pkill -RTMIN+7 dwmblocks ;;
+    #2) setsid -f "$TERMINAL" -e ncmpcpp ; pkill -RTMIN+7 dwmblocks ;;
+    2) xdotool key super+shift+m ;;
     3) dunstify -u low -r 1 -t 5000 "Music Module
 $song" "\- Left click to open ncmpcpp
 \- Middle click to play/pause
