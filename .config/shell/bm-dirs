@@ -1,6 +1,6 @@
 src $HOME/.local/src
 h $HOME
-shrd $HOME/Shared
-dl  $DOWNLOADS_DIR
+shrd /mnt/ache/Shared
+dl  $XDG_DOWNLOAD_DIR
 cf $XDG_CONFIG_HOME
 bin $HOME/.local/bin

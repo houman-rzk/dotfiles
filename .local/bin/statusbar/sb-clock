@@ -1,21 +1,4 @@
 #!/bin/sh
-<<"C"
-case $(date '+%I') in
-	"00") clock="🕛" ;;
-	"01") clock="🕐" ;;
-	"02") clock="🕑" ;;
-	"03") clock="🕒" ;;
-	"04") clock="🕓" ;;
-	"05") clock="🕔" ;;
-	"06") clock="🕕" ;;
-	"07") clock="🕖" ;;
-	"08") clock="🕗" ;;
-	"09") clock="🕘" ;;
-	"10") clock="🕙" ;;
-	"11") clock="🕚" ;;
-	"12") clock="🕛" ;;
-esac
-C
 
 case $BLOCK_BUTTON in
 	1) dunstify -u low -r 1 -t 5000 "Calendar" "$(cal -m --color=always | sed "s/..7m/<b><span color=\"orange\">/;s|..27m|</span></b>|")" ;;

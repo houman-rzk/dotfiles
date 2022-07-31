@@ -4,10 +4,21 @@ export PATH="$PATH$(find $HOME/.local/bin -type d -exec echo -n :'{}' ';')"
 # Default programs
 export TERMINAL="st"
 export EDITOR="nvim"
+export BROWSER="firefox"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+
+export XDG_DESKTOP_DIR="-"
+export XDG_DOCUMENTS_DIR="$HOME/Home/Documents"
+export XDG_DOWNLOAD_DIR="$HOME/Home/Downloads"
+export XDG_MUSIC_DIR="$HOME/Home/Music"
+export XDG_PICTURES_DIR="$HOME/Home/Pictures"
+export XDG_PUBLICSHARE_DIR="-"
+export XDG_TEMPLATES_DIR="-"
+export XDG_VIDEOS_DIR="-"
+
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
@@ -16,16 +27,10 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 export HISTFILE="$XDG_DATA_HOME/shell/history"
 export XAUTHORITY="$XDG_CONFIG_HOME/x11/Xauthority"
-#export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
-#export XDG_RUNTIME_DIR="$XDG_CACHE_HOME"
 export LESSHISTFILE="-"
-
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
-export DOWNLOADS_DIR="$HOME/Downloads"
-export PICTURES_DIR="$HOME/Pictures"
-export WALLPAPERS_DIR="$PICTURES_DIR/Wallpapers"
-export WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
 
 # SCREEN & GRAPHICS CONFIG
 # Sets the default display profile (see 'cycle-displays' script)

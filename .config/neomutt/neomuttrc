@@ -1,0 +1,17 @@
+source $XDG_CONFIG_HOME/neomutt/settings
+source $XDG_CONFIG_HOME/neomutt/colors
+source $XDG_CONFIG_HOME/neomutt/mappings
+
+# Passwords
+source "gpg -dq $XDG_CONFIG_HOME/neomutt/accounts/neomutt-passwords.gpg |"
+
+# Accounts
+
+source $XDG_CONFIG_HOME/neomutt/accounts/school
+folder-hook $folder 'source $XDG_CONFIG_HOME/neomutt/accounts/school'
+
+source $XDG_CONFIG_HOME/neomutt/accounts/gmail.main
+folder-hook $folder 'source $XDG_CONFIG_HOME/neomutt/accounts/gmail.main'
+
+source $XDG_CONFIG_HOME/neomutt/accounts/gmail.secondary
+folder-hook $folder 'source $XDG_CONFIG_HOME/neomutt/accounts/gmail.secondary'

@@ -4,6 +4,6 @@ dwmblocks &
 
 . "$XDG_CONFIG_HOME/x11/xprofile"
 
-update-dwmblocks
+update-dwmblocks &
 
 exec dwm

@@ -1,3 +1,0 @@
-#!/bin/bash
-
-shuf -e "$WALLPAPERS_DIR/Sorted"/* > "$XDG_DATA_HOME"/wallpapers-file

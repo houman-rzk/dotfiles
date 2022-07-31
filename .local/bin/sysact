@@ -1,23 +1,16 @@
 #!/bin/sh
 
 # A dmenu wrapper script for system functions.
-export WM="dwm"
 case "$(readlink -f /sbin/init)" in
 	*systemd*) ctl='systemctl' ;;
 	*) ctl='loginctl' ;;
 esac
 
-wmpid(){ # This function is needed if there are multiple instances of the window manager.
-	tree="$(pstree -ps $$)"
-	tree="${tree#*$WM(}"
-	echo "${tree%%)*}"
-}
-
 case "$(printf "🔒 lock\n🚪 logout\n🔃 reboot\n⛔ shutdown\n💤 sleep" |dmenu -i -n -p 'Action: ')" in
-	'🔒 lock') slock ;;
-	"🚪 logout") kill -9 -1 ;;
-	'💤 sleep') slock $ctl suspend -i ;;
+	'🔒 lock') mpc pause >/dev/null 2>&1 ; slock ;;
+	'🚪 logout') kill -9 -1 ;;
+	'💤 sleep') mpc pause >/dev/null 2>&1 ; slock $ctl suspend -i ;;
 	'🔃 reboot') sudo reboot ;;
-	'⛔ shutdown') sudo shutdown -hP now ;;
+	'⛔ shutdown') sudo shutdown -P now ;;
 	*) exit 1 ;;
 esac

@@ -1,13 +1,13 @@
 #!/bin/sh
 
+WALLPAPER_LINK="$XDG_DATA_HOME/bg"
+
 [ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
 
 if [ "$#" -eq 1 ] ; then
     ln -s "$1" "$WALLPAPER_LINK"
 else
-    [ ! -f "$XDG_DATA_HOME/wallpapers-file" ] && create-wallpapers-file
-
-    [ "$(wc -l "$XDG_DATA_HOME/wallpapers-file" 2>/dev/null | awk '{print $1}')" -eq 0 ] && create-wallpapers-file
+    { [ ! -f "$XDG_DATA_HOME/wallpapers-file" ] || [ "$(wc -l "$XDG_DATA_HOME/wallpapers-file" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && shuf -e "$WALLPAPERS_DIR/Sorted"/* > "$XDG_DATA_HOME"/wallpapers-file
 
     ln -s "$(head -n 1 "$XDG_DATA_HOME/wallpapers-file")" "$WALLPAPER_LINK"
 

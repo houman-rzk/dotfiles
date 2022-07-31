@@ -66,21 +66,33 @@ call plug#end()
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l
 	" Run current file
-	map <leader>r :w \| !%<CR>
+	map <leader>r :w \| !./%<CR>
 	" Check current file
 	map <leader>c :w \| !shellcheck %<CR>
-	" Write and quit
-	map <leader>w :wq<CR>
+    " Write
+	map <leader>w :w<CR>
+	map <leader>W :wq<CR>
     " Quit
-    map <leader>q :q!<CR>
+    map <leader>q :q<CR>
+    map <leader>Q :q!<CR>
 	" Clipboard shortcuts
 	map <C-c> "+y
 	map <C-s> "*y
+    noremap <LeftRelease> "*y<LeftRelease>
 	" Toggle search highlighting
 	map <leader>h :set hlsearch!<CR>
 	" Disable search highlighting<CR>
-	map <esc> :noh<CR>
-
+	map <esc> :noh<CR>:<esc>
+    " Tab and buffer navigation and others
+    map <A-j> :tabn<CR>
+    map <A-k> :tabp<CR>
+    map <leader>t :tabe 
+    " Soydevery
+        " HTML
+    map <leader><leader> /++<CR>xxi
+    map <leader>ht i<++>++</++><esc>9hxxi
+    map <leader>hT i<++><CR>++<CR></++><esc>4hki      <esc>k2hxxi
+    
 " Plugin shortcuts & config
 	" Goyo
 	map <leader>g :Goyo<CR>
@@ -89,7 +101,7 @@ call plug#end()
 	map <S-Tab> <C-p>
 	" NERDTree
 	nnoremap <leader>f :NERDTreeFind<CR>
-	nnoremap <leader>t :NERDTreeToggle<CR>
+	nnoremap <leader>T :NERDTreeToggle<CR>
 	let NERDTreeMapActivateNode = "l"
 	let NERDTreeMapToggleHidden = "H"
 	let NERDTreeMapUpdir = 'h'
@@ -107,3 +119,6 @@ call plug#end()
 	autocmd BufWritePost bm-files,bm-dirs :!shortcuts
     " Recompile and rerun dwmblocks on config edit
 	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks ; setsid -f dwmblocks }
+
+" Makes tabfind easier
+    set path=.,,**

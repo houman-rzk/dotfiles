@@ -1,4 +1,4 @@
-def_key "M"
+def_key "m"
   show_browser
 
 def_key "="
@@ -58,10 +58,10 @@ def_key "l"
 def_key "l"
   play_item
 
-def_key "m"
+def_key "M"
   show_media_library
 
-def_key "m"
+def_key "M"
   toggle_media_library_columns_mode
 
 def_key "t"

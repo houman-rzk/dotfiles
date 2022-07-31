@@ -1,7 +1,5 @@
 #!/bin/sh
 
-setxkbmap -layout es
-
 autostart="mpd autorandr xcompmgr setbg dunst clipmenud remaps connect profiles unclutter shortcuts"
 
 for prog in $autostart; do

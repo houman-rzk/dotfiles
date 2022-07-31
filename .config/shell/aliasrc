@@ -31,6 +31,10 @@ alias \
 	piu="pacman -Syu" \
 	pr="pacman -R" \
     nc="ncmpcpp" \
+    nb="newsboat" \
+    udm="udisksctl mount -b" \
+    udum="udisksctl unmount -b" \
+    udpo="udisksctl power-off -b" \
 	p="pacman"
 
 # Main aliases
@@ -47,5 +51,8 @@ alias \
 	va="$EDITOR $ALIASRC && . $ALIASRC" \
     bl="cat /sys/class/power_supply/BAT0/capacity" \
     lf="lfrun" \
-    set-tv-output="xrandr --fb 1360x768 --output $INTERNAL_DISPLAY --off --noprimary --output HDMI-1 --mode 1360x768 --primary ; pactl set-card-profile 0 output:hdmi-stereo-extra1+input:analog-stereo" \
-	vimrc="$EDITOR $XDG_CONFIG_HOME/$EDITOR/init.vim"
+    set-tv-output="xrandr --fb 1360x768 --output $INTERNAL_DISPLAY --off --noprimary --output $EXTERNAL_DISPLAY --mode 1360x768 --primary ; audio-output EXTERNAL_ONLY ; remaps" \
+    exp="xarchiver ~/Home/Others/Black_Dog.rar" \
+    autoconf="nvim ~/.local/src/autoconfig/autoconfig" \
+	vimrc="$EDITOR $XDG_CONFIG_HOME/$EDITOR/init.vim" \
+    prueba="python3 /home/ache/.local/bin/umpv 'https://www.youtube.com/watch?v=vjqt8T3tJIE'"

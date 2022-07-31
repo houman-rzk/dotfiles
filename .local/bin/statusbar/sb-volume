@@ -2,8 +2,8 @@
 
 case $BLOCK_BUTTON in
     1) pulsemixer --toggle-mute ;;
-    #2) setsid -f "$TERMINAL" -e pulsemixer ;;
-    2) xdotool key super+shift+v ;;
+    2) setsid -f "$TERMINAL" -e pulsemixer ;;
+    #2) xdotool key super+shift+v ;;
 	3) dunstify -u low -r 1 -t 5000 "Volume Module" "\- Left-click to toggle mute
 \- Middle-click to open pulsemixer
 \- Scroll up to increase volume

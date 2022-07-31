@@ -1,5 +1,5 @@
 #!/bin/sh
 
 for i in $(seq 1 30); do
-    pkill -RTMIN+$i dwmblocks
+    pkill -RTMIN+$i dwmblocks &
 done

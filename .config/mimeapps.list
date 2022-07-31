@@ -1,3 +1,5 @@
-
 [Default Applications]
+inode/directory=lf.desktop
 application/pdf=org.pwmt.zathura.desktop
+
+[Added Associations]

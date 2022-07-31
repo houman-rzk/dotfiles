@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=lf
+MimeType=inode/directory
+Exec=st -e lf %U
+Terminal=true
+Type=Application
+Categories=FileManager

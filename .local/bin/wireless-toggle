@@ -1,0 +1,21 @@
+#!/bin/sh
+
+[ "$#" -ne 1 ] && echo "ERROR: There should be only one argument (-w/-b)." && exit 1
+
+case "$1" in
+    "-w") device="wifi" ; name="Wi-Fi" ;;
+    "-b") device="bluetooth" ; name="Bluetooth" ; rfkill toggle "$device" ;;
+esac
+
+blocked="$(rfkill list "$device" | grep Soft | rev | cut -d ' ' -f1 | rev)"
+
+case "$blocked" in
+    "no") state="on" ;;
+    "yes") state="off" ;;
+esac
+
+dunstify -u low -r 1 -t 5000 "$name: $state"
+
+[ "$device" = "wifi" ] && [ "$state" = "on" ] && sleep 10
+
+pkill -RTMIN+4 dwmblocks

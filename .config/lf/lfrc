@@ -11,6 +11,7 @@ cmd open ${{
 		image/*) setsid -f sxiv "$f" >/dev/null 2>&1 ;;
 		text/*) $EDITOR "$fx" ;;
 		application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
+		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		*) for f in $fx ; do setsid -f $OPENER "$f" >/dev/null 2>&1 ; done ;;
 	esac
 }}
