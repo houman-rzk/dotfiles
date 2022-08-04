@@ -6,4 +6,4 @@ for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
 done >/dev/null 2>&1
 
-video-output "$DEFAULT_DISPLAY_PROFILE"
+#video-output "$DEFAULT_DISPLAY_PROFILE"

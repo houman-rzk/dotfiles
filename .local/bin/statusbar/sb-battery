@@ -3,6 +3,7 @@
 BATTERY="/sys/class/power_supply/BAT0"
 
 level="$(cat "$BATTERY"/capacity)"
+status="$(cat "$BATTERY"/status)"
 
 if [ "$level" -ge 80 ] ; then
     icon=""

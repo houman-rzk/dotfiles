@@ -1,0 +1,7 @@
+#!/bin/sh
+
+file=$(readlink -f "$1")
+dir=${file%/*}
+
+# Compile the .tex file
+xelatex --output-directory="$dir" "$file" > /dev/null 2>&1

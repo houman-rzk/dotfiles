@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 
 """
@@ -55,7 +54,6 @@ def make_abs(filename):
     return filename
 files = (make_abs(f) for f in files)
 
-#SOCK = os.path.join(os.getenv("HOME"), ".umpv_socket")
 SOCK = os.path.join("/tmp", "umpv_socket")
 
 sock = None

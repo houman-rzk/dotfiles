@@ -12,6 +12,7 @@ cmd open ${{
 		text/*) $EDITOR "$fx" ;;
 		application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
+		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
 		*) for f in $fx ; do setsid -f $OPENER "$f" >/dev/null 2>&1 ; done ;;
 	esac
 }}

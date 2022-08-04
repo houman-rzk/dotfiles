@@ -1,0 +1,8 @@
+#!/bin/sh
+
+RES="1920x1080"
+NAME="Screenshot_$(date "+%4Y-%m-%d_%H-%M").png"
+
+ffmpeg -f x11grab -video_size "$RES" -i "$DISPLAY" -vframes 1 "$XDG_PICTURES_DIR/Screenshots/$NAME"
+
+dunstify -u low -r 1 -t 3000 "Screenshot taken"

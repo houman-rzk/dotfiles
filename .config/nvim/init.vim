@@ -45,7 +45,7 @@ call plug#end()
 	set splitbelow splitright
 	set noswapfile
     " Tabs
-	set tabstop=4 | set shiftwidth=4 | set expandtab
+	set tabstop=4 | set shiftwidth=4 | set expandtab | set softtabstop=4
 
 " Enable autocompletion
 	set wildmode=longest,list,full
@@ -68,7 +68,7 @@ call plug#end()
 	" Run current file
 	map <leader>r :w \| !./%<CR>
 	" Check current file
-	map <leader>c :w \| !shellcheck %<CR>
+	map <leader>sc :w \| !shellcheck %<CR>
     " Write
 	map <leader>w :w<CR>
 	map <leader>W :wq<CR>
@@ -87,6 +87,10 @@ call plug#end()
     map <A-j> :tabn<CR>
     map <A-k> :tabp<CR>
     map <leader>t :tabe 
+    " Compile .tex file
+	map <leader>c :w! \| !texcompile "<c-r>%"<CR><CR>
+    " Open a file (only tex)
+	map <leader>p :!opout <c-r>%<CR><CR>
     " Soydevery
         " HTML
     map <leader><leader> /++<CR>xxi

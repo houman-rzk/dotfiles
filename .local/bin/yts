@@ -53,15 +53,23 @@ action="$defaction"
 isGui="f"
 query=""
 mpv_options=""
-ytsfile="/tmp/ytsfile"
+first_view=""
 
-max_resolution="1080"
+max_resolution="144"
 max_fps="60"
 ignore_codec=""
 ytdlformats="bestvideo"
 
-firstviewcmd="setsid -f python3 "$HOME"/.local/bin/umpv "$mpv_options" --ytdl-format="$ytdlformats" "$videolink$id" >/dev/null 2>&1"
-nofirstviewcmd="setsid -f python3 "$HOME"/.local/bin/umpv "$videolink$id" >/dev/null 2>&1"
+set_commands() {
+    firstviewcmd="setsid -f umpv.py $mpv_options --ytdl-format=\"$ytdlformats\" $videolink$id >/dev/null 2>&1"
+    nofirstviewcmd="setsid -f umpv.py $videolink$id >/dev/null 2>&1"
+    firstplcmd="setsid -f umpv.py $mpv_options --ytdl-format=\"$ytdlformats\" $playlink$id >/dev/null 2>&1"
+    nofirstplcmd="setsid -f umpv.py $playlink$id >/dev/null 2>&1"
+}
+
+reset_if_needed() {
+    pgrep -a -f 'umpv.*'"$first_view" >/dev/null 2>&1 || first_view=""
+}
 
 if [ -n "$max_resolution" ] ; then
   ytdlformats="${ytdlformats}[height<=$max_resolution]"
@@ -178,8 +186,10 @@ if [ $action = "c" ]; then
       if [ -z "$choice" ]; then exit; fi	# if esc-ed then exit
       id=$(echo "$ids" | grep -Fwm1 "$choice" | cut -d'	' -f1) # get id of choice
       printf "%b" "$choice\t($id)\n"
+      set_commands
+      reset_if_needed
       case $id in
-          ???????????) setsid -f python3 "$HOME"/.local/bin/umpv "$mpv_options" --ytdl-format="$ytdlformats" "$videolink$id" >/dev/null 2>&1 ;;
+          ???????????) { [ -z "$first_view" ] && first_view="$id" && eval "$firstviewcmd" ;} || eval "$nofirstviewcmd" ;;
           #???????????) mpv "$videolink$id" "$mpv_options" --ytdl-format="$ytdlformats" >/dev/null 2>&1 ;;
           *) exit ;;
       esac
@@ -214,14 +224,14 @@ else
         if [ -z "$choice" ]; then exit; fi	# if esc-ed then exit
         id=$(echo "$ids" | grep -Fwm1 "$choice" | cut -d'	' -f1) # get id of choice
         printf "%b" "$choice\t($id)\n"
+        set_commands
+        reset_if_needed
         case $id in
             # 11 digit id = video
-            ???????????) setsid -f python3 "$HOME"/.local/bin/umpv $mpv_options --ytdl-format="$ytdlformats" "$videolink$id" >/dev/null 2>&1 ;;
-            #???????????) setsid -f python3 "$HOME"/.local/bin/umpv "$videolink$id" $mpv_options --ytdl-format="$ytdlformats" >/dev/null 2>&1 ;;
+            ???????????) { [ -z "$first_view" ] && first_view="$id" && eval "$firstviewcmd" ;} || eval "$nofirstviewcmd" ;;
             #???????????) mpv "$videolink$id" $mpv_options --ytdl-format="$ytdlformats" >/dev/null 2>&1 ;;
             # 34 digit id = playlist
-            ??????????????????????????????????) setsid -f python3 "$HOME"/.local/bin/umpv $mpv_options --ytdl-format="$ytdlformats" "$playlink$id" >/dev/null 2>&1 ;;
-            #??????????????????????????????????) setsid -f python3 "$HOME"/.local/bin/umpv "$playlink$id" $mpv_options --ytdl-format="$ytdlformats" >/dev/null 2>&1 ;;
+            ??????????????????????????????????) { [ -z "$first_view" ] && first_view="$id" && eval "$firstplcmd" ;} || eval "$nofirstplcmd" ;;
             #??????????????????????????????????) mpv "$playlink$id" $mpv_options --ytdl-format="$ytdlformats" >/dev/null 2>&1 ;;
             *) exit ;;
         esac

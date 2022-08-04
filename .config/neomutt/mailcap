@@ -1,5 +1,7 @@
 # HTML
-text/html; w3m -I %{charset} -T text/html; copiousoutput;
+#text/html; lynx -force-html -display_charset='ISO-8859-1' -dump %s; copiousoutput;
+text/html; w3m-neomutt-wrapper; copiousoutput;
+#text/html; w3m -I %{charset} -T text/html; copiousoutput;
 text/plain; nvim %s
 
 #PDFs

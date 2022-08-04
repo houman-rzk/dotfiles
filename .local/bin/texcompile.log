@@ -1,0 +1,27 @@
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022/Arch Linux) (preloaded format=xelatex 2022.8.3)  3 AUG 2022 18:08
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**/home/ache/.local/bin/texcompile
+(/home/ache/.local/bin/texcompile
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10>
+! You can't use `macro parameter character #' in vertical mode.
+l.1 #
+     !/bin/sh
+? 
+! Emergency stop.
+l.1 
+    
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 16 strings out of 476156
+ 387 string characters out of 5814964
+ 298780 words of memory out of 5000000
+ 20892 multiletter control sequences out of 15000+600000
+ 469259 words of font info for 28 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 12i,0n,12p,73b,10s stack positions out of 5000i,500n,10000p,200000b,80000s
+No pages of output.
