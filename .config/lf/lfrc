@@ -6,13 +6,14 @@ set scrolloff 10
 
 cmd open ${{
 	case $(file --mime-type -b "$f") in
-		video/*) setsid -f mpv "$f" >/dev/null 2>&1 ;;
-		audio/*) mpv --audio-display=no "$f" ;;
-		image/*) setsid -f sxiv "$f" >/dev/null 2>&1 ;;
+		video/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
+		audio/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" ;;
+		image/*) setsid -f sxiv -a "$f" >/dev/null 2>&1 ;;
 		text/*) $EDITOR "$fx" ;;
 		application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
+        inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
 		*) for f in $fx ; do setsid -f $OPENER "$f" >/dev/null 2>&1 ; done ;;
 	esac
 }}

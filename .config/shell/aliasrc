@@ -4,7 +4,7 @@
 alias vim="nvim" vimdiff="nvim -d"
 
 # Remove need for sudo in these commands
-for command in pacman shutdown reboot mount umount ; do
+for command in pacman shutdown reboot mount umount tor; do
 	alias "$command"="sudo $command"
 done ; unset command
 
@@ -35,6 +35,7 @@ alias \
     udm="udisksctl mount -b" \
     udum="udisksctl unmount -b" \
     udpo="udisksctl power-off -b" \
+    ts="torsocks" \
 	p="pacman"
 
 # Main aliases
@@ -42,7 +43,6 @@ alias \
 	mk='make && sudo make clean install' \
 	lo='kill -9 -1' \
 	mo='mk && lo' \
-	trackers='get-trackers' \
 	monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero" \
 	off="shutdown -h now" \
 	tst="tabbed -r2 st -w '' && exit" \

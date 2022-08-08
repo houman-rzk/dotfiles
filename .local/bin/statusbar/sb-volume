@@ -15,6 +15,8 @@ esac
 volume="$(pulsemixer --get-volume | cut -d ' ' -f1)"
 mute="$(pulsemixer --get-mute)"
 
+status="Unmute"
+
 if [ "$volume" -ge 66 ] && [ "$mute" -eq 0 ] ; then
     icon=""
 elif [ "$volume" -gt 33 ] && [ "$mute" -eq 0 ] ; then
@@ -23,7 +25,11 @@ elif [ "$volume" -ge 0 ] && [ "$mute" -eq 0 ] ; then
     icon=""
 else
     icon="ﱝ"
+    status="Mute"
 fi
 
-printf "  $icon%7s\n" "$volume%  " 
+printf "  $icon%7s\n" "$volume%  "
 
+str="$(printf "$status:%7s\n" "$volume%  " )"
+
+pgrep "mpv" && dunstify -u low -r 1 "$str"

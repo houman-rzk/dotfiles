@@ -27,6 +27,8 @@ fi
 
 [ "$level" -le 25 ] && [ "$status" = "Discharging" ] && dunstify -u critical -r 1 -t 10000 "Battery dangerously low: $level%"
 
-sign=" " ; [ ! "$(cat "$BATTERY/status")" = "Discharging" ] && [ "$level" -ne 100 ] && sign="+"
+sign=" " ; [ ! "$(cat "$BATTERY/status")" = "Discharging" ] && [ "$level" -lt 100 ] && sign="+"
+
+[ "$level" -gt 100 ] && level=100
 
 echo "$DWMBLOCKS_SPACE_PADDING$icon$pad$sign$level%$DWMBLOCKS_SPACE_PADDING"

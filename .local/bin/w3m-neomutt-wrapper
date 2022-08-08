@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-HOME=$XDG_CACHE_HOME w3m -I 'ISO-8859-1' -T text/html

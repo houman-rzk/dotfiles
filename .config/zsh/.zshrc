@@ -24,6 +24,9 @@ zmodload zsh/complist
 compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 _comp_options+=(globdots)		# Include hidden files.
 
+# Enable zmv
+autoload -U zmv
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1

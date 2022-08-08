@@ -1,4 +1,11 @@
 #!/bin/sh
 
 #command -v "$1" >/dev/null 2>&1 || { echo "Command '$1' does not exist" && exit 1 ;}
-{ command -v "$1" >/dev/null 2>&1 && $EDITOR "$(which "$1")" && shellcheck "$(which "$1")" ;} || add-script "$1"
+#command -v "$1" >/dev/null 2>&1 && { $EDITOR "$(which "$1")" && shellcheck "$(which "$1")" ; exit 0 ;} || add-script "$1"
+if command -v "$1" >/dev/null 2>&1 ; then
+    $EDITOR "$(which "$1")"
+    shellcheck "$(which "$1")"
+    exit 0
+else
+    add-script "$1"
+fi

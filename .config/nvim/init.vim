@@ -20,7 +20,7 @@ Plug 'junegunn/goyo.vim'
 
 " Syntax highlighting
 Plug 'sheerun/vim-polyglot'
-
+"
 " Status bar
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -32,9 +32,18 @@ Plug 'shinchu/lightline-gruvbox.vim'
 " Tree
 Plug 'preservim/nerdtree'
 
+Plug 'tpope/vim-surround'
+
 " YouCompleteMe
 " Remember to install it by running: python3 $XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe/install.py --all
 Plug 'ycm-core/YouCompleteMe'
+
+" Color selector
+Plug 'KabbAmine/vCoolor.vim'
+
+" Multiple cursors
+"Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
 call plug#end()
 
 " Some basiscs
@@ -61,20 +70,24 @@ call plug#end()
 
 " Shortcuts
 	" Split navigation shortcuts
-	map <C-h> <C-w>h
-	map <C-j> <C-w>j
-	map <C-k> <C-w>k
-	map <C-l> <C-w>l
+	"map <C-h> <C-w>h
+	"map <C-j> <C-w>j
+	"map <C-k> <C-w>k
+	"map <C-l> <C-w>l
+    " Tabs and buffers
+    map <C-j> :tabn<CR>
+    map <C-k> :tabp<CR>
+    map <leader>tb :tab ball<CR>
+    map <leader>t :tabe 
+    map <leader>d :bd<CR>
 	" Run current file
 	map <leader>r :w \| !./%<CR>
-	" Check current file
+	" Shellcheck current file
 	map <leader>sc :w \| !shellcheck %<CR>
-    " Write
+    " Write and Quit
 	map <leader>w :w<CR>
-	map <leader>W :wq<CR>
-    " Quit
-    map <leader>q :q<CR>
-    map <leader>Q :q!<CR>
+	map <leader>q :wq<CR>
+    map <leader>Q :%bd \| q<CR>
 	" Clipboard shortcuts
 	map <C-c> "+y
 	map <C-s> "*y
@@ -83,19 +96,18 @@ call plug#end()
 	map <leader>h :set hlsearch!<CR>
 	" Disable search highlighting<CR>
 	map <esc> :noh<CR>:<esc>
-    " Tab and buffer navigation and others
-    map <A-j> :tabn<CR>
-    map <A-k> :tabp<CR>
-    map <leader>t :tabe 
     " Compile .tex file
 	map <leader>c :w! \| !texcompile "<c-r>%"<CR><CR>
     " Open a file (only tex)
 	map <leader>p :!opout <c-r>%<CR><CR>
     " Soydevery
         " HTML
-    map <leader><leader> /++<CR>xxi
+    "map <leader><leader> /++<CR>xxi
+    "map <leader>ht i<++>++</++><esc>9hxxi
+    "map <leader>hT i<++><CR>++<CR></++><esc>4hki      <esc>k2hxxi
+    map <leader><leader> /++<CR>xx
     map <leader>ht i<++>++</++><esc>9hxxi
-    map <leader>hT i<++><CR>++<CR></++><esc>4hki      <esc>k2hxxi
+    map <leader>hT i<++><CR>++<CR></++><esc>4hki     <esc>k2hxxi
     
 " Plugin shortcuts & config
 	" Goyo
@@ -126,3 +138,6 @@ call plug#end()
 
 " Makes tabfind easier
     set path=.,,**
+
+" This was in old vimrc
+":set autochdir
