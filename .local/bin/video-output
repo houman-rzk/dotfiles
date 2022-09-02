@@ -27,7 +27,7 @@ echo "$NEXT" > "$DISPLAY_FILE"
 
 eval \$"$NEXT"
 
-xwallpaper --zoom "$WALLPAPER_LINK"
+setbg -r
 
 remaps &
 

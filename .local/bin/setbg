@@ -2,6 +2,11 @@
 
 WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 
+if [ "$#" -eq 1 ] && [ "$1" = "-r" ] ; then
+    xwallpaper --zoom "$WALLPAPER_LINK"
+    exit
+fi
+
 [ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
 
 if [ "$#" -eq 1 ] ; then
@@ -17,6 +22,7 @@ fi
 xwallpaper --zoom "$WALLPAPER_LINK"
 #feh --no-fehbg --bg-fill "$WALLPAPER_LINK"
 
-setsid -f wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
-setsid -f xrdb -merge "$XDG_CONFIG_HOME"/x11/Xresources
-setsid -f killall -HUP dwm
+# do these before starting dwm in xinitrc
+#setsid -f wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
+#setsid -f xrdb -merge "$XDG_CONFIG_HOME"/x11/Xresources
+#setsid -f killall -HUP dwm
