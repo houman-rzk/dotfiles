@@ -4,3 +4,4 @@ shrd /mnt/ache/Shared
 dl  $XDG_DOWNLOAD_DIR
 cf $XDG_CONFIG_HOME
 bin $HOME/.local/bin
+media /run/media/$USER

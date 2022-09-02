@@ -1,0 +1,21 @@
+#!/bin/sh
+
+case $1 in
+    -t) pulsemixer --toggle-mute ;;
+    -c) setsid -f "$TERMINAL" -e pulsemixer ;;
+    -i) pulsemixer --change-volume +5 ; pkill -RTMIN+6 dwmblocks;;
+    -d) pulsemixer --change-volume -5 ; pkill -RTMIN+6 dwmblocks;;
+esac
+
+volume="$(pulsemixer --get-volume | cut -d ' ' -f1)"
+mute="$(pulsemixer --get-mute)"
+
+if [ "$mute" -eq 0 ] ; then
+    icon="墳"
+else
+    icon="婢"
+fi
+
+pgrep "mpv" && dunstify -u low -r 1 "$(printf "$icon:%7s\n" "$volume%  " )"
+
+pkill -RTMIN+6 dwmblocks

@@ -31,4 +31,4 @@ sign=" " ; [ ! "$(cat "$BATTERY/status")" = "Discharging" ] && [ "$level" -lt 10
 
 [ "$level" -gt 100 ] && level=100
 
-echo "$DWMBLOCKS_SPACE_PADDING$icon$pad$sign$level%$DWMBLOCKS_SPACE_PADDING"
+echo "  $icon$pad$sign$level%  "

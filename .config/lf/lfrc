@@ -9,7 +9,7 @@ cmd open ${{
 		video/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
 		audio/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" ;;
 		image/*) setsid -f sxiv -a "$f" >/dev/null 2>&1 ;;
-		text/*) $EDITOR "$fx" ;;
+		text/*) setsid -f $TERMINAL -e $EDITOR "$fx" ;;
 		application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;

@@ -93,25 +93,41 @@ call plug#end()
 	map <C-s> "*y
     noremap <LeftRelease> "*y<LeftRelease>
 	" Toggle search highlighting
-	map <leader>h :set hlsearch!<CR>
+	map <leader>H :set hlsearch!<CR>
 	" Disable search highlighting<CR>
-	map <esc> :noh<CR>:<esc>
+	map <ESC> :noh<CR>:<ESC>
     " Compile .tex file
 	map <leader>c :w! \| !texcompile "<c-r>%"<CR><CR>
     " Open a file (only tex)
 	map <leader>p :!opout <c-r>%<CR><CR>
-    " Soydevery
+    " Coding
+    map <leader>b a{<Enter>}<ESC>O
         " HTML
     "map <leader><leader> /++<CR>xxi
-    "map <leader>ht i<++>++</++><esc>9hxxi
-    "map <leader>hT i<++><CR>++<CR></++><esc>4hki      <esc>k2hxxi
-    map <leader><leader> /++<CR>xx
-    map <leader>ht i<++>++</++><esc>9hxxi
-    map <leader>hT i<++><CR>++<CR></++><esc>4hki     <esc>k2hxxi
+    "map <leader>ht i<++>++</++><ESC>9hxxi
+    "map <leader>hT i<++><CR>++<CR></++><ESC>4hki      <ESC>k2hxxi
+    "map <leader><leader> /++<CR>xx
+    "map <leader>ht i<++>++</++><ESC>9hxxi
+    "map <leader>hT i<++><CR>++<CR></++><ESC>4hki     <ESC>k2hxxi
+    map <leader><leader> i<><ESC>i
+    "map <leader>ht ?<<CR>ly$A</<ESC>p?><CR>li
+    "map <leader>ht ?<<CR>ly$A</<ESC>plD
+    "map <leader>ht yi>A</<ESC>pA><ESC>?><CR>/<\/<CR>i
+    map <leader>ht $?<<CR>lyeA</<ESC>pA><ESC>?<\/<CR>i
+    map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<><ESC>i
+    "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<><ESC>i
+    "map <leader>hT yypa/<ESC>O<><ESC>i
+    "map <leader>hT yypa/<ESC>O<><ESC>i
+    "map <leader>hT yypa/<ESC>O<Tab><><ESC>i
+    map <leader>ho o<><ESC>i
+    map <leader>hO O<><ESC>i
+    "map <leader><leader> i</><ESC>hi
+    "map <leader>ht /\/<CR>x?<<CR>ly$A</<ESC>p?><CR>li
+    "map <leader>hT /\/<CR>xyypa/<ESC>O<Tab></><ESC>hi
     
 " Plugin shortcuts & config
 	" Goyo
-	map <leader>g :Goyo<CR>
+	map <leader>g :Goyo \| :hi Normal ctermbg=none<CR><ESC>
 	" YouCompleteMe remaps
 	map <Tab> <C-n>
 	map <S-Tab> <C-p>

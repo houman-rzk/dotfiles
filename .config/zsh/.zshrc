@@ -1,16 +1,17 @@
 # zsh config file
 
 # Plugins and themes
-if [ -d $ZSH ] ; then
-    #plugins=(vi-mode sudo archlinux web-search)
-    plugins=(sudo web-search)
-    #ZSH_THEME="random"
-    source $ZSH/oh-my-zsh.sh
-fi
+#if [ -d $ZSH ] ; then
+#    plugins=(vi-mode sudo archlinux web-search)
+#    plugins=(sudo web-search)
+#    ZSH_THEME="random"
+#    source $ZSH/oh-my-zsh.sh
+#fi
 
 # Enable colors and change prompt:
 autoload -U colors && colors		# Load colors
 PS1="%B%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$reset_color%}%B:%{$fg[magenta]%}%~%{$fg[red]%}%{$reset_color%}%B$%b "
+PS1="%B%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$reset_color%}%B:%{$fg[magenta]%}%~%{$reset_color%}%B$%b "
 setopt autocd				# Automatically cd into typed directory.
 stty stop undef				# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
@@ -59,8 +60,8 @@ bindkey -M vicmd '^?' vi-backward-delete-char
 bindkey -M visual '^[[P' vi-delete
 bindkey '^ ' autosuggest-accept
 bindkey -r '^s'
-bindkey -M vicmd '^s' sudo-command-line
-bindkey -M viins '^s' sudo-command-line
+#bindkey -M vicmd '^s' sudo-command-line
+#bindkey -M viins '^s' sudo-command-line
 
 # Edit line in vim with ctrl-x.
 bindkey '^x' edit-command-line
@@ -74,17 +75,18 @@ function zle-keymap-select () {
     esac
 }
 
-zle -N zle-keymap-select
-
 zle-line-init() {
     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[5 q"
 }
 
+zle -N zle-keymap-select
 zle -N zle-line-init
 
 # Set window title
+#DISABLE_AUTO_TITLE="true"
 #precmd() {print -n "\033kst $PWD\033\134"}
+precmd() {print -nP "\033k%n@%M:%~\033\134"}
 
 # Source command and directory aliases and shortcuts
 [[ -f "$ALIASRC" ]] && source "$ALIASRC"
@@ -94,3 +96,5 @@ zle -N zle-line-init
 # Load other plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+
+#cat $XDG_CACHE_HOME/wal/sequences

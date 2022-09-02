@@ -1,6 +1,8 @@
 #!/bin/sh
 
-autostart="mpd autorandr xcompmgr setbg dunst clipmenud remaps connect profiles unclutter shortcuts"
+setbg
+
+autostart="mpd autorandr xcompmgr dunst clipmenud remaps connect profiles unclutter shortcuts"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &

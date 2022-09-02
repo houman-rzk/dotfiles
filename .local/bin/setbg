@@ -16,3 +16,7 @@ fi
 
 xwallpaper --zoom "$WALLPAPER_LINK"
 #feh --no-fehbg --bg-fill "$WALLPAPER_LINK"
+
+setsid -f wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
+setsid -f xrdb -merge "$XDG_CONFIG_HOME"/x11/Xresources
+setsid -f killall -HUP dwm
