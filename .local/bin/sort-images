@@ -1,19 +1,23 @@
 #!/bin/sh
 
-min_width=1600
+min_width=1200
 min_ratio=1.5
 max_ratio=2
 
+tmp_file="/tmp/unsorted_images.tmp"
+
 [ "$#" -ne 1 ] && echo "ERROR: Incorrect number of arguments (should be only one)" && exit 1
 
-[ -d "$1/all.tmp" ] && rm -r "$1/all.tmp"
-mkdir "$1/all.tmp"
+#[ -d "$1/all.tmp" ] && rm -r "$1/all.tmp"
+#mkdir "$1/all.tmp"
 [ -d "$1/Sorted" ] && rm -r "$1/Sorted"
 mkdir "$1/Sorted"
 
-find "$1" -name all.tmp -prune -o -type f -exec cp -v '{}' "$1/all.tmp" ';'
+find "$1" -name all.tmp -prune -o -type f > "$tmp_file"
+#find "$1" -name all.tmp -prune -o -type f -exec cp -v '{}' "$1/all.tmp" ';'
 
-for i in all.tmp/* ; do
+#for i in all.tmp/* ; do
+while read -r i; do
 	case "$(file --mime-type -b "$i")" in
 		image/jpeg) width="$(file "$i" | rev | cut -d ',' -f2 | rev | sed 's/ //g' | cut -d 'x' -f1)" && height="$(file "$i" | rev | cut -d ',' -f2 | rev | sed 's/ //g' | cut -d 'x' -f2)" ;;
 		image/png) width="$(file "$i" | rev | cut -d ',' -f3 | rev | sed 's/ //g' | cut -d 'x' -f1)" && height="$(file "$i" | rev | cut -d ',' -f3 | rev | sed 's/ //g' | cut -d 'x' -f2)" ;; 
@@ -22,8 +26,9 @@ for i in all.tmp/* ; do
 	ratio="$(echo "scale=2; $width / $height" | bc -l)"
 
 	[ "$width" -ge "$min_width" ] && [ "$(echo "$ratio >= $min_ratio && $ratio <= $max_ratio" | bc -l)" -eq 1 ] && cp -v "$i" "$1/Sorted"
-done
+done < "$tmp_file"
 
-rm -r "$1/all.tmp"
+#rm -r "$1/all.tmp"
+#rm "$tmp_file"
 
 echo DONE

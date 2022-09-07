@@ -34,14 +34,17 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
 export WWW_HOME="/home/ache/.cache/w3m"
 
+#export QT_QPA_PLATFORMTHEME=gtk2
+
 # SCREEN & GRAPHICS CONFIG
 # Sets the default display profile (see 'cycle-displays' script)
 export DEFAULT_DISPLAY_PROFILE="INTERNAL_ONLY"
 export DISPLAY_FILE="/tmp/current_display_profile"
 # Default monitors (got them using 'xrandr -q')
-export INTERNAL_DISPLAY="eDP1"
+export INTERNAL_DISPLAY="LVDS1"
 export INTERNAL_DISPLAY_RES="1366x768"
-export EXTERNAL_DISPLAY="HDMI2"
+export EXTERNAL_DISPLAY="HDMI1"
+export EXTERNAL_DISPLAY_RES="1680x1050"
 export EXTERNAL_DISPLAY_RES="1920x1080"
 export DEFAULT_REDSHIFT_VALUE=6500
 export REDSHIFT_FILE="/tmp/current_redshift_value"

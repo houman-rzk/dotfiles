@@ -2,8 +2,17 @@
 
 WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 
-if [ "$#" -eq 1 ] && [ "$1" = "-r" ] ; then
+pywal_setbg() {
     xwallpaper --zoom "$WALLPAPER_LINK"
+    #feh --no-fehbg --bg-fill "$WALLPAPER_LINK"
+
+#    wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
+    #xrdb -merge "$XDG_CONFIG_HOME/x11/Xresources"
+#    killall -HUP dwm >/dev/null 2>&1
+}
+
+if [ "$#" -eq 1 ] && [ "$1" = "-r" ] ; then
+    pywal_setbg
     exit
 fi
 
@@ -19,10 +28,4 @@ else
     tail -n +2 "$XDG_DATA_HOME/wallpapers-file" > /tmp/wallpapers-file.tmp && mv /tmp/wallpapers-file.tmp "$XDG_DATA_HOME/wallpapers-file"
 fi
 
-xwallpaper --zoom "$WALLPAPER_LINK"
-#feh --no-fehbg --bg-fill "$WALLPAPER_LINK"
-
-# do these before starting dwm in xinitrc
-#setsid -f wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
-#setsid -f xrdb -merge "$XDG_CONFIG_HOME"/x11/Xresources
-#setsid -f killall -HUP dwm
+pywal_setbg

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ $# -ne 2 ] && echo "ERROR: Incorrect number of arguments (should be two)" && exit 1
+
+h=$2
+input="$1"
+output="Scaled - $input"
+
+ffmpeg -i "$input" -vf scale=-1:"$h" -preset fast -crf 18 "$output"

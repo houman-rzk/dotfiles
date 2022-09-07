@@ -10,7 +10,6 @@ Curso HTML 5
 .config/calibre/
 .config/xarchiver
 .config/htop/
-.config/keepassxc/
 .config/libreoffice/
 .config/mpv/watch_later/
 .config/shell/shortcutrc
@@ -31,8 +30,9 @@ Curso HTML 5
 
 .local/src/
 .local/state/
-.local/share/
 .local/share/bg
+.local/share/gnupg
+.local/share/newsboat
 .local/share/applications/mimeinfo.cache
 .local/share/com.github.johnfactotum.Foliate/
 .local/share/lf/

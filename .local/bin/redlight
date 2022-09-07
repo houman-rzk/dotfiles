@@ -7,8 +7,8 @@ new=0
 
 update_redshift() {
     redshift -PO "$1" >/dev/null 2>&1
-    dunstify -a "redlight" -u low -r 1 "Redlight: $1" -t 2000
     echo "$1" > "$REDSHIFT_FILE"
+    dunstify -a "redlight" -u low -r 1 "Redlight: $1" -t 2000
 }
 
 current="$(cat "$REDSHIFT_FILE")"
@@ -18,4 +18,3 @@ current="$(cat "$REDSHIFT_FILE")"
 [ "$1" = "down" ] && [ "$((current - INC))" -ge "$MIN" ] && new=$((current - INC))
 
 [ $new -ne 0 ] && update_redshift $new
-

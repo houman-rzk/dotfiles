@@ -25,3 +25,4 @@ case "$status" in
 esac
 
 echo "  $icon  "
+#pkill -RTMIN+7 dwmblocks

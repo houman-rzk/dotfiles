@@ -11,6 +11,7 @@ let mapleader=" "
 if empty(glob("$XDG_CONFIG_HOME/nvim/autoload/plug.vim"))
 	silent execute '!mkdir -p $XDG_CONFIG_HOME/nvim/autoload/'
 	silent execute '!curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > $XDG_CONFIG_HOME/nvim/autoload/plug.vim'
+	silent execute '!python3 $XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe/install.py --all'
 	autocmd VimEnter * PlugInstall
 endif
 

@@ -32,9 +32,9 @@ alias \
 	pr="pacman -R" \
     nc="ncmpcpp" \
     nb="newsboat" \
-    udm="udisksctl mount -b" \
-    udum="udisksctl unmount -b" \
-    udpo="udisksctl power-off -b" \
+    dm="udisksctl mount -b" \
+    dum="udisksctl unmount -b" \
+    dpo="udisksctl power-off -b" \
     ts="torsocks" \
 	p="pacman"
 

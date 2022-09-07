@@ -3,8 +3,8 @@
 case $1 in
     -t) pulsemixer --toggle-mute ;;
     -c) setsid -f "$TERMINAL" -e pulsemixer ;;
-    -i) pulsemixer --change-volume +5 ; pkill -RTMIN+6 dwmblocks;;
-    -d) pulsemixer --change-volume -5 ; pkill -RTMIN+6 dwmblocks;;
+    -i) pulsemixer --change-volume +5 ;;
+    -d) pulsemixer --change-volume -5 ;;
 esac
 
 volume="$(pulsemixer --get-volume | cut -d ' ' -f1)"

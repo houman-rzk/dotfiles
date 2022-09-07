@@ -6,10 +6,11 @@
 # Check that the script doesn't already exist
 command -v "$1" >/dev/null 2>&1 && echo "ERROR: The script '$1' already exists" && exit 1
 
-# Sets the script's location accorging to it's name (prefix)
+# Sets the script's location according to it's name (prefix)
 { expr "$1" : 'sb-*' 1>/dev/null && DIR="$HOME/.local/bin/statusbar" ;} || DIR="$HOME/.local/bin"
 
 # Writes the script, checks it and makes it executable 
+#printf "#!/bin/sh\n\n\n" > "$DIR/$1"
 $EDITOR "$DIR/$1" && [ -f "$DIR/$1" ] && chmod u+x "$DIR/$1" && shellcheck "$DIR/$1"
 
 exit 0
