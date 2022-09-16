@@ -14,6 +14,7 @@ $song" "\- Left click to play/pause
 \- Scroll down to go to previous song" ;;
     4) music-control next ;;
     5) music-control prev ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 status="$(mpc | head -n 2 | tail -n 1 | cut -d '[' -f2 | cut -d ']' -f1)"

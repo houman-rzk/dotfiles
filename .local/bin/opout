@@ -2,15 +2,14 @@
 
 basename="${1%.*}"
 
-cleanup()
-{
-	rm "$basename.aux" > /dev/null 2>&1
-	rm "$basename.log" > /dev/null 2>&1
-	rm "$basename.toc" > /dev/null 2>&1
+cleanup () {
+	rm "$basename.aux" >/dev/null 2>&1
+	rm "$basename.log" >/dev/null 2>&1
+	rm "$basename.toc" >/dev/null 2>&1
 }
 
 # Cleanup
 cleanup
 
 # Open the resulting pdf
-xdg-open "$basename".pdf
+setsid -f xdg-open "$basename.pdf"

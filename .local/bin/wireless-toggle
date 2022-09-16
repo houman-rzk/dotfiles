@@ -4,10 +4,12 @@
 
 case "$1" in
     "-w") device="wifi" ; name="Wi-Fi" ;;
-    "-b") device="bluetooth" ; name="Bluetooth" ; rfkill toggle "$device" ;;
+    "-b") device="bluetooth" ; name="Bluetooth" ;; 
 esac
 
-blocked="$(rfkill list "$device" | grep Soft | rev | cut -d ' ' -f1 | rev)"
+rfkill toggle "$device"
+
+blocked="$(rfkill list "$device" | grep Soft | rev | cut -d ' ' -f 1 | rev | head -n 1)"
 
 case "$blocked" in
     "no") state="on" ;;

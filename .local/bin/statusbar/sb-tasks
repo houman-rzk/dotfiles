@@ -3,9 +3,9 @@
 case $BLOCK_BUTTON in
 	1) dunstify -u low -r 1 -t 10000 "Tasks" "$(task | head -n -2 | tail -n +2)" ;;
 	2) "$TERMINAL" -e taskwarrior-tui ;;
-	#2) xdotool key super+shift+t ;;
 	3) dunstify -u low -r 1 -t 5000 "Tasks Module" "\- Left-click to show tasks
 \- Middle-click to run task manager" ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 tasks="$(task | tail -n 1 | awk '{print $1}')"

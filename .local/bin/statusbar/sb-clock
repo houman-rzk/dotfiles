@@ -5,6 +5,7 @@ case $BLOCK_BUTTON in
 	2) ;;
 	3) dunstify -u low -r 1 -t 5000 "Time & Calendar Module" "\- Left-click to see calendar
 \- Middle-click to ..." ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 date "+  %R  "

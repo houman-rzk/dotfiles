@@ -2,20 +2,34 @@
 
 weatherreport="$XDG_CACHE_HOME/weatherreport"
 
-getforecast() { curl -sf "wttr.in" > "$weatherreport" || exit 1 ;}
+getforecast () { curl -sf "wttr.in" > "$weatherreport" || exit 1 ;}
 
-showweather () { echo "  盛 $temp°  " ;}
+showweather () { echo "  $icon $temp°  " ;}
 
 gettemp() {
     temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+//g)"
     [ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | awk '{print $4}' | sed s/+//g | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
+    #[ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{print $4}' | sed s/+//g)"
+    [ "$temp" = "" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | rev | awk '{print $2}' | rev)"
 }
 
-[ "$(stat -c %y "$weatherreport" | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || getforecast
+getforecasticon () {
+    case "$(sed '3q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | sed 's/[^a-zA-Z]//g' | head -n 1)" in
+        Partlycloudy) icon="" ;;
+        Clear) icon="盛" ;;
+        #) icon="" ;;
+        #*) icon="盛" ;;
+        *) icon="X" ;;
+    esac;
+}
+
+
+[ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || getforecast
 
 [ "$(wc -l < "$weatherreport")" -eq 0 ] && getforecast
 
 gettemp
+getforecasticon
 
 # get max/min/precip
 extractforecast() { 
@@ -25,12 +39,12 @@ extractforecast() {
 
 case $BLOCK_BUTTON in
 	1) getforecast && gettemp && echo "$temp" ;; 
-	2) setsid -f "$TERMINAL" -f "monospace:size=6" -e less -Srf "$weatherreport" ;;
+	2) setsid -f "$TERMINAL" -f "monospace:size=5" -e less -Srf "$weatherreport" ;;
 	#2) setsid -f "$TERMINAL" -f "monospace:size=9" -e less -Srf "$weatherreport" ;;
-#	2) xdotool key super+shift+w ;;
-	3) extractforecast && dunstify -u low -r 1 -t 5000 "Weather module" "\- Left click for full forecast.
-- Middle click to update forecast.
-🟡$maxtemp ❄️$mintemp 💧$precip" ;;
+	3) extractforecast && dunstify -u low -r 1 -t 5000 "Weather module" "🟡$maxtemp ❄️$mintemp 💧$precip
+- Left click for full forecast.
+- Middle click to update forecast." ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 showweather

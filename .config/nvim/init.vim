@@ -147,6 +147,8 @@ call plug#end()
     " Lightline colorscheme
 	let g:lightline = { 'colorscheme': 'gruvbox' }
 
+"let g:gruvbox_contrast_dark = "hard" | let g:gruvbox_transparent_bg = 1 | autocmd VimEnter * hi Normal ctermbg=none | colorscheme gruvbox | let g:lightline = { 'colorscheme': 'gruvbox' }
+
 " Autocommands
     " When shortcut files are updated, renew shell config
 	autocmd BufWritePost bm-files,bm-dirs :!shortcuts

@@ -14,6 +14,7 @@ case $BLOCK_BUTTON in
     4) volume-control -i ;;
     #5) pulsemixer --change-volume -5 ; pkill -RTMIN+6 dwmblocks;;
     5) volume-control -d ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 volume="$(pulsemixer --get-volume | cut -d ' ' -f1)"

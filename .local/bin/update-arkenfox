@@ -1,0 +1,21 @@
+#!/bin/sh
+
+ARKENFOX_PROFILE_LOCATION="$HOME/.mozilla/firefox/Arkenfox"
+
+killall firefox >/dev/null 2>&1
+
+mv "$ARKENFOX_PROFILE_LOCATION" /tmp/Arkenfox
+
+rm -rf /tmp/user.js >/dev/null 2>&1
+
+git clone https://github.com/arkenfox/user.js.git /tmp/user.js
+
+cp /tmp/user.js/updater.sh /tmp/user.js/prefsCleaner.sh /tmp/Arkenfox
+
+chmod u+x /tmp/Arkenfox/updater.sh
+chmod u+x /tmp/Arkenfox/prefsCleaner.sh
+
+/tmp/Arkenfox/updater.sh
+/tmp/Arkenfox/prefsCleaner.sh
+
+mv /tmp/Arkenfox "$ARKENFOX_PROFILE_LOCATION"

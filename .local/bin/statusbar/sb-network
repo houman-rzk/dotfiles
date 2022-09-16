@@ -12,6 +12,7 @@ case $BLOCK_BUTTON in
 	#2) xdotool key super+shift+n ;;
 	3) dunstify -u low -r 1 -t 5000 "Internet module" "\- Left-click to get public IP address
 \- Middle-click to open connection manager (nmtui)" ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 echo "  $logo  "

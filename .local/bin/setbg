@@ -6,9 +6,8 @@ pywal_setbg() {
     xwallpaper --zoom "$WALLPAPER_LINK"
     #feh --no-fehbg --bg-fill "$WALLPAPER_LINK"
 
-#    wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
-    #xrdb -merge "$XDG_CONFIG_HOME/x11/Xresources"
-#    killall -HUP dwm >/dev/null 2>&1
+    wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
+    killall -HUP dwm >/dev/null 2>&1
 }
 
 if [ "$#" -eq 1 ] && [ "$1" = "-r" ] ; then

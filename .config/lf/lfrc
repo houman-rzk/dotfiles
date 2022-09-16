@@ -9,12 +9,16 @@ cmd open ${{
 		video/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
 		audio/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" ;;
 		image/*) setsid -f sxiv -a "$f" >/dev/null 2>&1 ;;
-		text/*) setsid -f $TERMINAL -e $EDITOR "$fx" ;;
+		#text/*) setsid -f $TERMINAL -e $EDITOR "$fx" ;;
+        application/octet-stream) setsid -f gpg -dq "$f" ;;
+		text/*) $EDITOR "$fx" ;;
 		application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
         inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
-		*) for f in $fx ; do setsid -f $OPENER "$f" >/dev/null 2>&1 ; done ;;
+        application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+		#*) for f in "$fx" ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
+		*) setsid -f xdg-open "$f" >/dev/null 2>&1 ;;
 	esac
 }}
 
@@ -26,6 +30,7 @@ on-cd
 cmd q quit
 cmd setbg $setbg "$f"
 
+map o open
 map <enter> shell
 map <c-r> reload
 map D delete

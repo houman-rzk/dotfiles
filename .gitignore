@@ -3,6 +3,9 @@
 .ssh/
 Downloads/
 Curso HTML 5
+GII
+Others/
+UBUNTU
 
 .config/amsynth/
 .config/rncbc.org/
@@ -27,6 +30,7 @@ Curso HTML 5
 .config/pulse/
 .config/x11/Xauthority
 .config/x11/xresources
+.config/syncthing/
 
 .local/src/
 .local/state/
@@ -47,5 +51,6 @@ Curso HTML 5
 .local/share/webkitgtk/
 .local/share/xorg/
 .local/share/zathura/
+.local/share/syncthing/
 
 .cache/
