@@ -11,14 +11,14 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export XDG_DESKTOP_DIR="-"
-export XDG_DOCUMENTS_DIR="$HOME/Home/Documents"
-export XDG_DOWNLOAD_DIR="$HOME/Home/Downloads"
-export XDG_MUSIC_DIR="$HOME/Home/Music"
-export XDG_PICTURES_DIR="$HOME/Home/Pictures"
-export XDG_PUBLICSHARE_DIR="-"
-export XDG_TEMPLATES_DIR="-"
-export XDG_VIDEOS_DIR="-"
+#export XDG_DESKTOP_DIR="-"
+#export XDG_DOCUMENTS_DIR="$HOME/Home/Documents"
+#export XDG_DOWNLOAD_DIR="$HOME/Home/Downloads"
+#export XDG_MUSIC_DIR="$HOME/Home/Music"
+#export XDG_PICTURES_DIR="$HOME/Home/Pictures"
+#export XDG_PUBLICSHARE_DIR="-"
+#export XDG_TEMPLATES_DIR="-"
+#export XDG_VIDEOS_DIR="-"
 
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
@@ -32,7 +32,11 @@ export LESSHISTFILE="-"
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
-export WWW_HOME="/home/ache/.cache/w3m"
+#export WWW_HOME="/home/ache/.cache/w3m"
+
+# For Java GUI Programs
+export AWT_TOOLKIT=MToolkit
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 #export QT_QPA_PLATFORMTHEME=gtk2
 

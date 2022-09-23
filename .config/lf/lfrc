@@ -6,8 +6,8 @@ set scrolloff 10
 
 cmd open ${{
 	case $(file --mime-type -b "$f") in
-		video/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
-		audio/*) setsid -f $TERMINAL -e mpv --player-operation-mode=pseudo-gui "$f" ;;
+		video/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
+		audio/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" ;;
 		image/*) setsid -f sxiv -a "$f" >/dev/null 2>&1 ;;
 		#text/*) setsid -f $TERMINAL -e $EDITOR "$fx" ;;
         application/octet-stream) setsid -f gpg -dq "$f" ;;
@@ -16,6 +16,7 @@ cmd open ${{
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
         inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
+        #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
         application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
 		#*) for f in "$fx" ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
 		*) setsid -f xdg-open "$f" >/dev/null 2>&1 ;;
@@ -29,6 +30,7 @@ on-cd
 
 cmd q quit
 cmd setbg $setbg "$f"
+cmd uz $unzip "$f"
 
 map o open
 map <enter> shell
@@ -36,6 +38,8 @@ map <c-r> reload
 map D delete
 map H set hidden!
 map <c-n> push $mkdir<space>
+map <c-v> push $$EDITOR<enter>
+map x push $unzip<space>"$f"<enter>
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner

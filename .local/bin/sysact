@@ -6,10 +6,10 @@ case "$(readlink -f /sbin/init)" in
 	*) ctl='loginctl' ;;
 esac
 
-case "$(printf "🔒 lock\n🚪 logout\n🔃 reboot\n⛔ shutdown\n💤 sleep" |dmenu -i -n -p 'Action: ')" in
-	'🔒 lock') mpc pause >/dev/null 2>&1 ; slock ; music-control notify ;;
+case "$(printf "🔒 lock\n🚪 logout\n🔃 reboot\n⛔ shutdown\n💤 sleep" | dmenu -i -n -p 'Action: ')" in
+	'🔒 lock') mpc pause >/dev/null 2>&1 ; slock ; update-dwmblocks & ;;
 	'🚪 logout') kill -9 -1 ;;
-	'💤 sleep') mpc pause >/dev/null 2>&1 ; slock $ctl suspend -i ; music-control notify ; rfkill unblock wifi ;;
+	'💤 sleep') mpc pause >/dev/null 2>&1 ; slock $ctl suspend -i ; rfkill unblock wifi ; update-dwmblocks & ;;
 	'🔃 reboot') sudo reboot ;;
 	'⛔ shutdown') sudo shutdown -P now ;;
 	*) exit 1 ;;

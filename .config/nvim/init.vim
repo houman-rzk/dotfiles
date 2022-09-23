@@ -70,6 +70,9 @@ call plug#end()
 	set mouse=a
 
 " Shortcuts
+    " Shell commands
+    map <leader>s :!
+    map <leader>l :!ls<CR>
 	" Split navigation shortcuts
 	"map <C-h> <C-w>h
 	"map <C-j> <C-w>j
@@ -88,6 +91,7 @@ call plug#end()
     " Write and Quit
 	map <leader>w :w<CR>
 	map <leader>q :wq<CR>
+	map <leader>fq :q!<CR>
     map <leader>Q :%bd \| q<CR>
 	" Clipboard shortcuts
 	map <C-c> "+y
@@ -100,7 +104,7 @@ call plug#end()
     " Compile .tex file
 	map <leader>c :w! \| !texcompile "<c-r>%"<CR><CR>
     " Open a file (only tex)
-	map <leader>p :!opout <c-r>%<CR><CR>
+	map <leader>p :!opout "<c-r>%"<CR><CR>
     " Coding
     map <leader>b a{<Enter>}<ESC>O
         " HTML
@@ -115,7 +119,8 @@ call plug#end()
     "map <leader>ht ?<<CR>ly$A</<ESC>plD
     "map <leader>ht yi>A</<ESC>pA><ESC>?><CR>/<\/<CR>i
     map <leader>ht $?<<CR>lyeA</<ESC>pA><ESC>?<\/<CR>i
-    map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<><ESC>i
+    map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<TAB><><ESC>i
+    "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<space><space><space><space><><ESC>i
     "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<><ESC>i
     "map <leader>hT yypa/<ESC>O<><ESC>i
     "map <leader>hT yypa/<ESC>O<><ESC>i
@@ -140,20 +145,19 @@ call plug#end()
 	let NERDTreeMapUpdir = 'h'
 
 " Eye candy
-	let g:gruvbox_contrast_dark = "hard"
-	" Enable transparent background when using gruvbox theme
-	let g:gruvbox_transparent_bg = 1 | autocmd VimEnter * hi Normal ctermbg=none
-	colorscheme gruvbox
-    " Lightline colorscheme
-	let g:lightline = { 'colorscheme': 'gruvbox' }
+	"let g:gruvbox_contrast_dark = "hard"
+	"" Enable transparent background when using gruvbox theme
+	"let g:gruvbox_transparent_bg = 1 | autocmd VimEnter * hi Normal ctermbg=none
+	"colorscheme gruvbox
+    "" Lightline colorscheme
+	"let g:lightline = { 'colorscheme': 'gruvbox' }
 
-"let g:gruvbox_contrast_dark = "hard" | let g:gruvbox_transparent_bg = 1 | autocmd VimEnter * hi Normal ctermbg=none | colorscheme gruvbox | let g:lightline = { 'colorscheme': 'gruvbox' }
 
 " Autocommands
     " When shortcut files are updated, renew shell config
 	autocmd BufWritePost bm-files,bm-dirs :!shortcuts
     " Recompile and rerun dwmblocks on config edit
-	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks ; setsid -f dwmblocks }
+	"autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo -S make install && { killall -q dwmblocks ; setsid -f dwmblocks }
 
 " Makes tabfind easier
     set path=.,,**

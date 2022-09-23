@@ -2,48 +2,55 @@
 
 weatherreport="$XDG_CACHE_HOME/weatherreport"
 
+
 getforecast () { curl -sf "wttr.in" > "$weatherreport" || exit 1 ;}
 
 showweather () { echo "  $icon $temp°  " ;}
 
 gettemp() {
-    temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+//g)"
-    [ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | awk '{print $4}' | sed s/+//g | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
-    #[ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{print $4}' | sed s/+//g)"
-    [ "$temp" = "" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | rev | awk '{print $2}' | rev)"
+    temp="$(sed '4q;d' "$weatherreport" sed '4q;d' wr | sed -r -e "s,\x1B\[[0-9;]*[a-zA-Z],,g" -e 's/\(.*\)//g' -e 's/\+//g' | rev | awk '{print $2}' | rev)"
+
+    #temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+//g)"
+    #[ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | awk '{print $4}' | sed s/+//g | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
+    ##[ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{print $4}' | sed s/+//g)"
+    #[ "$temp" = "" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | rev | awk '{print $2}' | rev)"
 }
 
-getforecasticon () {
-    case "$(sed '3q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | sed 's/[^a-zA-Z]//g' | head -n 1)" in
-        Partlycloudy) icon="" ;;
-        Clear) icon="盛" ;;
+setforecasticon () {
+    case "$(sed '3q;d' "$weatherreport" | sed -r -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's/^[^a-zA-Z]+//g')" in
+        "Partly cloudy") icon="" ;;
+        "Clear"|"Sunny") icon="盛" ;;
         #) icon="" ;;
         #*) icon="盛" ;;
         *) icon="X" ;;
     esac;
 }
 
-
-[ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || getforecast
-
-[ "$(wc -l < "$weatherreport")" -eq 0 ] && getforecast
-
-gettemp
-getforecasticon
-
 # get max/min/precip
 extractforecast() { 
-	precip="$(sed '16q;d' "$weatherreport" | grep -o "[0-9]*%" | sort -rn | sed -e '1q')" ;
-	mintemp="$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 's/m//g;1q')" ;
-	maxtemp="$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 's/m//g;$!d')" ;}
+	maxtemp="$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 's/m//g;$!d')"
+	mintemp="$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 's/m//g;1q')"
+	precip="$(sed '16q;d' "$weatherreport" | grep -o "[0-9]*%" | sort -rn | sed -e '1q')"
+}
+
+
+#[ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || getforecast
+#[ "$(wc -l < "$weatherreport")" -eq 0 ] && getforecast
+
+if [ ! "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || [ "$(wc -l < "$weatherreport")" -eq 0 ] ; then
+    getforecast
+fi
+
+gettemp
+setforecasticon
 
 case $BLOCK_BUTTON in
 	1) getforecast && gettemp && echo "$temp" ;; 
-	2) setsid -f "$TERMINAL" -f "monospace:size=5" -e less -Srf "$weatherreport" ;;
+	2) setsid -f "$TERMINAL" -f "monospace:size=6" -e less -Srf "$weatherreport" ;;
 	#2) setsid -f "$TERMINAL" -f "monospace:size=9" -e less -Srf "$weatherreport" ;;
 	3) extractforecast && dunstify -u low -r 1 -t 5000 "Weather module" "🟡$maxtemp ❄️$mintemp 💧$precip
-- Left click for full forecast.
-- Middle click to update forecast." ;;
+- Left click to update forecast.
+- Middle click for full forecast" ;;
     6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 

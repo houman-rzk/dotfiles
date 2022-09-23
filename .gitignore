@@ -8,6 +8,7 @@ Others/
 UBUNTU
 
 .config/amsynth/
+.config/redyt
 .config/rncbc.org/
 .config/QtProject.conf
 .config/calibre/
@@ -35,6 +36,8 @@ UBUNTU
 .local/src/
 .local/state/
 .local/share/bg
+.local/share/jflex-1.8.2/
+.local/share/netbeans/
 .local/share/gnupg
 .local/share/newsboat
 .local/share/applications/mimeinfo.cache
