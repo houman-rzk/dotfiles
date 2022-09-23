@@ -1,0 +1,12 @@
+#!/bin/sh
+
+OLD_HOME=$HOME
+HOME=$XDG_DATA_HOME/netbeans
+#JAVA_HOME=/usr/lib/jvm/java-18-openjdk
+
+netbeans &
+
+sleep 10
+
+[ -d "$OLD_HOME/.java" ] && rm -r "$OLD_HOME/.java" >/dev/null 2>&1
+[ -d "$OLD_HOME/.m2" ] && rm -r "$OLD_HOME/.m2" >/dev/null 2>&1

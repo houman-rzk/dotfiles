@@ -1,0 +1,17 @@
+#!/bin/sh
+
+[ "$#" -eq 1 ] && query="$1" || query="$2"
+
+[ "$1" = "-s" ] && [ "$#" -eq 2 ] && last=1 || last="$(curl "https://wallhaven.cc/api/v1/search?q=$query&ratios=16x9%2C16x10&sorting=date_added&order=desc" 2>/dev/null | jq -r ".meta.last_page")"
+
+i=1
+while [ $i -le "$last" ] ; do
+    echo "Downloading page $i/$last..."
+    curl "https://wallhaven.cc/api/v1/search?q=$query&ratios=16x9%2C16x10&sorting=date_added&order=desc&page=" 2>/dev/null | jq -r ".data[].path" | \
+        while read -r url ; do
+            curl -LO "$url" 2>/dev/null
+        done
+    i=$((i+1))
+done
+
+echo "DONE"

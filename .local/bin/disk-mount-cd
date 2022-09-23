@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ $# -ne 1 ] && echo "ERROR: Incorrect number of arguments. Should be only one (e.g: /dev/sdb2)" && exit 1
+
+dir="$(udisksctl mount -b "$1" | cut -d ' ' -f4- | head -n 1)"
+
+cd "$dir" || { echo ERROR ; exit 1 ;}
+
+ls
