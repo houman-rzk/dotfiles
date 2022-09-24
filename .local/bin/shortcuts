@@ -1,13 +1,24 @@
 #!/bin/sh
 
 bmdirs="$XDG_CONFIG_HOME/shell/bm-dirs"
+bmfiles="$XDG_CONFIG_HOME/shell/bm-files"
 
 zsh_named_dirs="$XDG_CONFIG_HOME/shell/zshnameddirrc"
 shell_shortcuts="$XDG_CONFIG_HOME/shell/shortcutrc"
+lf_shortcuts="$XDG_CONFIG_HOME/lf/shortcutrc"
 
-[ -f "$zsh_named_dirs" ] && rm "$zsh_named_dirs"
+rm -f "$zsh_named_dirs" "$shell_shortcuts" "$lf_shortcuts" >/dev/null 2>&1
 
+sed '/^#/d' "$bmdirs" | \
 while read -r arg1 arg2 ; do
-    echo "hash -d $arg1=$arg2" >> "$zsh_named_dirs"
-    echo "alias $arg1=\"cd $arg2 && ls\"" >> "$shell_shortcuts"
-done < "$bmdirs"
+    arg2c="$(eval "echo $arg2")"
+    echo "hash -d $arg1=$arg2c" >> "$zsh_named_dirs"
+    echo "alias $arg1=\"cd $arg2c && ls\"" >> "$shell_shortcuts"
+    echo "map C$arg1 push :cd<space>$arg2c<enter>" >> "$lf_shortcuts"
+done
+
+sed '/^#/d' "$bmfiles" | \
+while read -r arg1 arg2 ; do
+    arg2c="$(eval "echo $arg2")"
+    echo "alias $arg1=\"\$EDITOR $arg2c\"" >> "$shell_shortcuts"
+done

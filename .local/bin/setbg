@@ -4,9 +4,20 @@ WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 
 pywal_setbg() {
     xwallpaper --zoom "$WALLPAPER_LINK"
-    #feh --no-fehbg --bg-fill "$WALLPAPER_LINK"
 
-    wal -nqi "$(readlink -f "$XDG_DATA_HOME/bg")"
+    # COURTESY OF LUKE SMITH'S VOIDRICE
+    # If pywal is installed, use it.
+    if command -v wal >/dev/null 2>&1 ; then
+        wal -ni "$(readlink -f "$WALLPAPER_LINK")" -o "$XDG_CONFIG_HOME/wal/postrun" > /dev/null 2>&1
+    # If pywal is not installed, return config files to normal.
+    else
+        dunstconf="$XDG_CONFIG_HOME/dunst/dunstrc"
+        zathuraconf="$XDG_CONFIG_HOME/zathura/zathurarc"
+
+    	[ -f "$dunstconf.bak" ] && unlink "$dunstconf" && mv "$dunstconf.bak" "$dunstconf"
+    	[ -f "$zathuraconf.bak" ] && unlink "$zathuraconf" && mv "$zathuraconf.bak" "$zathuraconf"
+    fi
+
     killall -HUP dwm >/dev/null 2>&1
 }
 

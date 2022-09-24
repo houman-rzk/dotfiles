@@ -32,7 +32,7 @@ alias \
 	pi="pacman -S" \
 	piu="pacman -Syu" \
 	ue="pacman -Syu --noconfirm && exit" \
-	pr="pacman -R" \
+	pr="pacman -Rs" \
     nc="ncmpcpp" \
     nb="newsboat" \
     dm="udisksctl mount -b" \
@@ -54,15 +54,10 @@ alias \
 	monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero" \
 	off="shutdown -h now" \
 	tst="tabbed -r2 st -w '' && exit" \
-	vs="$EDITOR ~/.config/zsh/.zshrc && . ~/.config/zsh/.zshrc" \
-	vp="$EDITOR ~/.config/shell/profile && head -n -1 ~/.config/shell/profile | tail -n +3 > /tmp/profile.tmp && . /tmp/profile.tmp && rm /tmp/profile.tmp" \
-	va="$EDITOR $ALIASRC && . $ALIASRC" \
     bl="cat /sys/class/power_supply/BAT0/capacity" \
     lf="lfrun" \
     set-tv-output="xrandr --fb 1360x768 --output $INTERNAL_DISPLAY --off --noprimary --output $EXTERNAL_DISPLAY --mode 1360x768 --primary ; audio-output EXTERNAL_ONLY ; remaps" \
     exp="xarchiver ~/Home/Others/Archives/Black_Dog.rar" \
-    autoconf="nvim ~/.local/src/autoconfig/autoconfig" \
-	vimrc="$EDITOR $XDG_CONFIG_HOME/$EDITOR/init.vim" \
     hor="xdg-open /mnt/Shared/Home/GII/3º/General/Horario.pdf 2>/dev/null" \
     nstart="rfkill unblock wifi ; systemctl start NetworkManager" \
     nstop="rfkill block wifi ; systemctl stop NetworkManager" \

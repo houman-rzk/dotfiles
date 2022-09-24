@@ -43,3 +43,6 @@ map x push $unzip<space>"$f"<enter>
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
+
+# Source shortcuts
+source "~/.config/lf/shortcutrc"

@@ -1,0 +1,6 @@
+# These are file shortcuts
+vimrc       $XDG_CONFIG_HOME/nvim/init.vim
+va          $XDG_CONFIG_HOME/shell/aliasrc
+vp          $XDG_CONFIG_HOME/shell/profile
+vs          $XDG_CONFIG_HOME/zsh/.zshrc
+autoconf    $HOME/.local/src/autoconfig/autoconfig

@@ -1,7 +1,8 @@
-src $HOME/.local/src
-h $HOME
-shrd /mnt/Shared
-dl  $XDG_DOWNLOAD_DIR
-cf $XDG_CONFIG_HOME
-bin $HOME/.local/bin
-media /run/media/$USER
+# These are all shortcuts
+src     $HOME/.local/src
+h       $HOME
+shrd    /mnt/Shared
+dl      $XDG_DOWNLOAD_DIR
+cf      $XDG_CONFIG_HOME
+bin     $HOME/.local/bin
+media   /run/media/$USER

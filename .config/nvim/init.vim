@@ -21,7 +21,7 @@ Plug 'junegunn/goyo.vim'
 
 " Syntax highlighting
 Plug 'sheerun/vim-polyglot'
-"
+
 " Status bar
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -33,11 +33,12 @@ Plug 'shinchu/lightline-gruvbox.vim'
 " Tree
 Plug 'preservim/nerdtree'
 
+" Surround
 Plug 'tpope/vim-surround'
 
 " YouCompleteMe
 " Remember to install it by running: python3 $XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe/install.py --all
-Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 
 " Color selector
 Plug 'KabbAmine/vCoolor.vim'
@@ -56,6 +57,9 @@ call plug#end()
 	set noswapfile
     " Tabs
 	set tabstop=4 | set shiftwidth=4 | set expandtab | set softtabstop=4
+    " Do not match brackets, parenthesis, etc
+    "let g:loaded_matchparen=1
+    set scrolloff=3
 
 " Enable autocompletion
 	set wildmode=longest,list,full
@@ -118,8 +122,11 @@ call plug#end()
     "map <leader>ht ?<<CR>ly$A</<ESC>p?><CR>li
     "map <leader>ht ?<<CR>ly$A</<ESC>plD
     "map <leader>ht yi>A</<ESC>pA><ESC>?><CR>/<\/<CR>i
-    map <leader>ht $?<<CR>lyeA</<ESC>pA><ESC>?<\/<CR>i
-    map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<TAB><><ESC>i
+    "map <leader>ht $?<<CR>lyeA</<ESC>pA><ESC>?<\/<CR>i
+    "map <leader>ht ?<<CR>l"tyEA</<ESC>"tp?<\/<CR>i
+    map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
+    "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<TAB><><ESC>i
+    map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
     "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<space><space><space><space><><ESC>i
     "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<><ESC>i
     "map <leader>hT yypa/<ESC>O<><ESC>i
@@ -155,9 +162,10 @@ call plug#end()
 
 " Autocommands
     " When shortcut files are updated, renew shell config
-	autocmd BufWritePost bm-files,bm-dirs :!shortcuts
+    autocmd BufWritePost bm-files,bm-dirs :!shortcuts
     " Recompile and rerun dwmblocks on config edit
 	"autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo -S make install && { killall -q dwmblocks ; setsid -f dwmblocks }
+    autocmd BufEnter,BufNew *.html :NoMatchParen
 
 " Makes tabfind easier
     set path=.,,**

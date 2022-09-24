@@ -32,6 +32,9 @@ UBUNTU
 .config/x11/Xauthority
 .config/x11/xresources
 .config/syncthing/
+.config/zathura/zathurarc
+.config/dunst/dunstrc
+.config/lf/shortcutrc
 
 .local/src/
 .local/state/
