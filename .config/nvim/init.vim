@@ -38,7 +38,7 @@ Plug 'tpope/vim-surround'
 
 " YouCompleteMe
 " Remember to install it by running: python3 $XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe/install.py --all
-"Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 
 " Color selector
 Plug 'KabbAmine/vCoolor.vim'
@@ -55,6 +55,7 @@ call plug#end()
 	set encoding=utf-8
 	set splitbelow splitright
 	set noswapfile
+    set ignorecase
     " Tabs
 	set tabstop=4 | set shiftwidth=4 | set expandtab | set softtabstop=4
     " Do not match brackets, parenthesis, etc
@@ -106,7 +107,7 @@ call plug#end()
 	" Disable search highlighting<CR>
 	map <ESC> :noh<CR>:<ESC>
     " Compile .tex file
-	map <leader>c :w! \| !texcompile "<c-r>%"<CR><CR>
+	map <leader>c :w! \| !doc-compile "<c-r>%"<CR><CR>
     " Open a file (only tex)
 	map <leader>p :!opout "<c-r>%"<CR><CR>
     " Coding
@@ -141,7 +142,12 @@ call plug#end()
 " Plugin shortcuts & config
 	" Goyo
 	map <leader>g :Goyo \| :hi Normal ctermbg=none<CR><ESC>
-	" YouCompleteMe remaps
+	" YouCompleteMe
+        " Disable only highlighting (sometimes its illegible)
+    "let g:ycm_enable_diagnostic_highlighting = 0
+        " Disable all graphic stuff
+    let g:ycm_show_diagnostics_ui = 0
+        " Remaps
 	map <Tab> <C-n>
 	map <S-Tab> <C-p>
 	" NERDTree

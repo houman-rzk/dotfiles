@@ -28,7 +28,6 @@ export LESSHISTFILE="-"
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
-#export WWW_HOME="/home/ache/.cache/w3m"
 
 # For Java GUI Programs
 export AWT_TOOLKIT=MToolkit

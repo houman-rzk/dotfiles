@@ -1,7 +1,9 @@
 #!/bin/sh
 
+deleted_dir="$WALLPAPERS_DIR/Deleted"
+
 current="$(readlink -f "$XDG_DATA_HOME/bg")"
 
-[ ! -d "$WALLPAPERS_DIR/Sorted.deleted" ] && mkdir "$WALLPAPERS_DIR/Sorted.deleted"
+[ ! -d "$deleted_dir" ] && mkdir "$deleted_dir"
 
-mv "$current" "$WALLPAPERS_DIR/Sorted.deleted/" && setbg
+mv "$current" "$deleted_dir" && setbg

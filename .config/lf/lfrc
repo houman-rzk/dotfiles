@@ -4,6 +4,8 @@ set shellopts '-eu'
 
 set scrolloff 10
 
+set icons
+
 cmd open ${{
 	case $(file --mime-type -b "$f") in
 		video/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
@@ -23,6 +25,14 @@ cmd open ${{
 	esac
 }}
 
+cmd edit ${{
+	case $(file --mime-type -b "$f") in
+		text/*) setsid -f st -e $EDITOR "$fx" > /dev/null 2>&1 ;;
+		application/pdf) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+		application/gzip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+		application/epub+zip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+	esac
+}}
 cmd on-cd &{{
     printf "\033]0;lf $PWD\007" > /dev/tty
 }}
@@ -33,6 +43,7 @@ cmd setbg $setbg "$f"
 cmd uz $unzip "$f"
 
 map o open
+map e edit
 map <enter> shell
 map <c-r> reload
 map D delete

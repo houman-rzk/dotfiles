@@ -2,7 +2,7 @@
 
 setbg
 
-autostart="mpd autorandr xcompmgr dunst clipmenud remaps connect profiles unclutter shortcuts"
+autostart="pulseaudio autorandr xcompmgr dunst clipmenud remaps connect profiles unclutter shortcuts mpd "
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &

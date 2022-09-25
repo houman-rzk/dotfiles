@@ -1,6 +1,16 @@
 # These are file shortcuts
+cfv         $XDG_CONFIG_HOME/nvim/init.vim
+cfa         $XDG_CONFIG_HOME/shell/aliasrc
+cfp         $XDG_CONFIG_HOME/shell/profile
+cfs         $XDG_CONFIG_HOME/zsh/.zshrc
+cflf        $XDG_CONFIG_HOME/lf/lfrc
 vimrc       $XDG_CONFIG_HOME/nvim/init.vim
 va          $XDG_CONFIG_HOME/shell/aliasrc
 vp          $XDG_CONFIG_HOME/shell/profile
 vs          $XDG_CONFIG_HOME/zsh/.zshrc
+lfrc        $XDG_CONFIG_HOME/lf/lfrc
 autoconf    $HOME/.local/src/autoconfig/autoconfig
+bm-files    $XDG_CONFIG_HOME/shell/bm-files
+bm-dirs     $XDG_CONFIG_HOME/shell/bm-dirs
+hist        $HISTFILE
+ideas       $HOME/Home/Documents/Resources/Ideas

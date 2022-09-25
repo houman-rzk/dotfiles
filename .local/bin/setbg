@@ -1,6 +1,7 @@
 #!/bin/sh
 
 WALLPAPER_LINK="$XDG_DATA_HOME/bg"
+WALLPAPERS_FILE="$XDG_DATA_HOME/wallpapers-file"
 
 pywal_setbg() {
     xwallpaper --zoom "$WALLPAPER_LINK"
@@ -21,6 +22,11 @@ pywal_setbg() {
     killall -HUP dwm >/dev/null 2>&1
 }
 
+create_wallpapers_file(){
+    find "$WALLPAPERS_DIR" -not -path "$WALLPAPERS_DIR/Deleted/*" -type f -size +6k | shuf > "$WALLPAPERS_FILE"
+}
+
+
 if [ "$#" -eq 1 ] && [ "$1" = "-r" ] ; then
     pywal_setbg
     exit
@@ -31,11 +37,11 @@ fi
 if [ "$#" -eq 1 ] ; then
     ln -s "$1" "$WALLPAPER_LINK"
 else
-    { [ ! -f "$XDG_DATA_HOME/wallpapers-file" ] || [ "$(wc -l "$XDG_DATA_HOME/wallpapers-file" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && shuf -e "$WALLPAPERS_DIR/Sorted"/* > "$XDG_DATA_HOME"/wallpapers-file
+    { [ ! -f "$WALLPAPERS_FILE" ] || [ "$(wc -l "$WALLPAPERS_FILE" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && create_wallpapers_file
 
-    ln -s "$(head -n 1 "$XDG_DATA_HOME/wallpapers-file")" "$WALLPAPER_LINK"
+    ln -s "$(head -n 1 "$WALLPAPERS_FILE")" "$WALLPAPER_LINK"
 
-    tail -n +2 "$XDG_DATA_HOME/wallpapers-file" > /tmp/wallpapers-file.tmp && mv /tmp/wallpapers-file.tmp "$XDG_DATA_HOME/wallpapers-file"
+    tail -n +2 "$WALLPAPERS_FILE" > /tmp/wallpapers-file.tmp && mv /tmp/wallpapers-file.tmp "$WALLPAPERS_FILE"
 fi
 
 pywal_setbg

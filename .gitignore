@@ -35,6 +35,7 @@ UBUNTU
 .config/zathura/zathurarc
 .config/dunst/dunstrc
 .config/lf/shortcutrc
+.config/xournalpp/
 
 .local/src/
 .local/state/

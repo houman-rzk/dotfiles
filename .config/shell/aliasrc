@@ -44,12 +44,14 @@ alias \
     ud="update-dwmblocks" \
     clc="clear-clipboards" \
     mkx="chmod u+x" \
-    iv="sxiv"
+    iv="sxiv" \
+    sv="sudo $EDITOR" \
+    z="zathura"
 
 # Main aliases
 alias \
 	mk='make && sudo make clean install' \
-	lo='kill -9 -1' \
+	lo='kill -9 -1 ; touch /home/hache/asdf' \
 	mo='mk && lo' \
 	monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero" \
 	off="shutdown -h now" \
