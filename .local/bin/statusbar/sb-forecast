@@ -20,8 +20,10 @@ setforecasticon () {
     case "$(sed '3q;d' "$weatherreport" | sed -r -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's/^[^a-zA-Z]+//g')" in
         "Partly cloudy") icon="" ;;
         "Clear"|"Sunny") icon="盛" ;;
+        *rain*) icon="" ;;
         #) icon="" ;;
         #*) icon="盛" ;;
+        #*) icon="" ;;
         *) icon="X" ;;
     esac;
 }

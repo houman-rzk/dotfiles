@@ -1,9 +1,11 @@
 #!/bin/sh
 
-deleted_dir="$WALLPAPERS_DIR/Deleted"
+DELETED_DIR="$WALLPAPERS_DIR/Deleted"
 
-current="$(readlink -f "$XDG_DATA_HOME/bg")"
+CURRENT="$(readlink -f "$XDG_DATA_HOME/bg")"
 
-[ ! -d "$deleted_dir" ] && mkdir "$deleted_dir"
+del_dir="$DELETED_DIR/$(dirname "$(echo "$CURRENT" | sed -e "s/.*$(basename "$WALLPAPERS_DIR")//g" -e 's/^\///g')")"
 
-mv "$current" "$deleted_dir" && setbg
+[ ! -d "$del_dir" ] && mkdir -p "$del_dir" > /dev/null 2>&1
+
+mv "$CURRENT" "$del_dir" && setbg
