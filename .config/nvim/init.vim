@@ -109,7 +109,7 @@ call plug#end()
 	map <C-s> "*y
     noremap <LeftRelease> "*y<LeftRelease>
 	" Toggle search highlighting
-	map <leader>H :set hlsearch!<CR>
+	"map <leader>H :set hlsearch!<CR>
 	" Disable search highlighting<CR>
 	map <ESC> :noh<CR>:<ESC>
     " Compile a [source, tex, groff, ...] file

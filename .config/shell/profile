@@ -1,5 +1,4 @@
 # This should come first
-#export PATH="$PATH$(find $HOME/.local/bin -type d -exec echo -n :'{}' ';')"
 export PATH="$(find $HOME/.local/bin -type d -exec echo -n '{}': ';')$PATH"
 
 # Default programs
@@ -33,8 +32,6 @@ export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
 export AWT_TOOLKIT=MToolkit
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-#export QT_QPA_PLATFORMTHEME=gtk2
-
 # SCREEN & GRAPHICS CONFIG
 # Sets the default display profile (see 'cycle-displays' script)
 export DEFAULT_DISPLAY_PROFILE="INTERNAL_ONLY"
@@ -61,7 +58,7 @@ export POWER_PROFILE_FILE="/tmp/current_power_profile"
 # Other config
 
 # Run commands
-#[ ! -f "$XDG_CONFIG_HOME/shell/shortcutrc" ] && shortcuts >/dev/null 2>&1 &
+[ ! -f "$XDG_CONFIG_HOME/shell/shortcutrc" ] && shortcuts >/dev/null 2>&1 &
 
 #Start X; this line should always be the last one
 exec startx "$XINITRC" >/dev/null 2>&1

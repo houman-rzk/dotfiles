@@ -8,6 +8,7 @@ Others/
 UBUNTU
 
 .config/amsynth/
+.config/keepassxc/
 .config/gnupg/
 .config/redyt
 .config/rncbc.org/
