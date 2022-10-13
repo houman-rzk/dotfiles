@@ -1,0 +1,9 @@
+#!/bin/sh
+
+DIR="$XDG_DATA_HOME/discord"
+
+[ ! -d "$DIR" ] && mkdir -p "$DIR" > /dev/null 2>&1
+
+HOME="$DIR"
+
+discord

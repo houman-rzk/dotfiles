@@ -29,7 +29,7 @@ eval \$"$NEXT"
 
 setbg -r
 
-remaps &
+remaps
 
 case $NEXT in
 	INTERNAL_ONLY) NAME="Internal only" ;;

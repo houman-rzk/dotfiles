@@ -17,6 +17,9 @@ setopt autocd				# Automatically cd into typed directory.
 stty stop undef				# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
+# Changing history
+setopt hist_ignore_dups
+
 export ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump"
 
 # Basic auto/tab complete:

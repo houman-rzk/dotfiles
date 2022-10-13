@@ -22,6 +22,8 @@ Plug 'junegunn/goyo.vim'
 " Syntax highlighting
 Plug 'sheerun/vim-polyglot'
 
+Plug 'ternjs/tern_for_vim'
+
 " Status bar
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -55,6 +57,7 @@ call plug#end()
 	set encoding=utf-8
 	set splitbelow splitright
 	set noswapfile
+    "set nowrapscan
     set ignorecase
     " Tabs
 	set tabstop=4 | set shiftwidth=4 | set expandtab | set softtabstop=4
@@ -76,21 +79,24 @@ call plug#end()
 
 " Shortcuts
     " Shell commands
-    map <leader>s :!
-    map <leader>l :!ls<CR>
-	" Split navigation shortcuts
-	"map <C-h> <C-w>h
-	"map <C-j> <C-w>j
-	"map <C-k> <C-w>k
-	"map <C-l> <C-w>l
-    " Tabs and buffers
+    map <leader>sh :!
+    map <leader>ls :!ls<CR>
+    map <leader>ot :!st >/dev/null 2>&1 & <Enter><Enter>
+    map <leader>lf :!st -e lf >/dev/null 2>&1 & <Enter><Enter>
+	" Split view, tab and buffer navigation shortcuts
+	map <leader>vh <C-w>h
+	map <leader>vj <C-w>j
+	map <leader>vk <C-w>k
+	map <leader>vl <C-w>l
     map <C-j> :tabn<CR>
     map <C-k> :tabp<CR>
+    map <C-n> :bn<CR>
+    map <C-p> :bp<CR>
     map <leader>tb :tab ball<CR>
     map <leader>t :tabe 
     map <leader>d :bd<CR>
 	" Run current file
-	map <leader>r :w \| !./%<CR>
+	map <leader>r :w \| !run "%"<CR>
 	" Shellcheck current file
 	map <leader>sc :w \| !shellcheck %<CR>
     " Write and Quit
@@ -106,38 +112,19 @@ call plug#end()
 	map <leader>H :set hlsearch!<CR>
 	" Disable search highlighting<CR>
 	map <ESC> :noh<CR>:<ESC>
-    " Compile .tex file
-	map <leader>c :w! \| !doc-compile "<c-r>%"<CR><CR>
-    " Open a file (only tex)
+    " Compile a [source, tex, groff, ...] file
+	map <leader>c :w! \| !compile "<c-r>%"<CR>
+    " Open a file
 	map <leader>p :!opout "<c-r>%"<CR><CR>
     " Coding
     map <leader>b a{<Enter>}<ESC>O
         " HTML
-    "map <leader><leader> /++<CR>xxi
-    "map <leader>ht i<++>++</++><ESC>9hxxi
-    "map <leader>hT i<++><CR>++<CR></++><ESC>4hki      <ESC>k2hxxi
-    "map <leader><leader> /++<CR>xx
-    "map <leader>ht i<++>++</++><ESC>9hxxi
-    "map <leader>hT i<++><CR>++<CR></++><ESC>4hki     <ESC>k2hxxi
-    map <leader><leader> i<><ESC>i
-    "map <leader>ht ?<<CR>ly$A</<ESC>p?><CR>li
-    "map <leader>ht ?<<CR>ly$A</<ESC>plD
-    "map <leader>ht yi>A</<ESC>pA><ESC>?><CR>/<\/<CR>i
-    "map <leader>ht $?<<CR>lyeA</<ESC>pA><ESC>?<\/<CR>i
-    "map <leader>ht ?<<CR>l"tyEA</<ESC>"tp?<\/<CR>i
+    "map <leader><leader> i<><ESC>i
+    map <leader><leader> a<><ESC>i
     map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
-    "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<TAB><><ESC>i
     map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
-    "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<space><space><space><space><><ESC>i
-    "map <leader>hT $?<<CR>l"tyeyypldi>i/<ESC>"tpO<><ESC>i
-    "map <leader>hT yypa/<ESC>O<><ESC>i
-    "map <leader>hT yypa/<ESC>O<><ESC>i
-    "map <leader>hT yypa/<ESC>O<Tab><><ESC>i
     map <leader>ho o<><ESC>i
     map <leader>hO O<><ESC>i
-    "map <leader><leader> i</><ESC>hi
-    "map <leader>ht /\/<CR>x?<<CR>ly$A</<ESC>p?><CR>li
-    "map <leader>hT /\/<CR>xyypa/<ESC>O<Tab></><ESC>hi
     
 " Plugin shortcuts & config
 	" Goyo
@@ -156,6 +143,8 @@ call plug#end()
 	let NERDTreeMapActivateNode = "l"
 	let NERDTreeMapToggleHidden = "H"
 	let NERDTreeMapUpdir = 'h'
+    let NERDTreeMapJumpNextSibling = '<C-N>'
+    let NERDTreeMapJumpPrevSibling = '<C-P>'
 
 " Eye candy
 	"let g:gruvbox_contrast_dark = "hard"
@@ -167,6 +156,8 @@ call plug#end()
 
 
 " Autocommands
+    " Open all tabs upon startin vim
+    autocmd VimEnter * :tab ball
     " When shortcut files are updated, renew shell config
     autocmd BufWritePost bm-files,bm-dirs :!shortcuts
     " Recompile and rerun dwmblocks on config edit

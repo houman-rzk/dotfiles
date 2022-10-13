@@ -9,6 +9,7 @@ pywal_setbg() {
     # COURTESY OF LUKE SMITH'S VOIDRICE
     # If pywal is installed, use it.
     if command -v wal >/dev/null 2>&1 ; then
+        touch /tmp
         wal -ni "$(readlink -f "$WALLPAPER_LINK")" -o "$XDG_CONFIG_HOME/wal/postrun" > /dev/null 2>&1
     # If pywal is not installed, return config files to normal.
     else
@@ -39,9 +40,9 @@ if [ "$#" -eq 1 ] ; then
 else
     { [ ! -f "$WALLPAPERS_FILE" ] || [ "$(wc -l "$WALLPAPERS_FILE" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && create_wallpapers_file
 
-    ln -s "$(head -n 1 "$WALLPAPERS_FILE")" "$WALLPAPER_LINK"
+    ln -s "$(sed '1q' "$WALLPAPERS_FILE")" "$WALLPAPER_LINK"
 
-    tail -n +2 "$WALLPAPERS_FILE" > /tmp/wallpapers-file.tmp && mv /tmp/wallpapers-file.tmp "$WALLPAPERS_FILE"
+    sed '1d' "$WALLPAPERS_FILE" > "$WALLPAPERS_FILE".tmp && mv "$WALLPAPERS_FILE".tmp "$WALLPAPERS_FILE"
 fi
 
 pywal_setbg

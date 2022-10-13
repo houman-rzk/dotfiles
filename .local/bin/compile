@@ -1,0 +1,44 @@
+#!/bin/sh
+
+file=$(readlink -f "$1")
+dir=${file%/*}
+basename="${file%.*}"
+ext="${file##*.}"
+
+tex_cleanup () {
+	rm "$basename.aux" >/dev/null 2>&1
+	rm "$basename.toc" >/dev/null 2>&1
+
+    [ "$1" = "--keep-log" ] || rm "$basename.log" >/dev/null 2>&1
+}
+
+# Compile a latex file
+tex_compile () {
+    { xelatex --output-directory="$dir" "$file" >/dev/null 2>&1 && tex_cleanup ;} || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log ;}
+    #{ xelatex --output-directory="$dir" "$file" >/dev/null 2>&1 && tex_cleanup ;} || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log && sleep 3 ;}
+}
+
+# Compile a groff file
+groff_compile() {
+    groff -k -"$ext" "$file" -T pdf 1> "$basename.pdf"
+    #groff -k -"$ext" "$file" -T pdf 1> "$basename.pdf" 2>/tmp/groff_compile.log
+    #[ "$(wc -l /tmp/groff_compile.log | awk '{print $1}')" -ne 0 ] && echo "ERROR: Could not compile." && cat /tmp/groff_compile.log && sleep 3 && exit 1
+}
+
+# Compile a java program
+java_compile() {
+    javac "$file"
+    #javac "$file" 2>/tmp/java_compile.log
+}
+
+# Compile a C++ program
+cpp_compile() {
+    g++ "$file" -Wall -o "$basename"
+}
+
+case "$ext" in
+    tex) tex_compile ;;
+    ms|mm|me) groff_compile ;;
+    java) java_compile ;;
+    cpp) cpp_compile ;;
+esac

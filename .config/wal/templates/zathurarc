@@ -1,5 +1,13 @@
+# Main settings
 set selection-clipboard clipboard
+set sandbox none
 
+# Mappings and shortcuts
+map b navigate previous
+map <Space> navigate next
+map t exec "setsid -f st"
+
+# Colors
 set default-bg                     "{background}"
 set default-fg                     "{foreground}"
 set statusbar-bg                   "{background}"

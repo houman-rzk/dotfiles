@@ -11,15 +11,15 @@ cmd open ${{
 		video/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
 		audio/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" ;;
 		image/*) setsid -f sxiv -a "$f" >/dev/null 2>&1 ;;
-		#text/*) setsid -f $TERMINAL -e $EDITOR "$fx" ;;
         application/octet-stream) setsid -f gpg -dq "$f" ;;
-		text/*) $EDITOR "$fx" ;;
+		text/*) echo "$fx" | tr "\n" '"' | sed 's/"/" "/g' | sed 's/^/"/g' | sed 's/" "$/"/g' | xargs $EDITOR ;;
 		application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
         inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
         #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
         application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+        inode/x-empty) $EDITOR "$f" ;;
 		#*) for f in "$fx" ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
 		*) setsid -f xdg-open "$f" >/dev/null 2>&1 ;;
 	esac
@@ -33,24 +33,37 @@ cmd edit ${{
 		application/epub+zip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
 	esac
 }}
+
+cmd extract ${{
+	case $(file --mime-type -b "$f") in
+		application/zip) unzip "$f" ;;
+		application/gzip) tar -xvf "$f" ;;
+		application/x-rar) unrar x "$f" ;;
+	esac
+}}
+
 cmd on-cd &{{
     printf "\033]0;lf $PWD\007" > /dev/tty
 }}
+
 on-cd
 
 cmd q quit
 cmd setbg $setbg "$f"
-cmd uz $unzip "$f"
 
-map o open
+#map o open
 map e edit
 map <enter> shell
 map <c-r> reload
 map D delete
 map H set hidden!
 map <c-n> push $mkdir<space>
-map <c-v> push $$EDITOR<enter>
-map x push $unzip<space>"$f"<enter>
+map <c-v> push $$EDITOR<space>
+map x extract
+map sh push $curl<space>-F<space>"file=@$f"<space>0x0.st<space>2>/dev/null<space>|<space>xclip<space>-sel<space>c<enter>
+map T push $file<space>--mime-type<space>"$f"<space>;<space>sleep<space>2<enter>
+map ot push $setsid<space>-f<space>st<space>>/dev/null<space>2>&1<enter>
+map ol push $setsid<space>-f<space>st<space>-e<space>lf<enter>
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner

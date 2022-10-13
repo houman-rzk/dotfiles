@@ -29,6 +29,7 @@ progressbar_color = black:b
 progressbar_elapsed_color = blue:b
 statusbar_color = red
 statusbar_time_color = cyan:b
+show_hidden_files_in_local_browser = no
 
 execute_on_player_state_change=pkill -RTMIN+7 dwmblocks
 #execute_on_player_state_change=music-control notify

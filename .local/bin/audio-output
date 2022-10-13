@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # Audio Profiles (remember to append them to the "array" below and to add the correspinding case)
-INTERNAL_ONLY="pactl set-card-profile 0 output:analog-stereo+input:analog-stereo"
+INTERNAL_ONLY="pactl set-card-profile 0 output:analog-stereo+input:analog-stereo" # ORIGINAL
+#INTERNAL_ONLY="pactl set-card-profile 0 output:iec958-stereo+input:analog-stereo"
 #EXTERNAL_ONLY="pactl set-card-profile 0 output:hdmi-stereo-extra1+input:analog-stereo"
 EXTERNAL_ONLY="pactl set-card-profile 0 output:hdmi-stereo+input:analog-stereo"
 

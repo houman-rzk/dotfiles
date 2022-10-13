@@ -1,0 +1,11 @@
+#!/bin/sh
+
+file="$(readlink -f "$1")"
+dir="${file%/*}"
+filename="$(echo "$file" | rev | cut -d '/' -f 1 | rev)"
+filenameNoExt="${filename%.*}"
+ext="${file##*.}"
+
+case "$ext" in
+    java) java -cp "$dir" "$filenameNoExt" ;;
+esac

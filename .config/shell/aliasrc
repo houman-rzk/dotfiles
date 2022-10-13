@@ -33,7 +33,6 @@ alias \
 	piu="pacman -Syu" \
 	ue="pacman -Syu --noconfirm && exit" \
 	pr="pacman -Rs" \
-    nc="ncmpcpp" \
     nb="newsboat" \
     dm="udisksctl mount -b" \
     dum="udisksctl unmount -b" \
@@ -44,9 +43,12 @@ alias \
     ud="update-dwmblocks" \
     clc="clear-clipboards" \
     mkx="chmod u+x" \
+    sxiv="sxiv -a" \
     iv="sxiv" \
     sv="sudo $EDITOR" \
-    z="zathura"
+    z="zathura" \
+    ot="setsid -f st" \
+    pass="password"
 
 # Main aliases
 alias \
@@ -64,4 +66,7 @@ alias \
     nstart="rfkill unblock wifi ; systemctl start NetworkManager" \
     nstop="rfkill block wifi ; systemctl stop NetworkManager" \
     dmcd="source $(which disk-mount-cd)" \
-    uv-vpn="sudo openvpn Home/GII/3º/General/VPN/UV.ovpn"
+    uv-vpn="sudo openvpn Home/GII/3º/General/VPN/UV.ovpn" \
+    focus="mpc clear 1>/dev/null && mpc random on 1>/dev/null && mpc load Classical 1>/dev/null && mpc play 1>/dev/null && music-control notify" \
+    share='curl -F "file=@$(find $HOME -maxdepth 2 -type f | dmenu -l 15)" 0x0.st 2>/dev/null | xclip -sel c' \
+    sync-gii="rsync -av --delete --rsh=ssh ~/Home/GII/ pi:/home/hache/DRIVE/GII/"

@@ -1,10 +1,13 @@
 #!/bin/sh
 
 OLD_HOME=$HOME
-HOME=$XDG_DATA_HOME/netbeans
-#JAVA_HOME=/usr/lib/jvm/java-18-openjdk
+DIR="$XDG_DATA_HOME/netbeans"
 
-netbeans &
+[ ! -d "$DIR" ] && mkdir -p "$DIR" > /dev/null 2>&1
+
+HOME="$DIR"
+
+setsid -f netbeans
 
 sleep 10
 

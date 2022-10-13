@@ -1,0 +1,18 @@
+#!/bin/sh
+
+LOGFILE=/tmp/jflex.log
+
+[ $# -ne 2 ] && echo "ERROR: Incorrect number of arguments (should be two). (definition source)" && exit 1
+
+jflex "$1" > $LOGFILE || { cat $LOGFILE && rm $LOGFILE > /dev/null 2>&1 && exit 1 ;}
+
+output="$(tail -n 1 $LOGFILE | cut -d '"' -f 2 | sed 's/.java//g')"
+
+rm $LOGFILE > /dev/null 2>&1
+
+javac "$output.java" -cp ~/.local/share/jflex-1.8.2/lib/java-cup-11b.jar || { echo "ERROR: Error in compiling the file" && exit 1 ;}
+
+java "$output" "$2" || { echo "ERROR: Error in execution" && exit 1 ;}
+
+rm "$output"*.java* > /dev/null 2>&1
+rm "$output"*.class* > /dev/null 2>&1
