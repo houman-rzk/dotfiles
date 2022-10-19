@@ -8,6 +8,7 @@ Others/
 UBUNTU
 
 .config/amsynth/
+.config/nvim/.local/
 .config/keepassxc/
 .config/gnupg/
 .config/redyt
@@ -64,3 +65,5 @@ UBUNTU
 .local/share/syncthing/
 
 .cache/
+/NetBeansProjects/JavaApplication1/nbproject/private/
+/NetBeansProjects/JavaApplication1/build/

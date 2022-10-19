@@ -8,4 +8,5 @@ ext="${file##*.}"
 
 case "$ext" in
     java) java -cp "$dir" "$filenameNoExt" ;;
+    *) "$dir/$filename" ;;
 esac

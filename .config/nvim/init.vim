@@ -22,7 +22,8 @@ Plug 'junegunn/goyo.vim'
 " Syntax highlighting
 Plug 'sheerun/vim-polyglot'
 
-Plug 'ternjs/tern_for_vim'
+"Plug 'ternjs/tern_for_vim'
+"Plug 'neoclide/coc.nvim'
 
 " Status bar
 Plug 'itchyny/lightline.vim'
@@ -49,7 +50,6 @@ Plug 'KabbAmine/vCoolor.vim'
 "Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 call plug#end()
-
 " Some basiscs
 	set number relativenumber
 	syntax on
@@ -116,7 +116,7 @@ call plug#end()
 	map <leader>c :w! \| !compile "<c-r>%"<CR>
     " Open a file
 	map <leader>p :!opout "<c-r>%"<CR><CR>
-    " Coding
+    " Coding & Soy-devvery
     map <leader>b a{<Enter>}<ESC>O
         " HTML
     "map <leader><leader> i<><ESC>i
@@ -125,15 +125,20 @@ call plug#end()
     map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
     map <leader>ho o<><ESC>i
     map <leader>hO O<><ESC>i
+        " JS (omg nooo)
+            " User omnicomplete, since YCM-JS doesn't work without ~/.tern-config
+    inoremap <C-Space> <C-x><C-o>
     
 " Plugin shortcuts & config
 	" Goyo
 	map <leader>g :Goyo \| :hi Normal ctermbg=none<CR><ESC>
 	" YouCompleteMe
+        " For YCM-JS's need to have an un-relocatable ~/.tern-config
+    let $HOME="/home/hache/.config/nvim"
         " Disable only highlighting (sometimes its illegible)
-    "let g:ycm_enable_diagnostic_highlighting = 0
+    let g:ycm_enable_diagnostic_highlighting = 0
         " Disable all graphic stuff
-    let g:ycm_show_diagnostics_ui = 0
+    "let g:ycm_show_diagnostics_ui = 0
         " Remaps
 	map <Tab> <C-n>
 	map <S-Tab> <C-p>

@@ -10,7 +10,7 @@ cmd open ${{
 	case $(file --mime-type -b "$f") in
 		video/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
 		audio/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" ;;
-		image/*) setsid -f sxiv -a "$f" >/dev/null 2>&1 ;;
+		image/*) setsid -f nsxiv -a "$f" >/dev/null 2>&1 ;;
         application/octet-stream) setsid -f gpg -dq "$f" ;;
 		#text/*) echo "$fx" | tr "\n" '"' | sed 's/"/" "/g' | sed 's/^/"/g' | sed 's/" "$/"/g' | xargs $EDITOR ;;
 		text/*) echo "$fx" | tr "\n" '|' | sed -e 's/|$/"/g' -e 's/|/|-c "tabe /g' -e 's/|-c/" -c/g' -e 's/^/"/' | xargs $EDITOR ;;
@@ -43,6 +43,10 @@ cmd extract ${{
 	esac
 }}
 
+cmd trash ${{
+    echo "$fx" | while read -r l ; do mv "$l" $XDG_DATA_HOME/Trash/ ; done
+}}
+
 cmd on-cd &{{
     printf "\033]0;lf $PWD\007" > /dev/tty
 }}
@@ -57,8 +61,10 @@ map e edit
 map <enter> shell
 map <c-r> reload
 map D delete
+#map D trash
 map H set hidden!
 map <c-n> push $mkdir<space>
+map a push $mkdir<space>
 map <c-v> push $$EDITOR<space>
 map x extract
 map sh push $curl<space>-F<space>"file=@$f"<space>0x0.st<space>2>/dev/null<space>|<space>xclip<space>-sel<space>c<enter>

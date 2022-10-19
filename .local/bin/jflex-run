@@ -1,13 +1,29 @@
 #!/bin/sh
 
-# Jflex lib directory path variable (should be set to your /path/to/jflex/lib/ directory)
-JFLEXLIB="$XDG_DATA_HOME/jflex-1.8.2/lib"
+# Jflex lib directory path variable (should be set to your /path/to/jflex/lib/ directory). Leaving it empty will set it automatically (see 'setAndCheckVars' function).
+JFLEXLIB=""
 
-# Java-cup jar file variable (should be set to your /path/to/java-cup.jar file)
-JAVACUPJAR="$JFLEXLIB/java-cup-11b.jar"
+# Java-cup jar file variable (should be set to your /path/to/java-cup.jar file, which should preferably be inside /path/to/jflex/lib/). Leaving it empty will set it automatically (see 'setAndCheckVars' function).
+JAVACUPJAR=""
 
 
-# Function definitions
+
+# Automatic setting of variables
+scriptName="$(echo "$0" | rev | cut -d '/' -f 1 | rev)"
+setAndCheckVars() {
+    [ "$JFLEXLIB" = "" ] && JFLEXLIB="$(find "$XDG_DATA_HOME" -iwholename "*jflex*/lib" | head -n 1)"
+    
+    [ "$JAVACUPJAR" = "" ] && JAVACUPJAR="$(find "$JFLEXLIB" -iwholename "*cup*.jar" | grep -v runtime | head -n 1)"
+
+    [ "$JFLEXLIB" = "" ] && { echo "ERROR - Could not find the jflex 'lib' directory." ; echo "Run '$scriptName -h' for help" ; exit 1 ;}
+    
+    [ "$JAVACUPJAR" = "" ] && [ -n "$cupFile" ] && { echo "ERROR - Could not find the java cup 'jar' file." ; echo "Run '$scriptName -h' for help" ; exit 1 ;} 
+}
+
+
+
+### Function definitions
+# Run without cup
 jflexRun() {
     LOGFILE=/tmp/jflex.log
     
@@ -17,17 +33,17 @@ jflexRun() {
     
     rm $LOGFILE > /dev/null 2>&1
     
-    javac "$output.java" || { echo "ERROR: Error in compiling the file" && exit 1 ;}
-    #javac "$output.java" -cp ~/.local/share/jflex-1.8.2/lib/java-cup-11b.jar || { echo "ERROR: Error in compiling the file" && exit 1 ;}
+    javac "$output.java" || { echo "ERROR - Error in compiling the file" && exit 1 ;}
     
     # Run
-    java "$output" "$sourceFile" || { echo "ERROR: Error in execution" && exit 1 ;}
+    java "$output" "$sourceFile" || { echo "ERROR - Error in execution" && exit 1 ;}
     
     # Cleanup
     rm "$output"*.java* > /dev/null 2>&1 ; rm "$output"*.class* > /dev/null 2>&1
 }
 
-jflexCupsRun() {
+# Run with cup
+jflexCupRun() {
     LOGFILE=/tmp/jflex-java-cup.log
     
     jflex "$jflexFile" > $LOGFILE || { cat $LOGFILE && rm $LOGFILE > /dev/null 2>&1 && exit 1 ;}
@@ -50,7 +66,7 @@ jflexCupsRun() {
     done < files
 
     # Run
-    java -cp "$JFLEXLIB":. "$executable" "$sourceFile" || { echo "ERROR: Error in execution" && exit 1 ;}
+    java -cp "$JFLEXLIB":. "$executable" "$sourceFile" || { echo "ERROR - Error in execution" && exit 1 ;}
 
     # Cleanup
     rm ./*.java* > /dev/null 2>&1 ; rm ./*.class* > /dev/null 2>&1 ; rm files > /dev/null 2>&1
@@ -58,21 +74,22 @@ jflexCupsRun() {
 
 
 printHelp() {
-    scriptName="$(echo "$0" | rev | cut -d '/' -f 1 | rev)"
     printf "Usage: %s [OPTIONS]\n\n" "$scriptName"
     printf "%s options:\n" "$scriptName"
-    echo "    -h          Print this help message.
-    -j <file>   Uses <file> as jflex specification file.
-    -s <file>   Uses <file> as source code file.
-    -c <file>   (Optional) Uses <file> as java-cup specification file.
-    -l <dir>    (Optional) Path to library that jflex should use. Multiple libraries can be specified by separating them with ':' (as in <dir>:<dir>).
+    echo "    -h          Display this help and exit.
+    -j <file>   Use <file> as jflex lexical specification file.
+    -s <file>   Use <file> as source code file.
+    -c <file>   (Optional) Use <file> as cup specification file.
+    -l <dir>    (Optional) Path to library directory. Multiple library directories can be specified by separating them with ':' (as in <dir>:<dir>).
 
     Notes: 
-    - To use java-cup you must have the 'java-cup-VERSION.jar' and java-cup-runtime-VERSION.jar' files in your /path/to/jflex/lib/ directory (you can set it using the 'JFLEXLIB' variable found in this script's source or by using the '-l' option."
+    - To use java-cup you must have the 'java-cup-<version>.jar' and java-cup-runtime-<version>.jar' files in your /path/to/jflex/lib/ directory (you can specify this directory by setting the 'JFLEXLIB' variable or by using the '-l' option.
+    - Check the source code, it's the best documentation ;)"
 }
 
 
-# The actual script
+
+### The actual script
 optstring=":hj:s:c:"
 
 while getopts $optstring opt ; do
@@ -82,15 +99,17 @@ while getopts $optstring opt ; do
         j) jflexFile="$OPTARG" ;;
         s) sourceFile="$OPTARG" ;;
         l) JFLEXLIB="$OPTARG" ;;
-        \?) echo "ERROR - Unknown option '-$OPTARG'" && exit 1 ;;
+        \?) echo "ERROR - Unknown option '-$OPTARG'" ; echo "Run '$scriptName -h' for help" ; exit 1 ;;
     esac
 done ;
 
-[ -z "$jflexFile" ] && echo "ERROR - Missing jflex specification file (-j file)" && exit 1
-[ -z "$sourceFile" ] && echo "ERROR - Missing source file (-s file)" && exit 1
+setAndCheckVars
+
+[ -z "$jflexFile" ] && { echo "ERROR - Missing jflex specification file" ; echo "Run '$scriptName -h' for help" && exit 1 ;}
+[ -z "$sourceFile" ] && { echo "ERROR - Missing source file" ; echo "Run '$scriptName -h' for help" ; exit 1 ;}
 
 if [ -z "$cupFile" ] ; then
     jflexRun
 else
-    jflexCupsRun
+    jflexCupRun
 fi

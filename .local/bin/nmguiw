@@ -1,0 +1,5 @@
+#!/bin/sh
+
+HOME="$XDG_DATA_HOME/nmgui"
+
+nmgui
