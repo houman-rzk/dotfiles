@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Check if necessary programs are installed
-for prog in dmenu jq sxiv; do
+for prog in dmenu jq nsxiv; do
 #for prog in dmenu jq feh; do
 	[ ! "$(which "$prog")" ] && echo "Please install $prog!" && exit 1
 done
@@ -100,9 +100,9 @@ rm "$cachedir/tmp.json"
 
 # Display the images
 if [ $FILTER -eq 1 ]; then
-	sxiv -a -o "$cachedir"
+	nsxiv -a -o "$cachedir"
 else
-	sxiv -a "$cachedir"
+	nsxiv -a "$cachedir"
 fi
 
 # Once finished, remove all of the cached images

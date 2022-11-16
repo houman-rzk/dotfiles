@@ -9,3 +9,4 @@ case "$status" in
 esac
 
 pkill -RTMIN+7 dwmblocks
+pkill -RTMIN+6 dwmblocks

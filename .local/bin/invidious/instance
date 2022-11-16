@@ -1,0 +1,19 @@
+#!/bin/sh
+#THIS WHOLE OPERATION COULD USE YT-DLP INSTEAD OF INVIDIOUS, BUT IT WOULD MAKE THE VIDEO RETRIEVAL PROCESS SLOWER
+#FOR EXAMPLE:
+#yt-dlp --get-title --get-id "https://www.youtube.com/user/DrossRotzank"
+#ALSO USING 'uniq' COMMAND FOR THE DATABASE IDK...
+#THIS PROGRAM SHOULD ALSO ALLOW TO WATCH PLAYLISTS AND SEARCH FOR VIDEOS/CHANNELS/PLAYLISTS
+
+rawInstances="/tmp/rawInstances"
+instances="/tmp/instances"
+
+curl "https://redirect.invidious.io/" 2>/dev/null | sed 's/></>\n</g' > "$rawInstances"
+
+grep href "$rawInstances" | grep https | grep -v youtube | grep -v github | grep -o --color=never '>.*<' | sed -e 's/^>//g' -e 's/<$//g' > "$instances"
+
+selection="$(dmenu -i -l 15 -p "Select instance:" < "$instances")"
+
+url="$(grep "$selection" "$rawInstances" | sed -e 's/^.*"https/https/g' -e 's/".*$//g')"
+
+channel "$url"

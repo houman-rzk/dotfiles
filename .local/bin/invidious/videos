@@ -1,0 +1,25 @@
+#!/bin/sh
+
+videoRaw="/tmp/videoRaw"
+videoNames="/tmp/videoNames"
+videoUrls="/tmp/videoUrls"
+
+channel="$1"
+
+cat /dev/null > "$videoRaw"
+
+while ! grep watch "$videoRaw" >/dev/null 2>&1 ; do
+    curl "$channel?page=1" 1> "$videoRaw" 2>/dev/null
+done
+
+grep watch "$videoRaw" | grep youtube | grep -o --color=never 'https://.*"' | sed 's/"$//g' > "$videoUrls"
+
+grep 'p dir="auto"' "$videoRaw" | grep -o --color=never '>.*<' | sed -e 's/^>//g' -e 's/<$//g' -e 's/&quot;/"/g' > "$videoNames"
+
+selection="$(dmenu -i -l 15 < "$videoNames")"
+
+line="$(grep -n "$selection" "$videoNames" | cut -d ':' -f 1)"
+
+url="$(sed "${line}q;d" "$videoUrls")"
+
+umpv.py "$url" >/dev/null

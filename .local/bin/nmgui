@@ -1,6 +1,11 @@
 #!/bin/sh
 
-nm-applet >/dev/null 2>&1 &
-stalonetray >/dev/null 2>&1
-killall nm-applet
+HOME="$XDG_DATA_HOME/nmgui"
 
+[ ! -d "$HOME" ] && mkdir -p "$HOME"
+
+nm-applet >/dev/null 2>&1 &
+
+stalonetray >/dev/null 2>&1
+
+killall nm-applet

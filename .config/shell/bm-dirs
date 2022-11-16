@@ -7,3 +7,5 @@ cf      $XDG_CONFIG_HOME
 bin     $HOME/.local/bin
 media   /run/media/$USER
 tmp     /tmp
+trns    $XDG_DOWNLOAD_DIR/Transmission
+trash   $XDG_DATA_HOME/Trash

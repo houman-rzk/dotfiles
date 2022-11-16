@@ -2,6 +2,8 @@
 inode/directory=lf.desktop
 application/pdf=org.pwmt.zathura.desktop
 x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_usr_lib_eclipse_.desktop
+text/plain=vim.desktop
 
 [Added Associations]
 text/plain=firefox.desktop;

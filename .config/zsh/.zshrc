@@ -102,3 +102,4 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.pl
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 
 #cat $XDG_CACHE_HOME/wal/sequences
+#fortune -s | cowsay

@@ -12,7 +12,7 @@ lfrc        $XDG_CONFIG_HOME/lf/lfrc
 autoconf    $HOME/.local/src/autoconfig/autoconfig
 bm-files    $XDG_CONFIG_HOME/shell/bm-files
 bm-dirs     $XDG_CONFIG_HOME/shell/bm-dirs
-hist        $HISTFILE
 ideas       $HOME/Home/Documents/Resources/Ideas
 xprofile    $XDG_CONFIG_HOME/x11/xprofile
 gt          $HOME/GII/TODO
+nburls      $XDG_CONFIG_HOME/newsboat/urls

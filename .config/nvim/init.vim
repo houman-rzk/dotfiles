@@ -80,20 +80,25 @@ call plug#end()
 " Shortcuts
     " Shell commands
     map <leader>sh :!
-    map <leader>ls :!ls<CR>
-    map <leader>ot :!st >/dev/null 2>&1 & <Enter><Enter>
-    map <leader>lf :!st -e lf >/dev/null 2>&1 & <Enter><Enter>
+    map <leader>sls :!ls<CR>
+    map <leader>sst :!st >/dev/null 2>&1 & <Enter><Enter>
+    "map <leader>slf :!setsid -f st -e multi-lf >/dev/null 2>&1 & <Enter><Enter>
 	" Split view, tab and buffer navigation shortcuts
 	map <leader>vh <C-w>h
 	map <leader>vj <C-w>j
 	map <leader>vk <C-w>k
 	map <leader>vl <C-w>l
-    map <C-j> :tabn<CR>
-    map <C-k> :tabp<CR>
-    map <C-n> :bn<CR>
-    map <C-p> :bp<CR>
+    "map <C-l> :tabn<CR>
+    "map <C-h> :tabp<CR>
+    "map <C-j> :bn<CR>
+    "map <C-k> :bp<CR>
+    map <leader>j :bn<CR>
+    map <leader>k :bp<CR>
+    map <leader>l :tabn<CR>
+    map <leader>h :tabp<CR>
     map <leader>tb :tab ball<CR>
     map <leader>t :tabe 
+    map <leader>e :e 
     map <leader>d :bd<CR>
 	" Run current file
 	map <leader>r :w \| !run "%"<CR>
@@ -107,9 +112,12 @@ call plug#end()
 	" Clipboard shortcuts
 	map <C-c> "+y
 	map <C-s> "*y
+    map <leader>as ggVG"*y
+    map <leader>ac ggVG"+y
     noremap <LeftRelease> "*y<LeftRelease>
 	" Toggle search highlighting
 	"map <leader>H :set hlsearch!<CR>
+	map <leader>W :set wrapscan!<CR>
 	" Disable search highlighting<CR>
 	map <ESC> :noh<CR>:<ESC>
     " Compile a [source, tex, groff, ...] file
@@ -120,11 +128,13 @@ call plug#end()
     map <leader>b a{<Enter>}<ESC>O
         " HTML
     "map <leader><leader> i<><ESC>i
-    map <leader><leader> a<><ESC>i
-    map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
-    map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
-    map <leader>ho o<><ESC>i
-    map <leader>hO O<><ESC>i
+    function! MappingsHTML()
+        map <leader><leader> a<><ESC>i
+        map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
+        map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
+        map <leader>ho o<><ESC>i
+        map <leader>hO O<><ESC>i
+    endfunction
         " JS (omg nooo)
             " User omnicomplete, since YCM-JS doesn't work without ~/.tern-config
     inoremap <C-Space> <C-x><C-o>
@@ -168,6 +178,9 @@ call plug#end()
     " Recompile and rerun dwmblocks on config edit
 	"autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo -S make install && { killall -q dwmblocks ; setsid -f dwmblocks }
     autocmd BufEnter,BufNew *.html :NoMatchParen
+    autocmd BufEnter,BufNew *.html call MappingsHTML()
+    " File-extension-dependent mappings
+    "autocmd BufEnter,BufNew *.java :map <leader>jo aSystem.out.println();<ESC>hi
 
 " Makes tabfind easier
     set path=.,,**

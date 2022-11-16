@@ -1,0 +1,11 @@
+#!/bin/sh
+
+playlist="$(mpc lsplaylists | dmenu -i -l 10)"
+
+if [ ! "$playlist" = "" ] ; then
+    mpc clear 1>/dev/null
+    mpc random on 1>/dev/null
+    mpc load "$playlist" 1>/dev/null
+    mpc play 1>/dev/null
+    music-control notify
+fi

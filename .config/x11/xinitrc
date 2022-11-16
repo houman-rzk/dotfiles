@@ -6,4 +6,7 @@ dwmblocks &
 
 update-dwmblocks &
 
+xset -dpms
+xset s off
+
 exec dwm

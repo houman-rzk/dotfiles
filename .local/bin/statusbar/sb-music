@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$(mpc | wc -l)" -ne 1 ] && song="$(mpc status | head -n 1)"
+[ "$(mpc | wc -l)" -ne 1 ] && song="$(mpc -f '%title% (%album%) - %artist%' | head -n 1)"
 
 case $BLOCK_BUTTON in
     1) music-control toggle ;;

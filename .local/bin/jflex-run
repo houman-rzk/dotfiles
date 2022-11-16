@@ -25,6 +25,9 @@ setAndCheckVars() {
 ### Function definitions
 # Run without cup
 jflexRun() {
+    # Cleanup
+    rm "$output"*.java* > /dev/null 2>&1 ; rm "$output"*.class* > /dev/null 2>&1
+
     LOGFILE=/tmp/jflex.log
     
     jflex "$jflexFile" > $LOGFILE || { cat $LOGFILE && rm $LOGFILE > /dev/null 2>&1 && exit 1 ;}
@@ -44,6 +47,9 @@ jflexRun() {
 
 # Run with cup
 jflexCupRun() {
+    # Cleanup
+    rm ./*.java* > /dev/null 2>&1 ; rm ./*.class* > /dev/null 2>&1 ; rm files > /dev/null 2>&1
+
     LOGFILE=/tmp/jflex-java-cup.log
     
     jflex "$jflexFile" > $LOGFILE || { cat $LOGFILE && rm $LOGFILE > /dev/null 2>&1 && exit 1 ;}
