@@ -1,0 +1,24 @@
+#!/bin/sh
+
+PASS_DB="/mnt/Shared/Home/Others/Syncthing/keepass.kdbx"
+command="keepassxc-cli clip -a password $PASS_DB"
+
+acc="$(dmenu -p "Account:" < /dev/null)"
+
+case "$acc" in
+    uv|UV) dmenu -P -p "Password:" | $command "Portal UV" && exit 0 ;;
+    ms|MS) dmenu -P -p "Password:" | $command "Microsoft" && exit 0 ;;
+    *) dmenu -P -p "Password:" | $command "$acc" && exit 0 ;;
+esac
+
+notify-send -u low "Incorrect password"
+
+exit 1
+
+#[ "$#" -ne 1 ] && echo "ERROR: Incorrect number of arguments. Should be only one" && exit 1
+
+#case "$1" in
+#    uv|UV) $command "Portal UV" ;;
+#    ms|MS) $command "Microsoft" ;;
+#    *) $command "$1" ;;
+#esac

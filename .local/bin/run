@@ -8,5 +8,7 @@ ext="${file##*.}"
 
 case "$ext" in
     java) java -cp "$dir" "$filenameNoExt" ;;
+    lisp) clisp "$filename" ;;
+    tex) setsid -f xdg-open "$filenameNoExt.pdf" ;;
     *) "$dir/$filename" ;;
 esac

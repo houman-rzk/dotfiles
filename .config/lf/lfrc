@@ -22,6 +22,7 @@ cmd open ${{
         inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
         #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
         application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid -f libreoffice "$f" ;;
         inode/x-empty) $EDITOR "$f" ;;
 		#*) for f in "$fx" ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
 		*) setsid -f xdg-open "$f" >/dev/null 2>&1 ;;

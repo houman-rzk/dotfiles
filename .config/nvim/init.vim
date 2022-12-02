@@ -123,7 +123,7 @@ call plug#end()
     " Compile a [source, tex, groff, ...] file
 	map <leader>c :w! \| !compile "<c-r>%"<CR>
     " Open a file
-	map <leader>p :!opout "<c-r>%"<CR><CR>
+	"map <leader>p :!opout "<c-r>%"<CR><CR>
     " Coding & Soy-devvery
     map <leader>b a{<Enter>}<ESC>O
         " HTML
@@ -144,7 +144,7 @@ call plug#end()
 	map <leader>g :Goyo \| :hi Normal ctermbg=none<CR><ESC>
 	" YouCompleteMe
         " For YCM-JS's need to have an un-relocatable ~/.tern-config
-    let $HOME="/home/hache/.config/nvim"
+    "let $HOME="/home/hache/.config/nvim"
         " Disable only highlighting (sometimes its illegible)
     let g:ycm_enable_diagnostic_highlighting = 0
         " Disable all graphic stuff

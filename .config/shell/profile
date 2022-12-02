@@ -5,6 +5,7 @@ export PATH="$(find $HOME/.local/bin -type d -exec echo -n '{}': ';')$PATH"
 export TERMINAL="st"
 export EDITOR="nvim"
 export BROWSER="firefox"
+export SYSTEMMONITOR="gtop"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -46,6 +47,10 @@ export DEFAULT_REDSHIFT_VALUE=6500
 export REDSHIFT_FILE="/tmp/current_redshift_value"
 # Sets the default GPU to be used (1:NVIDIA, 2:Intel). To switch between these profiles: Change the value and log back in. Check current GPU with 'glxinfo | grep "OpenGL renderer"'
 export DRI_PRIME=2
+
+# For DBMS's
+export SQLITE_HISTORY="$XDG_CACHE_HOME/sqlite_history"
+export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
 
 # AUDIO CONFIG
 export DEFAULT_AUDIO_PROFILE="INTERNAL_ONLY"

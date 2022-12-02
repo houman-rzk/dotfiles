@@ -1,14 +1,13 @@
 #!/bin/sh
 
-[ "$(mpc | wc -l)" -ne 1 ] && song="$(mpc -f '%title% (%album%) - %artist%' | head -n 1)"
+[ "$(mpc | wc -l)" -ne 1 ] && song="$(printf "\n%s" "$(mpc -f '%title% (%album%) - %artist%' | head -n 1)")"
 
 case $BLOCK_BUTTON in
     1) music-control toggle ;;
     #1) mpc toggle >/dev/null 2>&1 ;;
     2) setsid -f "$TERMINAL" -e ncmpcpp ; pkill -RTMIN+7 dwmblocks ;;
     #2) xdotool key super+shift+m ;;
-    3) dunstify -u low -r 1 -t 5000 "Music Module
-$song" "\- Left click to play/pause
+    3) dunstify -u low -r 1 -t 5000 "Music Module$song" "\- Left click to play/pause
 \- Middle click to open ncmpcpp
 \- Scroll up to go to next song
 \- Scroll down to go to previous song" ;;

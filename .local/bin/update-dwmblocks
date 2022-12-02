@@ -1,5 +1,9 @@
 #!/bin/sh
 
+[ "$1" = "-r" ] && killall dwmblocks >/dev/null 2>&1
+
+pidof dwmblocks >/dev/null 2>&1 || setsid -f dwmblocks
+
 for i in $(seq 1 30); do
     pkill -RTMIN+"$i" dwmblocks
 done

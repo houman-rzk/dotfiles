@@ -8,6 +8,9 @@ ext="${file##*.}"
 tex_cleanup () {
 	rm "$basename.aux" >/dev/null 2>&1
 	rm "$basename.toc" >/dev/null 2>&1
+	rm "$basename.nav" >/dev/null 2>&1
+	rm "$basename.out" >/dev/null 2>&1
+	rm "$basename.snm" >/dev/null 2>&1
 
     [ "$1" = "--keep-log" ] || rm "$basename.log" >/dev/null 2>&1
 }

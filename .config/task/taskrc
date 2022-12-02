@@ -18,11 +18,14 @@
 data.location=$XDG_DATA_HOME/task
 hooks.location=$XDG_CONFIG_HOME/task/hooks
 
-#report.custom.desciption=Custom report
-#report.next.columns=description
-#report.next.labels=Task
-report.next.columns=description,tags,project,due.relative,urgency
-report.next.labels=Description,Tags,Project,Due,Urgency
+report.trunk.desciption=Custom report
+report.trunk.columns=description.truncated
+report.trunk.labels=Task
+report.trunk.filter=status:pending
+#report.next.columns=description,tags,project,due.relative,urgency
+#report.next.labels=Description,Tags,Project,Due,Urgency
+report.next.columns=description
+report.next.labels=Description
 
 # Color theme (uncomment one to use)
 #include light-16.theme

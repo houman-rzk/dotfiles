@@ -30,7 +30,6 @@ alias \
 	td="transmission-daemon" \
 	untar="tar -xvf" \
 	pi="pacman -S" \
-	piu="pacman -Syu" \
 	pr="pacman -Rs" \
     nb="newsboat" \
     dm="udisksctl mount -b" \
@@ -48,7 +47,7 @@ alias \
     z="zathura" \
     ot="setsid -f st" \
     dr="dragon *" \
-    pass="password"
+    irssi="irssi --home=$XDG_CONFIG_HOME/irssi"
 
 # Main aliases
 alias \
