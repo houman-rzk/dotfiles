@@ -1,34 +1,34 @@
 #!/bin/sh
 
-# MUST EXECUTE 'PRAGMA FOREIGN_KEYS = ON;' along every update sentence. E.g: "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Table(id, name) VALUES (1, 'name')"
-# Add faster sync option for getting videos
+# TODO: Sync subscriptions new videos
+# TODO: After selecting subscription/channel, select order in which videos will be shown
+# TODO: After selecting a video select if we want to watch it or download it
+# TODO: OMG clean this shit up!!!
 
-database="./yt.db"
+# MUST EXECUTE 'PRAGMA FOREIGN_KEYS = ON;' along every update sentence. E.g: "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Table(id, name) VALUES (1, 'name')"
+
+database="$HOME/.local/bin/yt/yt.db"
 #downloadIncrement=50
 downloadIncrement=10
 
-fileSuffix="/tmp/yt-"
+dir="/tmp/yt/"
+
+[ ! -d "$dir" ] && mkdir -p "$dir" >/dev/null 2>&1
 
 getChannelLatestNVideos() {
     channelId=$1
     nVideos=$2
-    echo "GETTING LAST $nVideos VIDEOS"
+    #echo "GETTING LAST $nVideos VIDEOS"
 
     channelUrl="https://youtube.com/channel/$channelId"
-    #channelUrl="https://youtube.com/channel/$(echo "SELECT url FROM Channel WHERE id = $channelId" | sqlite3 "$database")"
 
-    #if [ "$(echo "SELECT COUNT(*) FROM Video WHERE channelId = '$channelId'" | sqlite3 "$database")" -ne 0 ]
-    #then
-        #maxDownloads="--max-downloads $nVideos"
-    #fi
-
-    yt-dlp --max-downloads "$nVideos" --get-title --get-id "$channelUrl" > "$fileSuffix$channelId"
+    yt-dlp --get-filename --max-downloads "$nVideos" --get-title --get-id "$channelUrl" -o "%(upload_date)d" > "$dir$channelId"
 }
 
 checkLastNChannelVideos() {
     channelId=$1
     tried=$2
-    lineCount="$(wc -l "$fileSuffix$channelId" | awk '{print $1}')"
+    lineCount="$(wc -l "$dir$channelId" | awk '{print $1}')"
     videosInFile="$((lineCount / 2))"
 
     # tried can never be < videosInFile
@@ -40,29 +40,6 @@ checkLastNChannelVideos() {
     fi
 
     return $ret
-    #videosInDatabse=0
-
-    #while read -r title
-    #    read -r id && [ "$(echo "SELECT * FROM Video WHERE videoId = '$id'" | sqlite3 "$database")" != "" ]
-    #do
-    #    videosInDatabse=$((videosInDatabse + 1))
-    #done < "$fileSuffix$channelId"
-
-    #echo "TRIED = $tried"
-    #echo "INFILE = $videosInFile"
-    #if [ $tried -eq $videosInFile ] && [ $videosInFile -ge $videosInDatabse ]
-    #then
-    #    ret=1
-    #elif [ $tried -gt $videosInFile ]
-    #then
-    #    ret=0
-    #else
-    #    echo "OTHER CASE: tried=$tried, file=$videosInFile, database=$videosInDatabse"
-    #    echo "RETURNING $ret"
-    #    ret=1
-    #fi
-
-    #return $ret
 }
 
 getNewChannelVideos() {
@@ -78,108 +55,309 @@ getNewChannelVideos() {
     done
 }
 
-invertChannelVideosFile() {
-    channelId=$1
-    file="$fileSuffix$channelId"
-    invFile="$file.inv"
-
-    tac "$file" > "$invFile"
-    mv "$invFile" "$file"
-}
-
-addNewChannelVideosToDatabase() {
-    channelId=$1
-    file="$fileSuffix$channelId"
-
-    [ "$(echo "SELECT * FROM Channel WHERE channelId = '$channelId'" | sqlite3 "$database")" = "" ] && addChannelToDatabase "$channelId"
-
-    while read -r id; read -r title
-    do
-        title="$(echo "$title" | sed "s/'/''/g")"
-
-        echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Video(videoId, channelId, title) VALUES ('$id', '$channelId', '$title')" | sqlite3 "$database"
-    done < "$fileSuffix$channelId"
-}
-
-syncChannelVideos() {
-    channelId=$1
-    getNewChannelVideos "$channelId"
-    invertChannelVideosFile "$channelId"
-    addNewChannelVideosToDatabase "$channelId"
-    echo "DONE"
-}
-
 addChannelToDatabase() {
     channelId=$1
 
     channelName="$(yt-dlp --get-filename --max-downloads 1 "https://youtube.com/channel/$channelId" -o "%(channel)s")"
 
-    echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Channel(channelId, name) VALUES ('$channelId', '$channelName')" | sqlite3 "$database"
+    echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Channel(channelId, channelName) VALUES ('$channelId', '$channelName')" | sqlite3 "$database"
 }
 
-#searchForChannel() {
-#    search="$1"
-#    p1="yt-dlp --get-filename --match-filters channel~='(?i)"
-#    p2="$search"
-#    p3="' ytsearch10:\""
-#    p4="$search"
-#    p5="\" -o \"%(channel)s %(channel_follower_count)s %(channel_id)s\""
-#    cmd="$p1$p2$p3$p4$p5"
-#    echo $cmd
-#    eval "yt-dlp --get-filename --match-filters channel~='(?i)$search' ytsearch10:"$search" -o "%(channel)s %(channel_follower_count)s %(channel_id)s""
-#    echo "'$search'"
-#    #cmd="$(printf "yt-dlp --get-filename --match-filters channel~='(?i)%s' ytsearch10:%s" "$search, $search")"
-#
-#    #cmd="$(printf "yt-dlp --get-filename --match-filters channel~='(?i)%s' ytsearch10:\"%s\" -o \"\\%(channel)s %(channel_follower_count)s %(channel_id)s" "$search")"
-#}
+addNewChannelVideosToDatabase() {
+    channelId=$1
+    #file="$dir$channelId"
 
+    [ "$(echo "SELECT * FROM Channel WHERE channelId = '$channelId'" | sqlite3 "$database")" = "" ] && addChannelToDatabase "$channelId"
+
+    while read -r title; read -r id; read -r date
+    do
+        title="$(echo "$title" | sed "s/'/''/g")"
+
+        echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Video(videoId, channelId, videoTitle, uploadDate, watched) VALUES ('$id', '$channelId', '$title', $date, 'N')" | sqlite3 "$database"
+    done < "$dir$channelId"
+}
+
+syncChannelVideos() {
+    #channelId=$1
+    getNewChannelVideos "$channelId"
+    addNewChannelVideosToDatabase "$channelId"
+    notify-send "YT: Done syncing channel"
+}
 
 searchForChannel() {
-    query="$(echo "$1" | sed 's/ /+/g')"
-    
-    curl -s "https://www.youtube.com/results?search_query=$query" > "${fileSuffix}Search.raw"
-    
-    tr "," "\n" < "${fileSuffix}Search.raw" > "${fileSuffix}Search.sep"
-    
-    line="$(grep "channelId.*" -on --color=never < "${fileSuffix}Search.sep" | cut -d ':' -f 1)"
-    
-    linep1=$((line +1))
-    
-    sed "${line},${linep1}p;d" "${fileSuffix}Search.sep" | rev | cut -d ':' -f 1 | rev | grep -o --color=never "\".*\"" | sed -e 's/\"//g' > "${fileSuffix}Search.info"
-    
-    channelId="$(sed '1p;d' "${fileSuffix}Search.info")"
-    channelName="$(sed '2p;d' "${fileSuffix}Search.info")"
+    query="$(echo "$channelSearchQuery" | sed 's/ /+/g')"
 
-    echo "$channelId" > "${fileSuffix}Search.result"
-    echo "$channelName" >> "${fileSuffix}Search.result"
+    curl \
+    -A "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.52 Safari/536.5" \
+    -s "https://www.youtube.com/results?search_query=$query" > "${dir}Search.raw"
+    
+    tr "," "\n" < "${dir}Search.raw" > "${dir}Search.sep"
 
-    #cat "${fileSuffix}Search.result"
+    grep "channelId.*" -o --color=never < "${dir}Search.sep" | cut -d ':' -f 2 | sed -e 's/^"//g' -e 's/"$//g' > "${dir}Search.channelId"
+
+    # This will make it a bit faster
+    #grep "channelId.*" -o --color=never < "${dir}Search.sep" | cut -d ':' -f 2 | sed -e 's/^"//g' -e 's/"$//g' | head -n 1 > "${dir}Search.channelId"
+
+    cat /dev/null > "${dir}Search.channelInfo"
+    while read -r id
+    do
+        yt-dlp --get-filename --max-downloads 1 "https://youtube.com/channel/$id" -o "%(channel)s %(channel_follower_count)d" >> "${dir}Search.channelInfo"
+    done < "${dir}Search.channelId"
+
+    paste --delimiters=" " "${dir}Search.channelId" "${dir}Search.channelInfo" > "${dir}Search.results"
 }
 
-getSearchedChannelId() {
-    channelName=$1
-    file="${fileSuffix}Search.result"
+selectChannelFromSearch() {
+    selection="$(awk '{$1=""; $NF="   -   "$NF" subscribers"; print $0 $1}' "${dir}Search.results" | sed 's/^ //g' | dmenu -i -p "Channel-search results:" -l 15)"
 
-    line="$(grep "$channelName" -on --color=never < "$file" | cut -d ':' -f 1)"
-    l=$((line - 1))
+    [ "$selection" = "" ] && exit
 
-    channelId="$(sed "${l}p;d" "$file")"
-    echo "$channelId"
+    channelName="$(echo "$selection" | sed -e 's/   -   .*//g' -e 's/^ //g' -e 's/ $//g')"
+    subCount="$(echo "$selection" | sed 's/.*   -   //g' | cut -d " " -f 1)"
+    channelId="$(grep -w "Luke Smith" "${dir}Search.results" | grep -w --color=never "$subCount" "${dir}Search.results" | cut -d " " -f 1)"
 }
 
+getChannelIdFromName() {
+    #channelName="$1"
+
+    channelId="$(echo "SELECT channelId FROM Channel WHERE channelName='$channelName'" | sqlite3 "$database")"
+}
+
+getChannelNameFromId() {
+    #channelId="$1"
+
+    channelName="$(echo "SELECT channelName FROM Channel WHERE channelId='$channelId'" | sqlite3 "$database")"
+}
+
+channelMenu() {
+    # OPTION 1
+    #selection="$(echo "SELECT rowid,name FROM Channel;" | sqlite3 --separator " " "$database" | dmenu -i -l 15 | cut -d " " -f 1-)"
+    #rowid="$(echo "$selection" | cut -d " " -f 1)"
+    #channelId="$(echo "SELECT channelId FROM Channel WHERE rowid=$rowid;" | sqlite3 "$database")"
 
 
-#c="UCJvQsqYSRId8s4dp_n76Rjg"
-#syncChannelVideos "$c"
 
-# TO VIEW LATEST FIRST
-#select *,rowid from video order by rowid desc;
+    # OPTION 2
+    channelName="$(echo "SELECT channelName FROM Channel;" | sqlite3 --separator " " "$database" | dmenu -i -l 15 -p "Channel:")"
 
-#yt-dlp --get-filename --match-filters channel~='(?i)rubén gisbert' ytsearch10:"ruben gisbert" -o "%(channel)s %(channel_follower_count)s %(channel_id)s"
+    getChannelIdFromName
+    #getChannelIdFromName "$channelName"
+}
 
-#ESTE NO VA POR EL ACENTO
-#yt-dlp --get-filename --match-filters channel~='(?i)rubén gisbert' ytsearch10:"rubén gisbert" -o "%(channel)s %(channel_follower_count)s %(channel_id)s"
+selectVideoFromChannel() {
+    order="ASC"
+
+    getChannelNameFromId
+    #getChannelNameFromId "$channelId"
+
+    videoTitle="$(echo "SELECT watched,videoTitle FROM Video WHERE channelId='$channelId' ORDER BY uploadDate $order;" | sqlite3 --separator "   " "$database" | dmenu -i -l 15 -p "$channelName's Videos:")"
+
+    videoTitle="$(echo "$videoTitle" | sed -e "s/'/''/g" -e 's/^.   //g')"
+
+    videoId="$(echo "SELECT videoId FROM Video WHERE channelId='$channelId' AND videoTitle='$videoTitle';" | sqlite3 "$database" | head -n 1)"
+}
+
+playVideo() {
+    echo "UPDATE Video SET watched='W' WHERE videoId='$videoId';" | sqlite3 "$database"
+
+    if command umpv.py >/dev/null 2>&1
+    then
+        setsid -f umpv.py "https://youtube.com/watch?v=$videoId" >/dev/null 2>&1
+    else
+        setsid -f mpv --no-resume-playback --ytdl-format="[height<=720]" "https://youtube.com/watch?v=$videoId" >/dev/null 2>&1
+    fi
+}
+
+getChannelSearchQuery() {
+    channelSearchQuery="$(dmenu -i -p "Search Channel:" < /dev/null)"
+}
+
+watchVideoFromSubscribedChannel() {
+    channelMenu
+    [ "$channelId" != "" ] && selectVideoFromChannel
+    [ "$videoId" != "" ] && playVideo
+}
+
+subscribeToChannel() {
+    channelSearchQuery="$(dmenu -i -p "Search Channel:" < /dev/null)"
+
+    if [ "$channelSearchQuery" != "" ]
+    then
+        searchForChannel
+        selectChannelFromSearch
+        #channelId="UCJvQsqYSRId8s4dp_n76Rjg"
+        downloadIncrement=10000
+        syncChannelVideos
+    fi
+}
+
+createDatabase() {
+echo "DROP TABLE IF EXISTS Channel;
+DROP TABLE IF EXISTS Video;
+DROP TABLE IF EXISTS Playlist;
+
+CREATE TABLE Channel (
+    channelId   TEXT NOT NULL,
+    channelName TEXT,
+    
+    PRIMARY KEY (channelId)
+);
+
+CREATE TABLE Playlist (
+    playlistId      TEXT NOT NULL,
+    playlistName    TEXT,
+    playlistChannel TEXT,
+    
+    PRIMARY KEY (playlistId),
+    FOREIGN KEY (playlistChannel) REFERENCES Channel(channelId)
+);
+
+CREATE TABLE Video (
+    videoId     TEXT NOT NULL,
+    playlistId  TEXT,
+    channelId   TEXT,
+    videoTitle  TEXT,
+    uploadDate  INTEGER,
+    watched     TEXT,
+
+    PRIMARY KEY (videoId),
+    FOREIGN KEY (channelId) REFERENCES Channel(channelId),
+    FOREIGN KEY (playlistId) REFERENCES Playlist(playlistId)
+);" | sqlite3 "$database"
+}
+
+resetDatabase() {
+    if [ "$(dmenu -i -p "Enter 'RESET DATABASE' to reset the database:" < /dev/null)" = "RESET DATABASE" ]
+    then
+        rm "$database" >/dev/null 2>&1
+        [ ! -f "$database" ] && createDatabase
+        notify-send "YT: Database has been reset"
+    fi
+}
+
+getSearchedPlaylistId() {
+    query="$(echo "$playlistSearchQuery" | sed 's/ /+/g')"
+
+    curl \
+    -A "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.52 Safari/536.5" \
+    -s "https://www.youtube.com/results?search_query=$query" > "${dir}Search.raw"
+
+    pgrep='"playlistRenderer":{"playlistId":"\K.{34}?","title":{"simpleText":".+?[^\"](?=")'
+    grep -oP "$pgrep" "${dir}Search.raw" > "${dir}Search.results"
+
+    cut -c 1-34 < "${dir}Search.results" > "${dir}Search.playlistId"
+
+    rev < "${dir}Search.results" | cut -d':' -f1 | rev | sed 's/^"//g' > "${dir}Search.playlists"
+
+    sel="$(nl -s ' ' "${dir}Search.playlists" | dmenu -i -l 15 -p "Playlist:")"
+    line="$(echo "$sel" | awk '{print $1}')"
+    playlistId="$(sed "${line}q;d" "${dir}Search.playlistId")"
+}
+
+addPlaylist() {
+    playlistSearchQuery="$(dmenu -i -p "Search Playlist:" < /dev/null)"
+    [ "$playlistSearchQuery" = "" ] && exit 1
+    getSearchedPlaylistId
+    [ "$playlistId" = "" ] && exit 1
+    getPlaylistVideos
+    addNewPlaylistVideosToDatabase
+}
+
+getPlaylistVideos() {
+    yt-dlp --get-filename "https://www.youtube.com/playlist?list=$playlistId" -o "%(id)s %(upload_date)s %(title)s" > "${dir}${playlistId}.videos"
+}
+
+addNewPlaylistVideosToDatabase() {
+    playlistName="$(yt-dlp --get-filename --max-downloads 1 "https://www.youtube.com/playlist?list=$playlistId" -o "%(playlist_title)s")"
+    playlistChannelInfo="$(yt-dlp --get-filename --max-downloads 1 "https://www.youtube.com/playlist?list=$playlistId" -o "%(playlist_uploader_id)s %(uploader)s")"
+
+    playlistChannelId="$(echo "$playlistChannelInfo" | cut -d' ' -f1)"
+    #playlistChannelName="$(echo "$playlistChannelInfo" | cut -d' ' -f2-)"
 
 
-searchForChannel "ruben gisbert" # This will set channelName
-getSearchedChannelId "$channelName"
+    if [ "$(echo "SELECT * FROM Channel WHERE channelId='$playlistChannelId';" | sqlite3 "$database")" = "" ]
+    then
+        addChannelToDatabase "$playlistChannelId"
+    fi
+
+    if [ "$(echo "SELECT * FROM Playlist WHERE playlistId='$playlistId';" | sqlite3 "$database")" = "" ]
+    then
+        echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Playlist(playlistId, playlistName, playlistChannel) VALUES ('$playlistId', '$playlistName', '$playlistChannelId')" | sqlite3 "$database"
+    fi
+
+    while read -r video
+    do
+        id="$(echo "$video" | cut -d' ' -f1)"
+        date="$(echo "$video" | cut -d' ' -f2)"
+        title="$(echo "$video" | cut -d' ' -f3- | sed "s/'/''/g")"
+
+        if [ "$(echo "SELECT * FROM Video WHERE videoId='$id';" | sqlite3 "$database")" = "" ]
+        then
+            echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Video(videoId, playlistId, channelId, videoTitle, uploadDate, watched) VALUES ('$id', '$playlistId', '$playlistChannelId', '$title', $date, 'N')" | sqlite3 "$database"
+        fi
+    done < "${dir}${playlistId}.videos"
+}
+
+watchVideoFromSubscribedPlaylist() {
+    playlistsMenu
+    [ "$playlistId" != "" ] && selectVideoFromPlaylist
+    [ "$videoId" != "" ] && playVideo
+}
+
+playlistsMenu() {
+    playlistSelection="$(echo "SELECT rowid,playlistName FROM Playlist;" | sqlite3 --separator " " "$database" | dmenu -i -l 15 -p "Playlist:")"
+    rowid="$(echo "$playlistSelection" | awk '{print $1}')"
+
+    playlistId="$(echo "SELECT playlistId FROM Playlist WHERE rowid=$rowid;" | sqlite3 "$database")"
+}
+
+getPlaylistNameById() {
+    playlistName="$(echo "SELECT playlistName FROM Playlist WHERE playlistId='$playlistId';" | sqlite3 "$database")"
+}
+
+selectVideoFromPlaylist() {
+    order="ASC"
+
+    getPlaylistNameById
+
+    videoTitle="$(echo "SELECT watched,videoTitle FROM Video WHERE playlistId='$playlistId' ORDER BY uploadDate $order;" | sqlite3 --separator "   " "$database" | dmenu -i -l 15 -p "$playlistName's Videos:")"
+
+    videoTitle="$(echo "$videoTitle" | sed -e "s/'/''/g" -e 's/^.   //g')"
+
+    videoId="$(echo "SELECT videoId FROM Video WHERE playlistId='$playlistId' AND videoTitle='$videoTitle';" | sqlite3 "$database" | head -n 1)"
+}
+
+mainMenu() {
+    subOption="Subscriptions"
+    newChannelOption="Add new channel"
+    resetDBOption="Reset Database"
+    playlistsOption="Playlists"
+    newPlaylistOption="Add new playlist"
+
+    [ ! -f "$database" ] && createDatabase
+
+    [ "$(pgrep -fc "/bin/sh $0")" -ge 2 ] && notify-send "YT: Download already in progress" && sleep 2
+
+    selection="$(printf "%s\n%s\n%s\n%s\n%s" "$subOption" "$newChannelOption" "$playlistsOption" "$newPlaylistOption" "$resetDBOption" | dmenu -i -l 10 -p "Menu:")"
+
+    if [ "$selection" = "$subOption" ]
+    then
+        watchVideoFromSubscribedChannel
+    elif [ "$selection" = "$newChannelOption" ]
+    then
+        subscribeToChannel
+    elif [ "$selection" = "$resetDBOption" ]
+    then
+        resetDatabase
+    elif [ "$selection" = "$newPlaylistOption" ]
+    then
+        addPlaylist
+    elif [ "$selection" = "$playlistsOption" ]
+    then
+        watchVideoFromSubscribedPlaylist
+    else
+        exit
+    fi
+}
+
+mainMenu

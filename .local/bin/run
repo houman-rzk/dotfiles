@@ -10,5 +10,6 @@ case "$ext" in
     java) java -cp "$dir" "$filenameNoExt" ;;
     lisp) clisp "$filename" ;;
     tex) setsid -f xdg-open "$filenameNoExt.pdf" ;;
+    py) python3 "$filename" || "$filename";;
     *) "$dir/$filename" ;;
 esac

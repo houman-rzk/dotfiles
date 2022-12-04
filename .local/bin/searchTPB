@@ -1,0 +1,48 @@
+#!/bin/sh
+
+#TODO: Use other sites if one fails
+
+#https://pirate-proxy.ink
+#https://www.pirateproxy-bay.com
+#https://www.tpbproxypirate.com
+#https://www.pirateproxy.space
+#https://tpb25.ukpass.co
+#https://piratenow.xyz
+#https://tpb.skynetcloud.site
+#https://pirateproxy.live
+#https://tpb.party
+#https://mirrorbay.top
+#https://www1.thepiratebay3.to
+#https://ukpirate.co
+#https://proxifiedpiratebay.org
+
+searchPrefix="https://pirate-proxy.ink/search.php?q="
+searchSuffix=""
+
+query="$(dmenu -p "Search torrent:" < /dev/null | tr " " "+")"
+
+url="${searchPrefix}${query}${searchSuffix}"
+
+getPageSource.py "$url" "/tmp/searchTPB.html"
+
+sed 's/></\n/g' "/tmp/searchTPB.html" | grep -w --color=never "magnet" | grep -v "img src" | grep -o --color=never "magnet.*" | sed 's/"//g' > "/tmp/searchTPB.magnets"
+sed 's/></\n/g' "/tmp/searchTPB.html" | grep -w --color=never "description" | grep -v "img src\|magnet" | grep -o --color=never ">.*<" | sed -e 's/^>//g' -e 's/<$//g' -e 's/^ //g' -e 's/ $//g' > "/tmp/searchTPB.torrents"
+sed 's/></\n/g' "/tmp/searchTPB.html" | grep -ow --color=never "seed\">[0-9][0-9]*" | grep -o --color=never "[0-9][0-9]*" > "/tmp/searchTPB.seeders"
+
+paste --delimiters=" " "/tmp/searchTPB.seeders" "/tmp/searchTPB.torrents" > "/tmp/searchTPB.show"
+
+sel="$(dmenu -l 15 -p "Select Torrent:" < "/tmp/searchTPB.show" | cut -d ' ' -f 1- | sed -e 's/\[/\\\[/g' -e 's/\]/\\\]/g')"
+
+[ "$sel" = "" ] && exit 1
+
+line="$(grep -n "$sel" "/tmp/searchTPB.torrents" | cut -d':' -f1)"
+magnet="$(sed "${line}q;d" "/tmp/searchTPB.magnets")"
+
+if [ "$1" = "-o" ]
+then
+    echo "$magnet"
+else
+    echo "$magnet" | xclip -sel c
+    notify-send "Magnet link copied to clipboard"
+fi
+

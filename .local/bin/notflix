@@ -1,0 +1,3 @@
+#!/bin/sh
+
+setsid -f st -e peerflix "$(searchTPB -o)" -l -k -q
