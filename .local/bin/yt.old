@@ -1,31 +1,60 @@
 #!/bin/sh
 
-# TODO: Sync subscriptions new videos
 # TODO: After selecting subscription/channel, select order in which videos will be shown
 # TODO: After selecting a video select if we want to watch it or download it
 # TODO: OMG clean this shit up!!!
 
 # MUST EXECUTE 'PRAGMA FOREIGN_KEYS = ON;' along every update sentence. E.g: "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Table(id, name) VALUES (1, 'name')"
 
-database="$HOME/.local/bin/yt/yt.db"
-#downloadIncrement=50
-downloadIncrement=10
-
+database="$XDG_DATA_HOME/yt/yt.db"
+downloadIncrement=5
 dir="/tmp/yt/"
+
+ytdlFormat="%(id)s %(upload_date)s %(title)s"
 
 [ ! -d "$dir" ] && mkdir -p "$dir" >/dev/null 2>&1
 
-getChannelLatestNVideos() {
-    channelId=$1
-    nVideos=$2
-    #echo "GETTING LAST $nVideos VIDEOS"
+getNVideosFrom() {
+    nVideos=$1
+    url=$2
 
-    channelUrl="https://youtube.com/channel/$channelId"
-
-    yt-dlp --get-filename --max-downloads "$nVideos" --get-title --get-id "$channelUrl" -o "%(upload_date)d" > "$dir$channelId"
+    yt-dlp --get-filename --max-downloads "$nVideos" "$url" -o "$ytdlFormat" > "$dir$channelId"
 }
 
-checkLastNChannelVideos() {
+getNewChannelVideos() {
+    channelId=$1
+    n=$downloadIncrement
+
+    #getChannelLatestNVideos "$channelId" $n
+    getNVideosFrom $n "https://youtube.com/channel/$channelId"
+    
+    while checkDownloadedChannelVideos "$channelId" $n ; ret=$? && [ $ret -ne 0 ]
+    do
+        n=$((n + downloadIncrement))
+        getNVideosFrom $n "$channelId"
+    done
+}
+
+#getVideosBackToDateFrom() {
+#    date=$1
+#    url=$2
+#
+#    echo "$date"
+#    #yt-dlp --get-filename --dateafter "$date" "$url" -o "$ytdlFormat" > "$dir$channelId"
+#    yt-dlp --get-filename --dateafter "$date" "$url" -o "$ytdlFormat"
+#}
+
+#getChannelLatestNVideos() {
+#    channelId=$1
+#    nVideos=$2
+#    #echo "GETTING LAST $nVideos VIDEOS"
+#
+#    channelUrl="https://youtube.com/channel/$channelId"
+#
+#    yt-dlp --get-filename --max-downloads "$nVideos" --get-title --get-id "$channelUrl" -o "%(upload_date)d" > "$dir$channelId"
+#}
+
+checkDownloadedChannelVideos() {
     channelId=$1
     tried=$2
     lineCount="$(wc -l "$dir$channelId" | awk '{print $1}')"
@@ -42,17 +71,10 @@ checkLastNChannelVideos() {
     return $ret
 }
 
-getNewChannelVideos() {
-    channelId=$1
-    n=$downloadIncrement
+getAllChannelVideos() {
+    url="https://youtube.com/channel/$channelId"
 
-    getChannelLatestNVideos "$channelId" $n
-    
-    while checkLastNChannelVideos "$channelId" $n ; ret=$? && [ $ret -ne 0 ]
-    do
-        n=$((n + downloadIncrement))
-        getChannelLatestNVideos "$channelId" $n
-    done
+    yt-dlp --get-filename "$url" -o "$ytdlFormat" > "$dir$channelId"
 }
 
 addChannelToDatabase() {
@@ -69,18 +91,55 @@ addNewChannelVideosToDatabase() {
 
     [ "$(echo "SELECT * FROM Channel WHERE channelId = '$channelId'" | sqlite3 "$database")" = "" ] && addChannelToDatabase "$channelId"
 
-    while read -r title; read -r id; read -r date
+    while read -r video
     do
-        title="$(echo "$title" | sed "s/'/''/g")"
+        id="$(echo "$video" | cut -d' ' -f1)"
+        date="$(echo "$video" | cut -d' ' -f2)"
+        title="$(echo "$video" | cut -d' ' -f3- | sed "s/'/''/g")"
 
-        echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Video(videoId, channelId, videoTitle, uploadDate, watched) VALUES ('$id', '$channelId', '$title', $date, 'N')" | sqlite3 "$database"
+        if [ "$(echo "SELECT * FROM Video WHERE videoId='$id';" | sqlite3 "$database")" = "" ]
+        then
+            echo "PRAGMA FOREIGN_KEYS=ON; INSERT INTO Video(videoId, channelId, videoTitle, uploadDate, watched) VALUES ('$id', '$channelId', '$title', $date, 'N')" | sqlite3 "$database"
+        fi
     done < "$dir$channelId"
 }
 
-syncChannelVideos() {
-    #channelId=$1
+getNewVideosForChannel() {
+    #channelId="$1"
+
+    date="$(echo "SELECT MAX(uploadDate) FROM VIDEO WHERE channelId='$channelId';" | sqlite3 "$database")"
+
+    #getVideosBackToDateFrom "$date" "https://youtube.com/channel/$channelId"
     getNewChannelVideos "$channelId"
+
     addNewChannelVideosToDatabase "$channelId"
+}
+
+syncSubscription() {
+    channelMenu
+    #getNewVideosForChannel "$channelId"
+    [ "$channelId" = "" ] && exit 1
+    getNewVideosForChannel
+
+    notify-send "YT: Done syncing channel"
+}
+
+
+
+
+#    if [ "$(echo "SELECT * FROM Channel WHERE channelId='$channelId';" | sqlite3 "$database")" = "" ]
+#    then
+#        #getNewChannelVideos "$channelId"
+#        getAllChannelVideos "$channelId"
+#    else
+#        date="$(echo "SELECT MAX(uploadDate) FROM VIDEO WHERE channelId='$channelId';" | sqlite3 "$database")"
+#        getVideosBackToDateFrom "$date" "https://youtube.com/channel/$channelId"
+#    fi
+
+syncChannelVideos() {
+    getAllChannelVideos "$channelId"
+    addNewChannelVideosToDatabase "$channelId"
+
     notify-send "YT: Done syncing channel"
 }
 
@@ -185,8 +244,6 @@ subscribeToChannel() {
     then
         searchForChannel
         selectChannelFromSearch
-        #channelId="UCJvQsqYSRId8s4dp_n76Rjg"
-        downloadIncrement=10000
         syncChannelVideos
     fi
 }
@@ -264,7 +321,7 @@ addPlaylist() {
 }
 
 getPlaylistVideos() {
-    yt-dlp --get-filename "https://www.youtube.com/playlist?list=$playlistId" -o "%(id)s %(upload_date)s %(title)s" > "${dir}${playlistId}.videos"
+    yt-dlp --get-filename "https://www.youtube.com/playlist?list=$playlistId" -o "$ytdlFormat" > "${dir}${playlistId}.videos"
 }
 
 addNewPlaylistVideosToDatabase() {
@@ -333,12 +390,13 @@ mainMenu() {
     resetDBOption="Reset Database"
     playlistsOption="Playlists"
     newPlaylistOption="Add new playlist"
+    syncSubscriptionOption="Sync subscription"
 
     [ ! -f "$database" ] && createDatabase
 
     [ "$(pgrep -fc "/bin/sh $0")" -ge 2 ] && notify-send "YT: Download already in progress" && sleep 2
 
-    selection="$(printf "%s\n%s\n%s\n%s\n%s" "$subOption" "$newChannelOption" "$playlistsOption" "$newPlaylistOption" "$resetDBOption" | dmenu -i -l 10 -p "Menu:")"
+    selection="$(printf "%s\n%s\n%s\n%s\n%s\n%s" "$subOption" "$newChannelOption" "$playlistsOption" "$newPlaylistOption" "$resetDBOption" "$syncSubscriptionOption" | dmenu -i -l 10 -p "Menu:")"
 
     if [ "$selection" = "$subOption" ]
     then
@@ -355,6 +413,9 @@ mainMenu() {
     elif [ "$selection" = "$playlistsOption" ]
     then
         watchVideoFromSubscribedPlaylist
+    elif [ "$selection" = "$syncSubscriptionOption" ]
+    then
+        syncSubscription
     else
         exit
     fi

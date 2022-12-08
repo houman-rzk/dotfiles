@@ -2,6 +2,8 @@
 
 #TODO: Use other sites if one fails
 
+#paste seeders torrents magnets | fzf --with-nth=1..-2 | awk '{print $NF}'
+
 #https://pirate-proxy.ink
 #https://www.pirateproxy-bay.com
 #https://www.tpbproxypirate.com
@@ -16,6 +18,10 @@
 #https://ukpirate.co
 #https://proxifiedpiratebay.org
 
+dir="/tmp/searchTPB"
+
+[ ! -d "$dir" ] && mkdir -p "$dir" >/dev/null 2>&1
+
 searchPrefix="https://pirate-proxy.ink/search.php?q="
 searchSuffix=""
 
@@ -23,20 +29,20 @@ query="$(dmenu -p "Search torrent:" < /dev/null | tr " " "+")"
 
 url="${searchPrefix}${query}${searchSuffix}"
 
-getPageSource.py "$url" "/tmp/searchTPB.html"
+getPageSource.py "$url" "${dir}/html"
 
-sed 's/></\n/g' "/tmp/searchTPB.html" | grep -w --color=never "magnet" | grep -v "img src" | grep -o --color=never "magnet.*" | sed 's/"//g' > "/tmp/searchTPB.magnets"
-sed 's/></\n/g' "/tmp/searchTPB.html" | grep -w --color=never "description" | grep -v "img src\|magnet" | grep -o --color=never ">.*<" | sed -e 's/^>//g' -e 's/<$//g' -e 's/^ //g' -e 's/ $//g' > "/tmp/searchTPB.torrents"
-sed 's/></\n/g' "/tmp/searchTPB.html" | grep -ow --color=never "seed\">[0-9][0-9]*" | grep -o --color=never "[0-9][0-9]*" > "/tmp/searchTPB.seeders"
+sed 's/></\n/g' "${dir}/html" | grep -w --color=never "magnet" | grep -v "img src" | grep -o --color=never "magnet.*" | sed 's/"//g' > "${dir}/magnets"
+sed 's/></\n/g' "${dir}/html" | grep -w --color=never "description" | grep -v "img src\|magnet" | grep -o --color=never ">.*<" | sed -e 's/^>//g' -e 's/<$//g' -e 's/^ //g' -e 's/ $//g' > "${dir}/torrents"
+sed 's/></\n/g' "${dir}/html" | grep -ow --color=never "seed\">[0-9][0-9]*" | grep -o --color=never "[0-9][0-9]*" > "${dir}/seeders"
 
-paste --delimiters=" " "/tmp/searchTPB.seeders" "/tmp/searchTPB.torrents" > "/tmp/searchTPB.show"
+paste --delimiters=" " "${dir}/seeders" "${dir}/torrents" > "${dir}/show"
 
-sel="$(dmenu -l 15 -p "Select Torrent:" < "/tmp/searchTPB.show" | cut -d ' ' -f 1- | sed -e 's/\[/\\\[/g' -e 's/\]/\\\]/g')"
+sel="$(dmenu -l 15 -p "Select Torrent:" < "${dir}/show" | cut -d ' ' -f 2- | sed -e 's/\[/\\\[/g' -e 's/\]/\\\]/g')"
 
 [ "$sel" = "" ] && exit 1
 
-line="$(grep -n "$sel" "/tmp/searchTPB.torrents" | cut -d':' -f1)"
-magnet="$(sed "${line}q;d" "/tmp/searchTPB.magnets")"
+line="$(grep -n "$sel" "${dir}/torrents" | cut -d':' -f1)"
+magnet="$(sed "${line}q;d" "${dir}/magnets")"
 
 if [ "$1" = "-o" ]
 then
@@ -45,4 +51,3 @@ else
     echo "$magnet" | xclip -sel c
     notify-send "Magnet link copied to clipboard"
 fi
-

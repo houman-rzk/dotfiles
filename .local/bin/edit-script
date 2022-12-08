@@ -7,5 +7,6 @@ if command -v "$1" >/dev/null 2>&1 ; then
     shellcheck "$(which "$1")"
     exit 0
 else
-    add-script "$1"
+    echo "The script '$1' does not exist"
+    #add-script "$1"
 fi

@@ -6,8 +6,27 @@ Curso HTML 5
 GII
 Others/
 UBUNTU
+.gitconfig
+.sqldeveloper/
 
 .config/amsynth/
+.config/GIMP/
+.config/LarusStone/
+.config/Microsoft/
+.config/byobu/
+.config/cherrytree/
+.config/discord/
+.config/geany/
+.config/gtranslator/
+.config/irssi/
+.config/jgit/
+.config/klavaro/
+.config/pavucontrol.ini
+.config/poedit/
+.config/swi-prolog/
+.config/teams/
+.config/wireshark/
+.config/x11/Xresources
 .config/nvim/.local/
 .config/keepassxc/
 .config/gnupg/
@@ -40,8 +59,12 @@ UBUNTU
 .config/lf/shortcutrc
 .config/xournalpp/
 
+.local/lib/
+
 .local/src/
+
 .local/state/
+
 .local/share/
 .local/share/bg
 .local/share/jflex-1.8.2/
@@ -65,5 +88,3 @@ UBUNTU
 .local/share/syncthing/
 
 .cache/
-/NetBeansProjects/JavaApplication1/nbproject/private/
-/NetBeansProjects/JavaApplication1/build/

@@ -15,6 +15,11 @@ options.headless = True
 driver = webdriver.Firefox(options = options)
 driver.get(site)
 
+
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+driver.findElement(By.id("cookie_action_close_header")).click();
+
+
 pageSource = driver.page_source
 
 fileToWrite = open(sourceFile, "w")
