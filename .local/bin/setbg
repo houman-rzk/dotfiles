@@ -40,9 +40,14 @@ if [ "$#" -eq 1 ] ; then
 else
     { [ ! -f "$WALLPAPERS_FILE" ] || [ "$(wc -l "$WALLPAPERS_FILE" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && create_wallpapers_file
 
-    ln -s "$(sed '1q' "$WALLPAPERS_FILE")" "$WALLPAPER_LINK"
-
-    sed '1d' "$WALLPAPERS_FILE" > "$WALLPAPERS_FILE".tmp && mv "$WALLPAPERS_FILE".tmp "$WALLPAPERS_FILE"
+    if [ "$(wc -l "$WALLPAPERS_FILE" | awk '{print $1}')" -eq 0 ]
+    then
+        ln -s "$XDG_DATA_HOME/space.jpg" "$WALLPAPER_LINK"
+        pywal_setbg
+    else
+        ln -s "$(sed '1q' "$WALLPAPERS_FILE")" "$WALLPAPER_LINK"
+        sed '1d' "$WALLPAPERS_FILE" > "$WALLPAPERS_FILE".tmp && mv "$WALLPAPERS_FILE".tmp "$WALLPAPERS_FILE"
+    fi
 fi
 
 pywal_setbg

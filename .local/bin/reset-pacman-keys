@@ -3,3 +3,4 @@
 sudo rm -R /etc/pacman.d/gnupg
 sudo pacman-key --init
 sudo pacman-key --populate
+sudo pacman -S archlinux-keyring
