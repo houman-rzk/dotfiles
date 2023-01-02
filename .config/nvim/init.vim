@@ -56,7 +56,7 @@ call plug#end()
 	set backspace=indent,eol,start
 	set encoding=utf-8
 	set splitbelow splitright
-	set noswapfile
+	"set noswapfile
     "set nowrapscan
     set ignorecase
     " Tabs
@@ -82,7 +82,8 @@ call plug#end()
     map <leader>sh :!
     map <leader>sls :!ls<CR>
     map <leader>sst :!st >/dev/null 2>&1 & <Enter><Enter>
-    "map <leader>slf :!setsid -f st -e multi-lf >/dev/null 2>&1 & <Enter><Enter>
+    map <leader>sof :!setsid -f firefox "%" <Enter><Enter>
+    map <leader>slf :!setsid -f st -e lfrun >/dev/null 2>&1 & <Enter><Enter>
 	" Split view, tab and buffer navigation shortcuts
 	map <leader>vh <C-w>h
 	map <leader>vj <C-w>j
@@ -160,6 +161,9 @@ call plug#end()
 	let NERDTreeMapUpdir = 'h'
     let NERDTreeMapJumpNextSibling = '<C-N>'
     let NERDTreeMapJumpPrevSibling = '<C-P>'
+    " vCoolor
+    let g:vcoolor_disable_mappings = 1
+    let g:vcoolor_map = '<A-c>'
 
 " Eye candy
 	"let g:gruvbox_contrast_dark = "hard"

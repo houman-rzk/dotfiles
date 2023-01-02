@@ -36,7 +36,7 @@ fi
 [ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
 
 if [ "$#" -eq 1 ] ; then
-    ln -s "$1" "$WALLPAPER_LINK"
+    ln -s "$(pwd)/$1" "$WALLPAPER_LINK"
 else
     { [ ! -f "$WALLPAPERS_FILE" ] || [ "$(wc -l "$WALLPAPERS_FILE" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && create_wallpapers_file
 

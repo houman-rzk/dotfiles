@@ -103,3 +103,6 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev
 
 #cat $XDG_CACHE_HOME/wal/sequences
 #fortune -s | cowsay
+
+# Case-insensitive autocomplete
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'

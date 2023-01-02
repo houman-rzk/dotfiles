@@ -54,7 +54,8 @@ def make_abs(filename):
     return filename
 files = (make_abs(f) for f in files)
 
-SOCK = os.path.join("/tmp", "umpv_socket")
+SOCK = os.path.join("/tmp", "mpvsocket")
+#SOCK = os.path.join("/tmp", "umpv_socket")
 
 sock = None
 try:

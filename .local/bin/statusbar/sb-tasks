@@ -8,7 +8,8 @@ case $BLOCK_BUTTON in
     6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-tasks="$(task | tail -n 1 | awk '{print $1}')"
-[ "$tasks" -ge 1 ] && tasks=" $tasks"
+tasks="$(task 2>/dev/null | tail -n 1 | awk '{print $1}')"
+
+[ "$tasks" != "" ] && [ "$tasks" -ge 1 ] && tasks=" $tasks"
 
 echo "  $tasks  "

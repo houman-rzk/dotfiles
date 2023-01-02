@@ -8,7 +8,7 @@ set icons
 
 cmd open ${{
 	case $({ [ -L "$f" ] && f="$(readlink -f "$f")" ;} ; file --mime-type -b "$f") in
-		video/*) setsid -f mpv --input-ipc-server=/tmp/mpvsocket --player-operation-mode=pseudo-gui "$f" >/dev/null 2>&1 ;;
+		video/*) setsid -f mpv "$f" >/dev/null 2>&1 ;;
 		audio/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" ;;
 		#image/*) setsid -f nsxiv -a "$f" >/dev/null 2>&1 ;;
 		image/*) imgs="$(echo "$fx" | tr "\n" "'" | sed "s/'/' '/g" | sed "s/^/'/g" | sed "s/' '$/'/g")" ; eval "setsid -f nsxiv -a $imgs >/dev/null 2>&1" ;;

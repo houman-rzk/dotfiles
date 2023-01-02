@@ -26,11 +26,11 @@
     "incomplete-dir-enabled": false,
     "inhibit-desktop-hibernation": false,
     "lpd-enabled": false,
-    "main-window-height": 723,
+    "main-window-height": 1031,
     "main-window-is-maximized": 0,
-    "main-window-width": 1340,
+    "main-window-width": 1894,
     "main-window-x": 10,
-    "main-window-y": 29,
+    "main-window-y": 33,
     "message-level": 2,
     "open-dialog-dir": "/home",
     "peer-congestion-algorithm": "",
@@ -95,6 +95,6 @@
     "upload-slots-per-torrent": 14,
     "user-has-given-informed-consent": true,
     "utp-enabled": true,
-    "watch-dir": "/home/ache/Downloads",
+    "watch-dir": "/home/hache/Downloads",
     "watch-dir-enabled": true
 }

@@ -8,7 +8,9 @@
 
 # Decrease key repeat delay to 300ms and increase key repeat rate to 50 per second.
 #xset r rate 300 50
-xset r rate 300 100
+#xset r rate 300 20 
+xset r rate 250 100
+#xset r rate 300 250
 
 setxkbmap -layout es
 

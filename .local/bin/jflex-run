@@ -89,7 +89,7 @@ printHelp() {
     -l <dir>    (Optional) Path to library directory. Multiple library directories can be specified by separating them with ':' (as in <dir>:<dir>).
 
     Notes: 
-    - To use java-cup you must have the 'java-cup-<version>.jar' and java-cup-runtime-<version>.jar' files in your /path/to/jflex/lib/ directory (you can specify this directory by setting the 'JFLEXLIB' variable or by using the '-l' option.
+    - To use java-cup you must have the 'java-cup-<version>.jar' and java-cup-<version>-runtime.jar' files in your /path/to/jflex/lib/ directory (you can specify this directory by setting the 'JFLEXLIB' variable or by using the '-l' option.
     - Check the source code, it's the best documentation ;)"
 }
 

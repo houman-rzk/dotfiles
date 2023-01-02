@@ -58,8 +58,8 @@ alias \
 	off="shutdown -h now" \
 	tst="tabbed -r2 st -w '' && exit" \
     bl="cat /sys/class/power_supply/BAT0/capacity" \
-    lf="multi-lf" \
-    set-tv-output="xrandr --fb 1360x768 --output $INTERNAL_DISPLAY --off --noprimary --output $EXTERNAL_DISPLAY --mode 1360x768 --primary ; audio-output EXTERNAL_ONLY ; remaps" \
+    lf="lfrun" \
+    set-tv-output="xrandr --fb 1920x1080 --output $INTERNAL_DISPLAY --off --noprimary --output $EXTERNAL_DISPLAY --mode 1680x1050 --primary ; audio-output EXTERNAL_ONLY ; remaps" \
     exp="xarchiver ~/Home/Others/Archives/Black_Dog.rar" \
     hor="xdg-open /mnt/Shared/Home/GII/3º/General/Horario.pdf 2>/dev/null" \
     nstart="rfkill unblock wifi ; systemctl start NetworkManager" \

@@ -3,3 +3,5 @@
 sudo pacman -Syu --noconfirm || exit 1
 
 dunstify -u low -t 10000 "Update Complete"
+
+exit

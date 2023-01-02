@@ -2,12 +2,8 @@
 
 setbg
 
-pulseaudio
-
-autostart="autorandr xcompmgr dunst clipmenud remaps connect profiles unclutter shortcuts mpd"
+autostart="autorandr picom dunst clipmenud remaps connect profiles unclutter shortcuts mpd"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
 done >/dev/null 2>&1
-
-#video-output "$DEFAULT_DISPLAY_PROFILE"
