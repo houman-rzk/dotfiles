@@ -23,7 +23,7 @@ NEXT=$2
 # Store the next profile
 echo "$NEXT" > "$POWER_PROFILE_FILE"
 
-eval \$"$NEXT"
+eval \$"$NEXT" >/dev/null 2>&1
 
 case $NEXT in
 	PERFORMANCE) NAME="Performance" ;;

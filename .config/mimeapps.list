@@ -1,9 +1,63 @@
 [Default Applications]
-inode/directory=lf.desktop
-application/pdf=org.pwmt.zathura.desktop
-x-scheme-handler/msteams=teams.desktop
-x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_usr_lib_eclipse_.desktop
-text/plain=vim.desktop
+inode/directory=file.desktop
+application/pdf=pdf.desktop
+text/plain=text.desktop
+application/x-bittorrent=torrent.desktop
+image/jpeg=image.desktop
+image/png=image.desktop
+video/mp4=video.desktop
+video/x-msvideo=video.desktop
+video/x-matroska=video.desktop
+audio/mpeg=audio.desktop
+audio/flac=audio.desktop
+
+
+Luke Smith
+text/x-shellscript=text.desktop;
+x-scheme-handler/magnet=torrent.desktop;
+application/x-bittorrent=torrent.desktop;
+x-scheme-handler/mailto=mail.desktop;
+text/plain=text.desktop;
+application/postscript=pdf.desktop;
+application/pdf=pdf.desktop;
+image/png=img.desktop;
+image/jpeg=img.desktop;
+image/gif=img.desktop;
+application/rss+xml=rss.desktop
+video/x-matroska=video.desktop
+x-scheme-handler/lbry=lbry.desktop
+inode/directory=file.desktop
+
+
+
+
+LF
+		image/vnd.djvu) setsid -f zathura "$f" > /dev/null 2>&1 ;;
+		video/*) setsid -f mpv "$f" >/dev/null 2>&1 ;;
+		audio/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" ;;
+		#image/*) setsid -f nsxiv -a "$f" >/dev/null 2>&1 ;;
+		image/*) imgs="$(echo "$fx" | tr "\n" "'" | sed "s/'/' '/g" | sed "s/^/'/g" | sed "s/' '$/'/g")" ; eval "setsid -f nsxiv -a $imgs >/dev/null 2>&1" ;;
+        application/octet-stream) setsid -f gpg -dq "$f" ;;
+		#text/*) echo "$fx" | tr "\n" '"' | sed 's/"/" "/g' | sed 's/^/"/g' | sed 's/" "$/"/g' | xargs $EDITOR ;;
+		text/*|application/json) echo "$fx" | tr "\n" '|' | sed -e 's/|$/"/g' -e 's/|/|-c "tabe /g' -e 's/|-c/" -c/g' -e 's/^/"/' | xargs $EDITOR ;;
+		#application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
+		application/pdf) echo "$fx" | while read -r l ; do setsid -f xdg-open "$l" ; done ;;
+		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
+		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
+        inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
+        #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+        application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid -f libreoffice "$f" ;;
+
+application/pdf) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+		application/gzip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+		application/epub+zip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+
+
+
+x-scheme-handler/mailto=mail.desktop
+message/rfc822=mail.desktop
+x-scheme-handler/mid=mail.desktop
 
 [Added Associations]
-text/plain=firefox.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;

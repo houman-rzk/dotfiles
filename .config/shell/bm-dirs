@@ -1,11 +1,11 @@
 # These are all shortcuts
 src     $HOME/.local/src
 h       $HOME
-shrd    /mnt/Shared
 dl      $XDG_DOWNLOAD_DIR
 cf      $XDG_CONFIG_HOME
 bin     $HOME/.local/bin
 media   /run/media/$USER
 tmp     /tmp
-trns    $XDG_DOWNLOAD_DIR/Transmission
 trash   $XDG_DATA_HOME/Trash
+shrd    /mnt/Shared
+trns    $XDG_DOWNLOAD_DIR/Transmission

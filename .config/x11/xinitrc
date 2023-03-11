@@ -1,12 +1,12 @@
 #!/bin/sh
 
-dwmblocks &
+#dwmblocks &
 
 . "$XDG_CONFIG_HOME/x11/xprofile"
 
-update-dwmblocks &
+#update-dwmblocks &
 
-xset -dpms
-xset s off
+#xset -dpms
+#xset s off
 
 exec dwm

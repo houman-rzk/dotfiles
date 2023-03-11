@@ -1,8 +1,0 @@
-#!/bin/sh
-
-org="/mnt/Shared/Home/GII/"
-dst="/mnt/Shared/Home/Others/Backups/GII"
-
-[ ! -d "$dst" ] && mkdir -p "$dst" >/dev/null 2>&1
-
-rsync -av "$org" "$dst"

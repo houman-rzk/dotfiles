@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# TODO: Implement pause (maybe using mv timer timer.paused ??)
+
+work=60
+rest=15
+
+
+period() {
+    if [ "$1" = "-w" ]; then
+        t="$work"
+        p="WORK"
+    elif [ "$1" = "-r" ]; then
+        t="$rest"
+        p="REST"
+    fi
+
+    while [ "$t" -gt 0 ]; do
+        printf "%s\n%s" "$p" "$t" > /tmp/timer
+        pkill -RTMIN+9 dwmblocks
+        sleep 1m
+        t=$((t-1))
+    done
+}
+
+runTimer() {
+    while true
+    do
+        period -w
+        period -r
+    done
+}
+
+stopTimer() {
+    printf "OFF" > /tmp/timer
+    pkill -RTMIN+9 dwmblocks
+    killall timer
+}
+
+if [ "$1" = "-s" ]; then
+    stopTimer
+elif [ "$1" = "-t" ]; then
+    if [ "$(sed '1q;d' /tmp/timer)" = "WORK" ] || [ "$(sed '1q;d' /tmp/timer)" = "REST" ]; then
+        stopTimer
+    else
+        runTimer
+    fi
+else
+    [ "$(sed '1q;d' /tmp/timer)" = "WORK" ] || [ "$(sed '1q;d' /tmp/timer)" = "REST" ] && exit 
+
+    runTimer
+fi

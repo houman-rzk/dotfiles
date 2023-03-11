@@ -39,6 +39,9 @@ Plug 'preservim/nerdtree'
 " Surround
 Plug 'tpope/vim-surround'
 
+" Undo tree
+Plug 'mbbill/undotree'
+
 " YouCompleteMe
 " Remember to install it by running: python3 $XDG_CONFIG_HOME/nvim/plugged/YouCompleteMe/install.py --all
 Plug 'ycm-core/YouCompleteMe'
@@ -60,7 +63,7 @@ call plug#end()
     "set nowrapscan
     set ignorecase
     " Tabs
-	set tabstop=4 | set shiftwidth=4 | set expandtab | set softtabstop=4
+	set tabstop=2 | set shiftwidth=2 | set expandtab | set softtabstop=2
     " Do not match brackets, parenthesis, etc
     "let g:loaded_matchparen=1
     set scrolloff=3
@@ -101,8 +104,6 @@ call plug#end()
     map <leader>t :tabe 
     map <leader>e :e 
     map <leader>d :bd<CR>
-	" Run current file
-	map <leader>r :w \| !run "%"<CR>
 	" Shellcheck current file
 	map <leader>sc :w \| !shellcheck %<CR>
     " Write and Quit
@@ -123,16 +124,24 @@ call plug#end()
 	map <ESC> :noh<CR>:<ESC>
     " Compile a [source, tex, groff, ...] file
 	map <leader>c :w! \| !compile "<c-r>%"<CR>
-    " Open a file
-	"map <leader>p :!opout "<c-r>%"<CR><CR>
+	" Run current file (if its tex, groff... open the compiled pdf)
+	map <leader>r :w \| !run "%"<CR>
+    " LaTex shortcuts
+    function! MappingsLATEX()
+        map <leader>i i\begin{itemize}<CR>\end{itemize}<ESC>O\item <CR>\item <ESC>kA
+        map <leader>n i\begin{enumerate}<CR>\end{enumerate}<ESC>O\item <CR>\item <ESC>kA
+        map <leader>b a\textbf{}<ESC>i
+    endfunction
     " Coding & Soy-devvery
-    map <leader>b a{<Enter>}<ESC>O
+    "map <leader>b a{<Enter>}<ESC>O
         " HTML
     "map <leader><leader> i<><ESC>i
     function! MappingsHTML()
         map <leader><leader> a<><ESC>i
-        map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
-        map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
+        "map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
+        map <leader>ht ?<<CR>"tye$p?<<CR>a/<ESC>A><ESC>?><CR>a
+        "map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
+        map <leader>hT $?<<CR>"tyeo<ESC>"tp?<<CR>a/<ESC>A><ESC>O<><ESC>i
         map <leader>ho o<><ESC>i
         map <leader>hO O<><ESC>i
     endfunction
@@ -163,7 +172,9 @@ call plug#end()
     let NERDTreeMapJumpPrevSibling = '<C-P>'
     " vCoolor
     let g:vcoolor_disable_mappings = 1
-    let g:vcoolor_map = '<A-c>'
+    let g:vcoolor_map = '<C-o>'
+	" Undo Tree
+	nnoremap <leader>U :UndotreeToggle<CR>
 
 " Eye candy
 	"let g:gruvbox_contrast_dark = "hard"
@@ -183,6 +194,8 @@ call plug#end()
 	"autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo -S make install && { killall -q dwmblocks ; setsid -f dwmblocks }
     autocmd BufEnter,BufNew *.html :NoMatchParen
     autocmd BufEnter,BufNew *.html call MappingsHTML()
+    autocmd BufEnter,BufNew *.js call MappingsHTML()
+    autocmd BufEnter,BufNew *.tex call MappingsLATEX()
     " File-extension-dependent mappings
     "autocmd BufEnter,BufNew *.java :map <leader>jo aSystem.out.println();<ESC>hi
 
@@ -191,3 +204,4 @@ call plug#end()
 
 " This was in old vimrc
 ":set autochdir
+

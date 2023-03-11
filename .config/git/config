@@ -1,12 +1,10 @@
 [user]
-	name = hache
-	email = null
+	name = Houman
+	email = houman@houmanr.xyz
 [credential]
 	helper = store
 [init]
 	defaultBranch = master
-[credetial]
-	helper = store
 [alias]
 	st = status
 	ci = commit -am

@@ -11,6 +11,6 @@ case "$(printf " lock\n logout\n reboot\n shutdown\n⏾ sleep" | dme
 	' logout') kill -9 -1 ;;
 	'⏾ sleep') mpc pause >/dev/null 2>&1 ; slock $ctl suspend -i ; rfkill unblock wifi ; remaps ; update-dwmblocks & ;;
 	' reboot') sudo reboot ;;
-	' shutdown') sudo shutdown -P now ;;
+	' shutdown'|'off'|'poweroff') sudo shutdown -P now ;;
 	*) exit 1 ;;
 esac

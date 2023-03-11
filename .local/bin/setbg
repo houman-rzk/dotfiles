@@ -11,8 +11,8 @@ pywal_setbg() {
     if command -v wal >/dev/null 2>&1 ; then
         touch /tmp
         wal -ni "$(readlink -f "$WALLPAPER_LINK")" -o "$XDG_CONFIG_HOME/wal/postrun" > /dev/null 2>&1
-    # If pywal is not installed, return config files to normal.
     else
+    # If pywal is not installed, return config files to normal.
         dunstconf="$XDG_CONFIG_HOME/dunst/dunstrc"
         zathuraconf="$XDG_CONFIG_HOME/zathura/zathurarc"
 
@@ -36,7 +36,11 @@ fi
 [ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
 
 if [ "$#" -eq 1 ] ; then
-    ln -s "$(pwd)/$1" "$WALLPAPER_LINK"
+    if [ "$1" != "${1#/}" ] ; then
+        ln -s "$1" "$WALLPAPER_LINK"
+    else
+        ln -s "$(pwd)/$1" "$WALLPAPER_LINK"
+    fi
 else
     { [ ! -f "$WALLPAPERS_FILE" ] || [ "$(wc -l "$WALLPAPERS_FILE" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && create_wallpapers_file
 

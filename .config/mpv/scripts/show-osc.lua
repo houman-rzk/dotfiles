@@ -12,10 +12,14 @@ function show_osc()
         timeout = mp.add_timeout(
             small_wait,
             function()
+                --added the following line on 2023-01-29
+                mp.set_property_number("osd-level", 0)
                 mp.command("script-message osc-visibility always")
                 mp.add_timeout(
                     wait,
                     function()
+                        --added the following line on 2023-01-29
+                        mp.set_property_number("osd-level", 0)
                         mp.command("script-message osc-visibility auto")
                         mp.add_timeout(
                             small_wait,

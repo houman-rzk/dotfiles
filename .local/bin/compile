@@ -19,7 +19,7 @@ tex_cleanup () {
 
     if [ "$1" = "--keep-log" ]
     then
-        a=1
+        cat /dev/null
     else
         rm "$basename.blg" >/dev/null 2>&1
         rm "$basename.log" >/dev/null 2>&1
@@ -59,12 +59,13 @@ java_compile() {
 
 # Compile a C++ program
 cpp_compile() {
-    g++ "$file" -Wall -o "$basename"
+    #g++ "$file" -Wall -o "$basename"
+    g++ "$file" -Wall -O2 -fopenmp -o "$basename"
 }
 
 case "$ext" in
+    cpp) cpp_compile ;;
+    java) java_compile ;;
     tex) tex_compile ;;
     ms|mm|me) groff_compile ;;
-    java) java_compile ;;
-    cpp) cpp_compile ;;
 esac

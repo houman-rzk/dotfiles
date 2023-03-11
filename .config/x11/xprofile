@@ -3,7 +3,11 @@
 setbg
 
 autostart="autorandr picom dunst clipmenud remaps connect profiles unclutter shortcuts mpd"
+#autostart="autorandr picom dunst clipmenud remaps connect profiles unclutter shortcuts mpd torbrowser-launcher"
+#autostart="autorandr picom dunst clipmenud remaps profiles unclutter shortcuts mpd run-tor"
 
 for prog in $autostart; do
 	pidof -s "$prog" || "$prog" &
 done >/dev/null 2>&1
+
+update-dwmblocks -d &

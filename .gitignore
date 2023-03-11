@@ -1,15 +1,11 @@
-.dbus/
-.thunderbird/
 .ssh/
 Downloads/
-Curso HTML 5
 GII
 Others/
-UBUNTU
-.gitconfig
 .sqldeveloper/
 
 .config/amsynth/
+.config/calibre/
 .config/GIMP/
 .config/LarusStone/
 .config/Microsoft/
@@ -62,6 +58,8 @@ UBUNTU
 .local/lib/
 
 .local/src/
+
+.local/bin/pw
 
 .local/state/
 

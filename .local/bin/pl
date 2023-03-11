@@ -1,11 +1,20 @@
 #!/bin/sh
 
-playlist="$(mpc lsplaylists | dmenu -i -l 10)"
+# Delete currently-playing song from the playlist
+if [ "$1" = "-d" ]; then
+    song="$(mpc -f "%file%" | head -n1 | sed -e 's/\//\\\//g' -e 's/\[/\\[/g' -e 's/\]/\\]/g' -e 's/\./\\./g')"
+    sed -e "s/$song//g" -e "/^$/d" -i "$XDG_DATA_HOME/mpd/playlists/$(cat /tmp/pl).m3u"
+    mpc del 0
+    exit
+fi
 
-if [ ! "$playlist" = "" ] ; then
+playlist="$(mpc lsplaylists | sort | dmenu -i -l 10 -p "Select playlist: ")"
+
+if [ -n "$playlist" ] ; then
     mpc clear 1>/dev/null
     mpc random on 1>/dev/null
     mpc load "$playlist" 1>/dev/null
     mpc play 1>/dev/null
     music-control notify
+    echo "$playlist" > /tmp/pl
 fi
