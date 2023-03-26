@@ -1,10 +1,12 @@
-set shell zsh
+set shell sh
 
 set shellopts '-eu'
 
 set scrolloff 10
 
 set icons
+
+set drawbox true
 
 cmd open ${{
 	case $({ [ -L "$f" ] && f="$(readlink -f "$f")" ;} ; file --mime-type -b "$f") in
@@ -25,7 +27,7 @@ cmd open ${{
         application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
         application/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid -f libreoffice "$f" ;;
         inode/x-empty) $EDITOR "$f" ;;
-		#*) for f in "$fx" ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
+		*) for f in "$fx" ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
 		*) setsid -f xdg-open "$f" >/dev/null 2>&1 ;;
 	esac
 }}
@@ -100,6 +102,15 @@ cmd share-file ${{
     curl -F "file=@$f" 0x0.st 2>/dev/null | tr -d "\n" | xclip -sel c
 }}
 
+cmd rename-file ${{
+	dir="${f%/*}"
+	name="${f##*/}"
+	printf "Rename: " ; xdotool type "$name" ; read new
+	[ "$name" = "$new" ] && clear && exit
+	mv "${dir}/${name}" "${dir}/${new}" || read a
+	clear
+}}
+
 on-cd
 
 cmd q quit
@@ -110,6 +121,7 @@ map e edit
 map <enter> shell
 map <c-r> reload
 #map D delete
+#map r rename-file
 map PD delete
 map D trash
 map H set hidden!

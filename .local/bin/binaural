@@ -1,0 +1,36 @@
+#!/bin/sh
+
+freqL="150"
+file="/tmp/binaural.wav"
+
+[ "$1" = "-s" ] && { pgrep -f "$file" | xargs kill >/dev/null 2>&1 ; exit ;}
+
+sel="$(printf \
+"Delta (4-8Hz): Deep sleep, relaxation.
+Theta (8-13Hz): REM sleep, reduced anxiety, meditative and creative states
+Alpha (14-30Hz): Relaxation, positivity, decreased anxiety
+Beta (14-30Hz): Concentration, alertness, problem solving, improved memory
+40Hz: Enhanced training and learning" \
+  | dmenu -i -l 10 -p "Range: ")"
+
+case "$sel" in
+  Delta*) n=2;;
+  Theta*) n=6;;
+  Alpha*) n=11;;
+  Beta*) n=22;;
+  40Hz*) n=40;;
+  *) n="$sel";;
+esac
+
+freqR="$((freqL + n))"
+
+# Exit if input was empty or did not match ranges or if input was lesser than or equal to 0.
+[ "$freqR" -le "$freqL" ] && exit
+
+rm -rf "$file"
+
+ffmpeg -f lavfi -i "sine=frequency=${freqL}:duration=60" -f lavfi -i "sine=frequency=${freqR}:duration=60" -filter_complex amerge "$file" >/dev/null 2>&1
+
+pgrep -f "$file" | xargs kill >/dev/null 2>&1
+
+setsid -f mpv --loop-file=inf "$file" >/dev/null 2>&1
