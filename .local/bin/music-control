@@ -4,8 +4,17 @@
 
 status="$(mpc | head -n 2 | tail -n 1 | cut -d '[' -f2 | cut -d ']' -f1)"
 
+song="$(mpc -f '%title%' | head -n 1)"
+if [ -z "$song" ]; then
+    f1="$(mpc -f '%file%' | head -n 1)"
+    f2="${f1##*/}"
+    song="${f2%.*}"
+else
+    song="$(mpc -f '%title% (%album%) - %artist%' | head -n 1)"
+fi
+
 case "$status" in
-    "playing") dunstify -u low -r 1 -t 2000 "$(mpc | head -n1)" ;;
+    "playing") dunstify -u low -r 1 -t 2000 "$song" ;;
 esac
 
 pkill -RTMIN+7 dwmblocks

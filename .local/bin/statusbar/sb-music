@@ -1,6 +1,18 @@
 #!/bin/sh
 
-[ "$(mpc | wc -l)" -ne 1 ] && song="$(printf "\n%s" "$(mpc -f '%title% (%album%) - %artist%' | head -n 1)")"
+if [ "$(mpc | wc -l)" -ne 1 ]; then
+    song="$(mpc -f '%title%' | head -n 1)"
+
+    if [ -z "$song" ]; then
+        f1="$(mpc -f '%file%' | head -n 1)"
+        f2="${f1##*/}"
+        song="${f2%.*}"
+    else
+        song="$(mpc -f '%title% (%album%) - %artist%' | head -n 1)"
+    fi
+
+    song="$(printf "\n%s" "$song")"
+fi
 
 case $BLOCK_BUTTON in
     1) music-control toggle ;;
