@@ -1,0 +1,11 @@
+#!/bin/sh
+
+pw=false
+
+echo "" | gpg --sign --batch --no-tty --pinentry-mode cancel --local-user "$(cat "$PASSWORD_STORE_DIR/.gpg-id")" -o /dev/null >/dev/null 2>&1 && pw=true
+
+if [ $pw = true ]; then
+  passmenu --type -c
+else
+  st -e passmenu --type -c
+fi
