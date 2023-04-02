@@ -73,7 +73,7 @@ cmd touch-file ${{
 
 cmd zip-files ${{
     #name="$(head -n 1 /dev/*random* | md5sum | cut -c 1-3)"
-    printf "Enter zip archive name (without .zip extension): "
+    printf "Enter zip archive name: "
     read name
     unset files
     echo "$fx" | while read -r l ; do { file="$(echo "$l" | rev | cut -d '/' -f 1 | rev)" ; zip -r "$name" "$file" ;} ; done
