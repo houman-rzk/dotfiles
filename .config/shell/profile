@@ -70,7 +70,7 @@ export POWER_PROFILE_FILE="/tmp/current_power_profile"
   # ssh agent
 eval "$(ssh-agent -s)"
   # for gpg-agent
-export GPG_TTY=$(tty)
+#export GPG_TTY=$(tty)
 
 #Start X; this line should always be the last one
 exec startx "$XINITRC" >/dev/null 2>&1

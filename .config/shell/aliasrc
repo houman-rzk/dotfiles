@@ -53,7 +53,6 @@ alias \
 	mk='make && sudo make clean install' \
 	lo='kill -9 -1' \
 	mo='mk && lo' \
-	pm='passmenu' \
   lf="lfrun" \
 	off="shutdown -h now" \
   nstart="rfkill unblock wifi" \
