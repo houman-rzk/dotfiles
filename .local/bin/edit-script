@@ -1,12 +1,21 @@
 #!/bin/sh
 
-#command -v "$1" >/dev/null 2>&1 || { echo "Command '$1' does not exist" && exit 1 ;}
-#command -v "$1" >/dev/null 2>&1 && { $EDITOR "$(which "$1")" && shellcheck "$(which "$1")" ; exit 0 ;} || add-script "$1"
+[ "$#" -ne 1 ] && echo "ERROR: Incorrect argument count (should be only one)" && exit 1
+
 if command -v "$1" >/dev/null 2>&1 ; then
     $EDITOR "$(which "$1")"
     shellcheck "$(which "$1")"
     exit 0
 else
-    echo "The script '$1' does not exist"
-    #add-script "$1"
+    { expr "$1" : 'sb-*' 1>/dev/null && DIR="$HOME/.local/bin/statusbar" ;} || DIR="$HOME/.local/bin"
+    TMP="/tmp/${0##*/}"
+    mkdir "$TMP" >/dev/null 2>&1
+    touch "$TMP/$1"
+    chmod u+x "$TMP/$1"
+    $EDITOR "$TMP/$1"
+    if [ "$(wc -l "$TMP/$1" | awk '{print $1}')" -ne 0 ]; then
+        mv "$TMP/$1" "$DIR/$1"
+        shellcheck "$DIR/$1"
+    fi
+    exit 0
 fi
