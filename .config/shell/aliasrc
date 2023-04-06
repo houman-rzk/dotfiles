@@ -24,7 +24,6 @@ alias \
 	v="$EDITOR" \
 	es="edit-script" \
 	tt="taskwarrior-tui" \
-	as="add-script" \
 	trr="transmission-remote" \
 	td="transmission-daemon" \
 	untar="tar -xvf" \
