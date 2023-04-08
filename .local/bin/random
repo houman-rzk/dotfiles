@@ -1,0 +1,8 @@
+#!/bin/sh
+
+len=$1
+
+[ -z "$1" ] && len=10
+
+tr -dc A-Za-z0-9 </dev/urandom | head -c "$len" | xclip -sel primary
+echo "Copied to primary clipboard"
