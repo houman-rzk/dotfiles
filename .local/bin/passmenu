@@ -28,6 +28,12 @@ password=$(printf '%s\n' "${password_files[@]}" | "$dmenu" -i -l 15 -p 'Select p
 
 [[ -n $password ]] || exit
 
+if ! echo "" | gpg --sign --batch --no-tty --pinentry-mode cancel --local-user "$(cat "$PASSWORD_STORE_DIR/.gpg-id")" -o /dev/null >/dev/null 2>&1; then
+  pass generate passmenu.tmp 20 >/dev/null 2>&1
+  st -e pass passmenu.tmp
+	pass rm -f passmenu.tmp >/dev/null 2>&1
+fi
+
 if [[ $typeit -eq 0 ]]; then
 	pass show -c "$password" 2>/dev/null
 else
