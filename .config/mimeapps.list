@@ -32,8 +32,5 @@ audio/flac=audio.desktop
 application/zip=archive.desktop
 application/x-rar=archive.desktop
 
-
-
-[Added Associations]
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
 x-scheme-handler/msteams=teams.desktop

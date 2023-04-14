@@ -147,7 +147,8 @@ call plug#end()
     endfunction
         " JS (omg nooo)
             " User omnicomplete, since YCM-JS doesn't work without ~/.tern-config
-    inoremap <C-Space> <C-x><C-o>
+						inoremap <C-Space> <C-x><C-o>
+						map <leader>C :norm I//<CR>
     
 " Plugin shortcuts & config
 	" Goyo
@@ -165,8 +166,11 @@ call plug#end()
 	" NERDTree
 	nnoremap <leader>f :NERDTreeFind<CR>
 	nnoremap <leader>T :NERDTreeToggle<CR>
+	map <leader>tH :tabn 1<CR>
 	let NERDTreeMapActivateNode = "l"
 	let NERDTreeMapToggleHidden = "H"
+	let NERDTreeMapOpenInTab = "T"
+	let NERDTreeMapOpenInTabSilent = "t"
 	let NERDTreeMapUpdir = 'h'
     let NERDTreeMapJumpNextSibling = '<C-N>'
     let NERDTreeMapJumpPrevSibling = '<C-P>'

@@ -33,4 +33,4 @@ ffmpeg -f lavfi -i "sine=frequency=${freqL}:duration=60" -f lavfi -i "sine=frequ
 
 pgrep -f "$file" | xargs kill >/dev/null 2>&1
 
-setsid -f mpv --loop-file=inf "$file" >/dev/null 2>&1
+setsid -f mpv --no-config --loop-file=inf "$file" >/dev/null 2>&1
