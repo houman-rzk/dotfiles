@@ -35,8 +35,13 @@ if ! echo "" | gpg --sign --batch --no-tty --pinentry-mode cancel --local-user "
 	pass rm -f passmenu.tmp >/dev/null 2>&1
 fi
 
+secret="$(pass show "$password")"
+printf "$secret" | xclip -i -sel p
+
 if [[ $typeit -eq 0 ]]; then
-	pass show -c "$password" 2>/dev/null
+	#pass show -c "$password" 2>/dev/null
+	#printf "$secret" | xclip -i -sel p
 else
 	pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } | $xdotool
+	#printf "$secret" | xdotool type --file -
 fi

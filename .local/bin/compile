@@ -29,7 +29,7 @@ tex_cleanup () {
 # Compile a latex file
 tex_compile () {
     #{ xelatex --output-directory="$dir" "$file" >/dev/null 2>&1 && tex_cleanup ;} || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log ;}
-    xelatex --output-directory="$dir" "$file" >/dev/null 2>&1 || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log ;}
+    xelatex --output-directory="$dir" "$file" >/dev/null 2>&1 || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log && cat "$basename.log" ;}
 
     #if [ -f "$basename.bcf" ]
     #then
@@ -57,14 +57,14 @@ java_compile() {
     #javac "$file" 2>/tmp/java_compile.log
 }
 
-# Compile a C++ program
+# Compile a C/C++ program
 cpp_compile() {
     #g++ "$file" -Wall -o "$basename"
     g++ "$file" -Wall -O2 -fopenmp -o "$basename"
 }
 
 case "$ext" in
-    cpp) cpp_compile ;;
+    cpp|c) cpp_compile ;;
     java) java_compile ;;
     tex) tex_compile ;;
     ms|mm|me) groff_compile ;;
