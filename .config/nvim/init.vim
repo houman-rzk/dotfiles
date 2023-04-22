@@ -139,11 +139,11 @@ call plug#end()
     function! MappingsHTML()
         map <leader><leader> a<><ESC>i
         "map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
-        map <leader>ht ?<<CR>"tye$p?<<CR>a/<ESC>A><ESC>?><CR>a
+        map <leader>mt ?<<CR>"tye$p?<<CR>a/<ESC>A><ESC>?><CR>a
         "map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
-        map <leader>hT $?<<CR>"tyeo<ESC>"tp?<<CR>a/<ESC>A><ESC>O<><ESC>i
-        map <leader>ho o<><ESC>i
-        map <leader>hO O<><ESC>i
+        map <leader>mT $?<<CR>"tyeo<ESC>"tp?<<CR>a/<ESC>A><ESC>O<><ESC>i
+        map <leader>mo o<><ESC>i
+        map <leader>mO O<><ESC>i
     endfunction
         " JS (omg nooo)
             " User omnicomplete, since YCM-JS doesn't work without ~/.tern-config
@@ -166,7 +166,7 @@ call plug#end()
 	" NERDTree
 	nnoremap <leader>f :NERDTreeFind<CR>
 	nnoremap <leader>T :NERDTreeToggle<CR>
-	map <leader>tH :tabn 1<CR>
+	map <leader>H :tabn 1<CR>
 	let NERDTreeMapActivateNode = "l"
 	let NERDTreeMapToggleHidden = "H"
 	let NERDTreeMapOpenInTab = "T"
@@ -208,4 +208,3 @@ call plug#end()
 
 " This was in old vimrc
 ":set autochdir
-

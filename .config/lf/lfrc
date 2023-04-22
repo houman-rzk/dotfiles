@@ -16,8 +16,7 @@ cmd open ${{
 		#image/*) setsid -f nsxiv -a "$f" >/dev/null 2>&1 ;;
 		image/*) imgs="$(echo "$fx" | tr "\n" "'" | sed "s/'/' '/g" | sed "s/^/'/g" | sed "s/' '$/'/g")" ; eval "setsid -f nsxiv -a $imgs >/dev/null 2>&1" ;;
         application/octet-stream) setsid -f gpg -dq "$f" ;;
-		#text/*) echo "$fx" | tr "\n" '"' | sed 's/"/" "/g' | sed 's/^/"/g' | sed 's/" "$/"/g' | xargs $EDITOR ;;
-		text/*|application/json) echo "$fx" | tr "\n" '|' | sed -e 's/|$/"/g' -e 's/|/|-c "tabe /g' -e 's/|-c/" -c/g' -e 's/^/"/' | xargs $EDITOR ;;
+		#text/*) echo "$fx" | tr "\n" '"' | sed 's/"/" "/g' | sed 's/^/"/g' | sed 's/" "$/"/g' | xargs $EDITOR ;; text/*|application/json) echo "$fx" | tr "\n" '|' | sed -e 's/|$/"/g' -e 's/|/|-c "tabe /g' -e 's/|-c/" -c/g' -e 's/^/"/' | xargs $EDITOR ;;
 		#application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/pdf) echo "$fx" | while read -r l ; do setsid -f xdg-open "$l" ; done ;;
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
@@ -142,6 +141,7 @@ map st push $setsid<space>-f<space>st<space>>/dev/null<space>2>&1<enter>
 map ol push $setsid<space>-f<space>st<space>-e<space>lf<enter>
 map of push $setsid<space>-f<space>firefox<space>"$f">/dev/null<space>2>&1<enter>
 map L create-symlink
+map V ${{ "$EDITOR" . }}
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
