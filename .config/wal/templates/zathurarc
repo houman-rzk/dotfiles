@@ -8,7 +8,7 @@ set window-title-home-tilde true
 map b navigate previous
 map <Space> navigate next
 map t exec "setsid -f st"
-map f exec "setsid -f st -e lf"
+map <C-f> exec "setsid -f st -e lf"
 
 ## Colors
 #set default-bg                     "{background}"
