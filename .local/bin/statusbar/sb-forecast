@@ -3,7 +3,8 @@
 weatherreport="$XDG_CACHE_HOME/weatherreport"
 
 
-getforecast () { curl --max-time 3 -sf "wttr.in" > "$weatherreport" || exit 1;}
+getforecast () { curl --max-time 10 -sf "wttr.in" > "$weatherreport" || exit 1;}
+#getforecast () { curl --retry 10 -sf "wttr.in" > "$weatherreport" || exit 1;}
 
 showweather () { echo "  $icon $temp°  " ;}
 
@@ -25,10 +26,10 @@ setforecasticon () {
     case "$(sed '3q;d' "$weatherreport" | sed -r -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's/^[^a-zA-Z]+//g')" in
         "Partly cloudy"|"Overcast") icon="" ;;
         "Cloudy") icon="" ;;
-        "Clear"|"Sunny") icon="盛" ;;
+        "Clear"|"Sunny") icon="󰖨" ;;
         *hunderstorm*) icon="" ;;
         *rain*|*Rain*) icon="" ;;
-        *mist*|*Mist*|*fog*|*Fog*) icon="" ;;
+        *mist*|*Mist*|*fog*|*Fog*) icon="" ;;
         *) icon="X" ;;
     esac;
 }

@@ -27,7 +27,8 @@ elif [ "$volume" -gt 33 ] && [ "$mute" -eq 0 ] ; then
 elif [ "$volume" -ge 0 ] && [ "$mute" -eq 0 ] ; then
     icon=""
 else
-    icon="ﱝ"
+    icon=""
+    icon="󰖁"
 fi
 
 printf "  $icon%7s\n" "$volume%  "

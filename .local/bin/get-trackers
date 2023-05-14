@@ -1,3 +1,5 @@
 #!/bin/sh
 
 curl -s https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_https.txt | xclip -sel clip
+
+notify-send "Got trackers"

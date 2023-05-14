@@ -11,9 +11,9 @@ volume="$(pulsemixer --get-volume | cut -d ' ' -f1)"
 mute="$(pulsemixer --get-mute)"
 
 if [ "$mute" -eq 0 ] ; then
-    icon="墳"
+    icon=""
 else
-    icon="婢"
+    icon="󰖁"
 fi
 
 pgrep "mpv" && dunstify -u low -r 1 "$(printf "$icon:%7s\n" "$volume%  " )"

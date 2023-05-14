@@ -199,6 +199,7 @@ call plug#end()
     autocmd BufEnter,BufNew *.html :NoMatchParen
     autocmd BufEnter,BufNew *.html call MappingsHTML()
     autocmd BufEnter,BufNew *.js call MappingsHTML()
+    autocmd BufEnter,BufNew *.vue call MappingsHTML()
     autocmd BufEnter,BufNew *.tex call MappingsLATEX()
     " File-extension-dependent mappings
     "autocmd BufEnter,BufNew *.java :map <leader>jo aSystem.out.println();<ESC>hi
