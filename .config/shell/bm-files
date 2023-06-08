@@ -11,7 +11,6 @@ vs          $XDG_CONFIG_HOME/zsh/.zshrc
 lfrc        $XDG_CONFIG_HOME/lf/lfrc
 bm-files    $XDG_CONFIG_HOME/shell/bm-files
 bm-dirs     $XDG_CONFIG_HOME/shell/bm-dirs
-ideas       $HOME/Home/Documents/Resources/Ideas
 xprofile    $XDG_CONFIG_HOME/x11/xprofile
 hist        $XDG_DATA_HOME/shell/history
 nburls      $XDG_CONFIG_HOME/newsboat/urls

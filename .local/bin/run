@@ -8,8 +8,7 @@ ext="${file##*.}"
 
 case "$ext" in
     java) java -cp "$dir" "$filenameNoExt" ;;
-    cpp) "$dir/$filenameNoExt" ;;
-    c) "$dir/$filenameNoExt" ;;
+    c|cpp) "$dir/$filenameNoExt" ;;
     py) python3 "$filename" || "$filename";;
     tex|ms) setsid -f xdg-open "$filenameNoExt.pdf" ;;
     lisp) clisp "$filename" ;;
