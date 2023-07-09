@@ -133,14 +133,10 @@ call plug#end()
         map <leader>b a\textbf{}<ESC>i
     endfunction
     " Coding & Soy-devvery
-    "map <leader>b a{<Enter>}<ESC>O
         " HTML
-    "map <leader><leader> i<><ESC>i
     function! MappingsHTML()
         map <leader><leader> a<><ESC>i
-        "map <leader>ht ?<<CR>l"tyi>/><CR>a</<ESC>pa><ESC>?><CR>a
         map <leader>mt ?<<CR>"tye$p?<<CR>a/<ESC>A><ESC>?><CR>a
-        "map <leader>hT $?<<CR>l"ty/><CR>"hyy"hpldi>i/<ESC>"tpO<><ESC>i
         map <leader>mT $?<<CR>"tyeo<ESC>"tp?<<CR>a/<ESC>A><ESC>O<><ESC>i
         map <leader>mo o<><ESC>i
         map <leader>mO O<><ESC>i

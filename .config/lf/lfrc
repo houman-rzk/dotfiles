@@ -13,19 +13,21 @@ cmd open ${{
 		image/vnd.djvu) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		video/*) setsid -f mpv "$f" >/dev/null 2>&1 ;;
 		audio/*) setsid -f mpv --player-operation-mode=pseudo-gui "$f" ;;
-		#image/*) setsid -f nsxiv -a "$f" >/dev/null 2>&1 ;;
+		image/x-xcf) setsid -f gimp "$f" ;;
 		image/*) imgs="$(echo "$fx" | tr "\n" "'" | sed "s/'/' '/g" | sed "s/^/'/g" | sed "s/' '$/'/g")" ; eval "setsid -f nsxiv -a $imgs >/dev/null 2>&1" ;;
-        application/octet-stream) setsid -f gpg -dq "$f" ;;
+    application/octet-stream) setsid -f gpg -dq "$f" ;;
 		text/*) echo "$fx" | tr "\n" '"' | sed 's/"/" "/g' | sed 's/^/"/g' | sed 's/" "$/"/g' | xargs $EDITOR ;; text/*|application/json) echo "$fx" | tr "\n" '|' | sed -e 's/|$/"/g' -e 's/|/|-c "tabe /g' -e 's/|-c/" -c/g' -e 's/^/"/' | xargs $EDITOR ;;
 		#application/pdf) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/pdf) echo "$fx" | while read -r l ; do setsid -f xdg-open "$l" ; done ;;
 		application/epub+zip) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
-        inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
-        #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
-        application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
-        application/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid -f libreoffice "$f" ;;
-        inode/x-empty) $EDITOR "$f" ;;
+    inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
+    #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+    application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+		application/gzip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+		application/vnd.oasis.opendocument.spreadsheet) setsid -f libreoffice "$f" ;;
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid -f libreoffice "$f" ;;
+    inode/x-empty) $EDITOR "$f" ;;
 		*) for f in "$fx" ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
 		*) setsid -f xdg-open "$f" >/dev/null 2>&1 ;;
 	esac
@@ -37,6 +39,7 @@ cmd edit ${{
 		application/pdf) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
 		application/gzip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
 		application/epub+zip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
+		image/*) setsid -f gimp "$f" > /dev/null 2>&1 ;;
 	esac
 }}
 
@@ -54,11 +57,12 @@ cmd extract ${{
 #    echo "$fx" | while read -r l ; do { t="$(echo "$l" | sed 's/^.*\///g')" ; { { [ -f "$XDG_DATA_HOME/Trash/$t" ] || [ -d "$XDG_DATA_HOME/Trash/$t" ] ;} && t="${t}-$(head -n 1 /dev/*random* | md5sum | cut -c 1-4)" ;} ; mv "$l" "$XDG_DATA_HOME/Trash/$t" ;} ; done
 #}}
 
-cmd trash push $[<space>!<space>-d<space>"$XDG_DATA_HOME/Trash"<space>]<space>&&<space>mkdir<space>-p<space>"$XDG_DATA_HOME/Trash"<space>><space>/dev/null<space>2>&1<space>;<space>echo<space>"$fx"<space>|<space>while<space>read<space>-r<space>l<space>;<space>do<space>{<space>t="$(echo<space>"$l"<space>|<space>sed<space>'s/^.*\///g')"<space>;<space>{<space>{<space>[<space>-f<space>"$XDG_DATA_HOME/Trash/$t"<space>]<space>||<space>[<space>-d<space>"$XDG_DATA_HOME/Trash/$t"<space>]<space>;}<space>&&<space>t="${t}-$(head<space>-n<space>1<space>/dev/*random*<space>|<space>md5sum<space>|<space>cut<space>-c<space>1-4)"<space>;}<space>;<space>mv<space>"$l"<space>"$XDG_DATA_HOME/Trash/$t"<space>;}<space>;<space>done<space>#
+cmd trash push $[<space>!<space>-d<space>"$XDG_DATA_HOME/Trash"<space>]<space>&&<space>mkdir<space>-p<space>"$XDG_DATA_HOME/Trash"<space>><space>/dev/null<space>2>&1<space>;<space>echo<space>"$fx"<space>|<space>while<space>read<space>-r<space>l<space>;<space>do<space>{<space>t="$(echo<space>"$l"<space>|<space>sed<space>'s/^.*\///g')"<space>;<space>{<space>{<space>[<space>-f<space>"$XDG_DATA_HOME/Trash/$t"<space>]<space>||<space>[<space>-d<space>"$XDG_DATA_HOME/Trash/$t"<space>]<space>;}<space>&&<space>t="${t}_$(date<space>"+%Y%m%d-%H%M%S")_$(head<space>-n<space>1<space>/dev/*random*<space>|<space>md5sum<space>|<space>cut<space>-c<space>1-4)"<space>;}<space>;<space>mv<space>"$l"<space>"$XDG_DATA_HOME/Trash/$t"<space>;}<space>;<space>done<space>#
 
 cmd file-type ${{
     file -i "$f" ; read a
     #file "$f" ; read a
+		clear
 }}
 
 # Creates an empty text file
@@ -68,6 +72,7 @@ cmd touch-file ${{
     read name
     touch "$name"
     #[ ! -f "$name" ] && printf "\n\n" > "$name"
+		clear
 }}
 
 cmd zip-files ${{
@@ -76,6 +81,7 @@ cmd zip-files ${{
     read name
     unset files
     echo "$fx" | while read -r l ; do { file="$(echo "$l" | rev | cut -d '/' -f 1 | rev)" ; zip -r "$name" "$file" ;} ; done
+		clear
 }}
 
 #cmd move-to-new-dir ${{
@@ -148,6 +154,8 @@ map ol push $setsid<space>-f<space>st<space>-e<space>lf<enter>
 map of push $setsid<space>-f<space>firefox<space>"$f">/dev/null<space>2>&1<enter>
 map L create-symlink
 map V ${{ "$EDITOR" . }}
+map sn ${{ setsid -f nautilus . }}
+map sd ${{ dragon * }}
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner

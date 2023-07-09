@@ -54,8 +54,8 @@ setforecasticon
 
 case $BLOCK_BUTTON in
 	1) getforecast && gettemp && echo "$temp" ;; 
-	2) setsid -f "$TERMINAL" -f "monospace:size=6" -e less -Srf "$weatherreport" ;;
-	#2) setsid -f "$TERMINAL" -f "monospace:size=9" -e less -Srf "$weatherreport" ;;
+	2) setsid -f "$TERMINAL" -e less -Srf "$weatherreport" ;;
+	#2) setsid -f "$TERMINAL" -f "monospace:size=6" -e less -Srf "$weatherreport" ;;
 	#3) extractforecast && dunstify -u low -r 1 -t 5000 "Weather module" "🟡$maxtemp ❄️$mintemp 💧$precip
 	3) extractforecast && dunstify -u low -r 1 -t 5000 "Weather module" "$maxtemp $mintemp $precip
 - Left click to update forecast.

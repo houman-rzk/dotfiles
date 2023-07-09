@@ -1,7 +1,7 @@
 #!/bin/sh
 
 mem=" $(free -h | awk '/^Mem/{print $3"/"$2}' | sed s/i//g)"
-cpu=" $(uptime | grep -o --color=never "average:.*" | awk '{print $2}' | tr -d "," | sed -e 's/.*\.//g' -e 's/0*//g' -e 's/$/%/g')"
+cpu=" $(uptime | grep -o --color=never "average:.*" | awk '{print $2}' | tr -d "," | sed -e 's/.*\.//g' -e 's/0*//g' -e 's/$/%/g')"
 
 [ "$cpu" = "%" ] && cpu="N/A"
 

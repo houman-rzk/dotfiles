@@ -1,10 +1,18 @@
 #!/bin/sh
 
+logo="󰖟"
 logo=""
 
-test() { ping -c 1 9.9.9.9 >/dev/null 2>&1 || ping -c 1 archlinux.org >/dev/null 2>&1 || logo="";}
+test() { ping -c 1 9.9.9.9 >/dev/null 2>&1 || ping -c 1 archlinux.org >/dev/null 2>&1 || logo="󰪎";}
 
 test
+
+#logo="󰪎"
+#while ! ping -c 1 9.9.9.9 >/dev/null 2>&1 && ! ping -c 1 archlinux.org >/dev/null 2>&1
+#do
+#	sleep 1s
+#done
+#logo=""
 
 case $BLOCK_BUTTON in
 	1) dunstify -u low -r 1 -t 5000 "Internet module" "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;

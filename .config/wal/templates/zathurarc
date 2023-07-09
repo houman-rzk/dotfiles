@@ -1,6 +1,6 @@
 # Main settings
 set selection-clipboard primary
-set sandbox normal
+#set sandbox normal
 set statusbar-basename true
 set window-title-home-tilde true
 

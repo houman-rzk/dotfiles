@@ -1,9 +1,10 @@
 #!/bin/sh
 
 day="$(date +%d)"
+cal="$(cal -m --color=never | head -n 1)\n$(cal -m --color=never | tail -n +2 | sed "s/$day/<b><span color=\"orange\">$day<\/span><\/b>/")"
 
 case $BLOCK_BUTTON in
-	1) dunstify -u low -r 1 -t 5000 "Calendar" "$(cal -m --color=never | sed "s/$day/<b><span color=\"orange\">$day<\/span><\/b>/g")" ;;
+	1) dunstify -u low -r 1 -t 5000 "Calendar" "$cal" ;;
 	2) ;;
 	3) dunstify -u low -r 1 -t 5000 "Time & Calendar Module" "\- Left-click to see calendar
 \- Middle-click to ..." ;;

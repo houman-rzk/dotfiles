@@ -47,7 +47,7 @@ alias \
   sv="sudo $EDITOR" \
   z="zathura" \
   ot="setsid -f st" \
-  dr="dragon *" \
+  dr="dragon -s 40 *" \
   duh="du -hd1 ." \
 	mk='make && sudo make clean install' \
 	lo='kill -9 -1' \
