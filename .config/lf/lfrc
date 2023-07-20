@@ -9,6 +9,10 @@ set icons
 set drawbox true
 
 cmd open ${{
+	case "${f##*.}" in
+		kdenlive) setsid -f kdenlive "$f" >/dev/null 2>&1 ; exit ;;
+	esac
+
 	case $({ [ -L "$f" ] && f="$(readlink -f "$f")" ;} ; file --mime-type -b "$f") in
 		image/vnd.djvu) setsid -f zathura "$f" > /dev/null 2>&1 ;;
 		video/*) setsid -f mpv "$f" >/dev/null 2>&1 ;;
@@ -24,6 +28,8 @@ cmd open ${{
     inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
     #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
     application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+    application/x-7z-compressed) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+    application/x-rar) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
 		application/gzip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
 		application/vnd.oasis.opendocument.spreadsheet) setsid -f libreoffice "$f" ;;
     application/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid -f libreoffice "$f" ;;
@@ -67,7 +73,6 @@ cmd file-type ${{
 
 # Creates an empty text file
 cmd touch-file ${{
-    #name="$(date '+%c %N' | md5sum | cut -c 1-3)"
     printf "File name: "
     read name
     touch "$name"
@@ -76,20 +81,12 @@ cmd touch-file ${{
 }}
 
 cmd zip-files ${{
-    #name="$(head -n 1 /dev/*random* | md5sum | cut -c 1-3)"
     printf "Enter zip archive name: "
     read name
     unset files
     echo "$fx" | while read -r l ; do { file="$(echo "$l" | rev | cut -d '/' -f 1 | rev)" ; zip -r "$name" "$file" ;} ; done
 		clear
 }}
-
-#cmd move-to-new-dir ${{
-#    temp="$(date '+%c %N' | md5sum | cut -c 1-7)"
-#    mkdir "$temp"
-#    echo "$fx" | while read -r file ; do mv "$file" "$temp" ; done
-#    mv "$temp" 
-#}}
 
 cmd move-to-new-dir push $temp="$(date<space>'+%c<space>%N'<space>|<space>md5sum<space>|<space>cut<space>-c<space>1-7)"<space>;<space>mkdir<space>"$temp"<space>;<space>echo<space>"$fx"<space>|<space>while<space>read<space>-r<space>file<space>;<space>do<space>mv<space>"$file"<space>"$temp"<space>;<space>done<space>;<space>mv<space>"$temp"<space>
 
@@ -120,6 +117,7 @@ cmd mkdir ${{
     printf "Directory name: "
     read name
     mkdir "$name"
+		clear
 }}
 
 on-cd
@@ -148,10 +146,9 @@ map zip zip-files
 map sh share-file
 map Y file-type
 map T touch-file
-#map ot push $setsid<space>-f<space>st<space>>/dev/null<space>2>&1<enter>
-map st push $setsid<space>-f<space>st<space>>/dev/null<space>2>&1<enter>
-map ol push $setsid<space>-f<space>st<space>-e<space>lf<enter>
-map of push $setsid<space>-f<space>firefox<space>"$f">/dev/null<space>2>&1<enter>
+map st ${{ unset LF_LEVEL ; setsid -f st >/dev/null 2>&1 }}
+map ol ${{ setsid -f st -e lf >/dev/null 2>&1 }}
+map of ${{ setsid -f firefox "$f" >/dev/null 2>&1 }}
 map L create-symlink
 map V ${{ "$EDITOR" . }}
 map sn ${{ setsid -f nautilus . }}

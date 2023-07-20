@@ -2,27 +2,15 @@
 
 weatherreport="$XDG_CACHE_HOME/weatherreport"
 
-
 getforecast () { curl --max-time 10 -sf "wttr.in" > "$weatherreport" || exit 1;}
-#getforecast () { curl --retry 10 -sf "wttr.in" > "$weatherreport" || exit 1;}
 
 showweather () { echo "  $icon $temp°  " ;}
 
 gettemp() {
-    #temp="$(sed '4q;d' "$weatherreport" sed '4q;d' wr | sed -r -e "s,\x1B\[[0-9;]*[a-zA-Z],,g" -e 's/\(.*\)//g' -e 's/\+//g' | rev | awk '{print $2}' | rev)"
-
     temp="$(sed '4q;d' "$weatherreport" sed '4q;d' wr | sed -r -e "s,\x1B\[[0-9;]*[a-zA-Z],,g" | grep --color=never -o "+*[0-9][0-9]*" | sed 's/\+//g' | head -n 1)"
-    
-
-
-    #temp="$(sed '4q;d' "$weatherreport" | grep -o "[+-][0-9]*" | tail -n 1 | sed s/+//g)"
-    #[ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | awk '{print $4}' | sed s/+//g | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
-    ##[ "$temp" = "-" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{print $4}' | sed s/+//g)"
-    #[ "$temp" = "" ] && temp="$(sed '4q;d' "$weatherreport" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | rev | awk '{print $2}' | rev)"
 }
 
 setforecasticon () {
-    # These are NerdFont icons
     case "$(sed '3q;d' "$weatherreport" | sed -r -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's/^[^a-zA-Z]+//g')" in
         "Partly cloudy"|"Overcast") icon="" ;;
         "Cloudy") icon="" ;;
