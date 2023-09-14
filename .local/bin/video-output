@@ -3,13 +3,13 @@
 # Display Profiles (remember to append them to the "array" below and to add the correspinding case)
 INTERNAL_ONLY="xrandr --fb $INTERNAL_DISPLAY_RES --output $EXTERNAL_DISPLAY --off --noprimary --output $INTERNAL_DISPLAY --mode $INTERNAL_DISPLAY_RES --primary"
 EXTERNAL_ONLY="xrandr --fb $EXTERNAL_DISPLAY_RES --output $INTERNAL_DISPLAY --off --noprimary --output $EXTERNAL_DISPLAY --mode $EXTERNAL_DISPLAY_RES --primary"
-#INTERNAL_LEFT="xrandr --output $INTERNAL_DISPLAY --primary --mode $INTERNAL_DISPLAY_RES --left-of $EXTERNAL_DISPLAY --noprimary"
-#MIRROR="xrandr --output $INTERNAL_DISPLAY --mode $INTERNAL_DISPLAY_RES --output $EXTERNAL_DISPLAY --mode $EXTERNAL_DISPLAY_RES --same-as $INTERNAL_DISPLAY"
-#INTERNAL_RIGHT="xrandr --output $INTERNAL_DISPLAY --noprimary --mode $INTERNAL_DISPLAY_RES --right-of $EXTERNAL_DISPLAY --primary"
+INTERNAL_LEFT="xrandr --output $INTERNAL_DISPLAY --primary --mode $INTERNAL_DISPLAY_RES --left-of $EXTERNAL_DISPLAY --noprimary"
+MIRROR="xrandr --output $INTERNAL_DISPLAY --mode $INTERNAL_DISPLAY_RES --output $EXTERNAL_DISPLAY --mode $EXTERNAL_DISPLAY_RES --same-as $INTERNAL_DISPLAY"
+INTERNAL_RIGHT="xrandr --output $INTERNAL_DISPLAY --noprimary --mode $INTERNAL_DISPLAY_RES --right-of $EXTERNAL_DISPLAY --primary"
 
 [ $# -eq 1 ] && eval \$"$1" && xwallpaper --zoom "$WALLPAPER_LINK" && exit 0
 
-set INTERNAL_ONLY EXTERNAL_ONLY #INTERNAL_LEFT MIRROR INTERNAL_RIGHT
+set INTERNAL_ONLY EXTERNAL_ONLY #INTERNAL_LEFT #MIRROR INTERNAL_RIGHT
 
 # Read the current profile (initially written by ~/.config/shell/profile)
 CURRENT_PROFILE="$(cat "$DISPLAY_FILE")"
@@ -35,9 +35,9 @@ remaps
 case $NEXT in
 	INTERNAL_ONLY) NAME="Internal only" ;;
 	EXTERNAL_ONLY) NAME="External only" ;;
-	#INTERNAL_LEFT) NAME="Internal left" ;;
-	#MIRROR) NAME="Mirror" ;;
-	#INTERNAL_RIGHT) NAME="Internal right" ;;
+	INTERNAL_LEFT) NAME="Internal left" ;;
+	MIRROR) NAME="Mirror" ;;
+	INTERNAL_RIGHT) NAME="Internal right" ;;
 esac
 
 dunstify -a "Display Profile" -u low -r 1 "Display Profile: $NAME" -t 10000

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-#dunstify -u low -t 5000 "Starting Update"
+dunstify -u low -t 3000 "Starting Update"
 
-sudo pacman -Syu --noconfirm || exit 1
+yay -Syu --noconfirm || exit 1
 
 dunstify -u low -t 10000 "Update Complete"
 

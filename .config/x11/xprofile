@@ -1,6 +1,6 @@
 #!/bin/sh
 
-setbg
+setbg -r
 
 autostart="autorandr picom dunst clipmenud remaps connect profiles unclutter shortcuts mpd"
 #autostart="autorandr picom dunst clipmenud remaps connect profiles unclutter shortcuts mpd torbrowser-launcher"

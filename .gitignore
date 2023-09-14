@@ -54,6 +54,7 @@ Others/
 .config/dunst/dunstrc
 .config/lf/shortcutrc
 .config/xournalpp/
+.config/newsboat/urls
 
 .local/lib/
 
@@ -69,7 +70,6 @@ Others/
 .local/share/netbeans/
 .local/share/gnupg
 .local/share/newsboat
-.local/share/applications/mimeinfo.cache
 .local/share/com.github.johnfactotum.Foliate/
 .local/share/lf/
 .local/share/mpd/

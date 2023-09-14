@@ -9,7 +9,7 @@ if command -v "$1" >/dev/null 2>&1 ; then
 else
     { expr "$1" : 'sb-*' 1>/dev/null && DIR="$HOME/.local/bin/statusbar" ;} || DIR="$HOME/.local/bin"
     TMP="/tmp/${0##*/}"
-    mkdir "$TMP" >/dev/null 2>&1
+    mkdir -p "$TMP" >/dev/null 2>&1
     touch "$TMP/$1"
     chmod u+x "$TMP/$1"
     $EDITOR "$TMP/$1"

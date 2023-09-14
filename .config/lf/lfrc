@@ -27,6 +27,7 @@ cmd open ${{
 		application/x-mobipocket-ebook) setsid -f ebook-viewer "$f" > /dev/null 2>&1 ;;
     inode/symlink) setsid -f xdg-open "$(readlink "$f")" ;;
     #application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
+		application/x-subrip) $EDITOR "$f" ;;
     application/zip) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
     application/x-7z-compressed) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
     application/x-rar) setsid -f xarchiver "$f" >/dev/null 2>&1 ;;
@@ -41,7 +42,7 @@ cmd open ${{
 
 cmd edit ${{
 	case $(file --mime-type -b "$f") in
-		text/*) setsid -f st -e $EDITOR "$fx" > /dev/null 2>&1 ;;
+		text/*) setsid -f $TERMINAL -e $EDITOR "$fx" > /dev/null 2>&1 ;;
 		application/pdf) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
 		application/gzip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
 		application/epub+zip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
@@ -146,12 +147,12 @@ map zip zip-files
 map sh share-file
 map Y file-type
 map T touch-file
-map st ${{ unset LF_LEVEL ; setsid -f st >/dev/null 2>&1 }}
-map ol ${{ setsid -f st -e lf >/dev/null 2>&1 }}
+map st ${{ unset LF_LEVEL ; setsid -f $TERMINAL >/dev/null 2>&1 }}
+map ol ${{ setsid -f $TERMINAL -e lf >/dev/null 2>&1 }}
 map of ${{ setsid -f firefox "$f" >/dev/null 2>&1 }}
 map L create-symlink
 map V ${{ "$EDITOR" . }}
-map sn ${{ setsid -f nautilus . }}
+map sn ${{ setsid -f nautilus . ; clear }}
 map sd ${{ dragon * }}
 
 set previewer ~/.config/lf/preview

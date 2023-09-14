@@ -27,9 +27,9 @@ alias \
 	trr="transmission-remote" \
 	td="transmission-daemon" \
 	untar="tar -xvf" \
-	pi="pacman -S" \
-	piu="pacman -Syu" \
-	pr="pacman -Rs" \
+	pi="yay -S" \
+	piu="yay -Syu" \
+	pr="yay -Rs" \
   nb="newsboat" \
   dm="udisksctl mount -b" \
   dum="udisksctl unmount -b" \
@@ -53,7 +53,8 @@ alias \
 	lo='kill -9 -1' \
 	mo='mk && lo' \
   lf="lfrun" \
-	off="shutdown -h now" \
+	off="sudo systemctl poweroff" \
+	reboot="sudo systemctl reboot" \
   nstart="rfkill unblock wifi" \
   nstop="rfkill block wifi" \
 

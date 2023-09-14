@@ -26,11 +26,12 @@ export HISTFILE="$XDG_DATA_HOME/shell/history"
 export XAUTHORITY="$XDG_CONFIG_HOME/x11/Xauthority"
 export LESSHISTFILE="-"
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
-export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
-export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg" export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch"
 export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/mbsyncrc"
+
+export GTK_THEME="Adwaita:dark"
 
 # For Java GUI Programs
 export AWT_TOOLKIT=MToolkit
