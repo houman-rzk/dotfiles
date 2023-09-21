@@ -14,3 +14,5 @@ bm-dirs     $XDG_CONFIG_HOME/shell/bm-dirs
 xprofile    $XDG_CONFIG_HOME/x11/xprofile
 hist        $XDG_DATA_HOME/shell/history
 nburls      $XDG_CONFIG_HOME/newsboat/urls
+hyc         $XDG_CONFIG_HOME/hypr/hyprland.conf
+wbc         $XDG_CONFIG_HOME/waybar/config

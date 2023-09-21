@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# ICONS:
+# WARNING = 0
+# INFO = 1
+# HINT = 2
+# ERROR = 3
+# CONFUSED = 4
+# OK = 5
+
+# hyprctl notify [ICON] [TIME_MS] [COLOR] [MESSAGE]
+hyprctl notify -1 "$1" "rgb(f4dbd6)" "$2"

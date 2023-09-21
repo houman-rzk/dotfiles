@@ -1,0 +1,40 @@
+#!/bin/sh
+
+BATTERY="/sys/class/power_supply/BAT0"
+
+level="$(cat "$BATTERY"/capacity)"
+status="$(cat "$BATTERY"/status)"
+
+case $BLOCK_BUTTON in
+    2) power-profile ;;
+    3) dunstify -u low -r 1 -t 5000 "Battery Module" "Current profile: $(sed -e 's/./\L&/g' -e 's/./\U&/1' /tmp/current_power_profile)" ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+if [ "$level" -ge 80 ] ; then
+    icon=""
+elif [ "$level" -ge 60 ] ; then
+    icon=""
+elif [ "$level" -ge 40 ] ; then
+    icon=""
+elif [ "$level" -ge 20 ] ; then
+    icon=""
+elif [ "$level" -ge 0 ] ; then
+    icon=""
+fi
+
+if [ "$level" -lt 10 ] ; then
+    pad="  "
+elif [ "$level" -lt 100 ] ; then
+    pad=" "
+else
+    pad=""
+fi
+
+[ "$level" -le 25 ] && [ "$status" = "Discharging" ] && dunstify -u critical -r 1 -t 10000 "Battery dangerously low: $level%"
+
+sign=" " ; [ ! "$(cat "$BATTERY/status")" = "Discharging" ] && [ "$level" -lt 100 ] && sign="+"
+
+[ "$level" -gt 100 ] && level=100
+
+echo "  $icon$pad$sign$level%  "

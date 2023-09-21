@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=lf
-Exec=st -e lf %U
+Exec=footclient lf %U
 Terminal=true
 Type=Application
 Categories=FileManager

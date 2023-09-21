@@ -32,6 +32,7 @@ Plug 'maximbaz/lightline-ale'
 " Theme
 Plug 'morhetz/gruvbox'
 Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 " Tree
 Plug 'preservim/nerdtree'
@@ -183,6 +184,10 @@ call plug#end()
 	"colorscheme gruvbox
     "" Lightline colorscheme
 	"let g:lightline = { 'colorscheme': 'gruvbox' }
+	"let g:catppuccin_transparent_bg = 1 | autocmd VimEnter * hi Normal ctermbg=none
+	source $XDG_CONFIG_HOME/nvim/catppuccin.lua
+	"colorscheme catppuccin-macchiato
+
 
 
 " Autocommands
@@ -192,11 +197,13 @@ call plug#end()
     autocmd BufWritePost bm-files,bm-dirs :!shortcuts
     " Recompile and rerun dwmblocks on config edit
 	"autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo -S make install && { killall -q dwmblocks ; setsid -f dwmblocks }
-    autocmd BufEnter,BufNew *.html :NoMatchParen
-    autocmd BufEnter,BufNew *.html call MappingsHTML()
-    autocmd BufEnter,BufNew *.js call MappingsHTML()
-    autocmd BufEnter,BufNew *.vue call MappingsHTML()
-    autocmd BufEnter,BufNew *.tex call MappingsLATEX()
+	
+    "autocmd BufEnter,BufNew *.html :NoMatchParen
+    "autocmd BufEnter,BufNew *.html call MappingsHTML()
+    "autocmd BufEnter,BufNew *.js call MappingsHTML()
+    "autocmd BufEnter,BufNew *.vue call MappingsHTML()
+    "autocmd BufEnter,BufNew *.tex call MappingsLATEX()
+		
     " File-extension-dependent mappings
     "autocmd BufEnter,BufNew *.java :map <leader>jo aSystem.out.println();<ESC>hi
 

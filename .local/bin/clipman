@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ "$1" = "clear" ]; then
+  wl-copy --clear
+  wl-copy -p --clear
+  notify 3000 "Clipboards cleared"
+  exit
+fi
+
+selection="$(cliphist list | rofi -dmenu -p "Clipboard:" | cliphist decode)"
+
+[ -z "$selection" ] && exit 1
+
+wl-copy "$selection"
+wl-copy -p "$selection"
+
+notify 2000 "Copied: $(echo "$selection" | cut -c 1-20)..."

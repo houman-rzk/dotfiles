@@ -1,0 +1,13 @@
+#!/bin/sh
+
+case "$(sed '1q;d' /tmp/timer)" in
+    "WORK") echo "    " ; msg="Period: Work\nTime left: $(sed '2q;d' /tmp/timer)\n" ;;
+    "REST") echo "    " ; msg="Period: Rest\nTime left: $(sed '2q;d' /tmp/timer)\n" ;;
+    *) echo "    " ;;
+esac
+
+case $BLOCK_BUTTON in
+    2) timer -t ;;
+    3) dunstify -u low -r 1 "Timer Module" "$msg\-Middle click start/stop timer." ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

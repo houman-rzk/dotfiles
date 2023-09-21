@@ -42,21 +42,21 @@ alias \
   ud="update-dwmblocks" \
   clc="clear-clipboards" \
   mkx="chmod u+x" \
-  sxiv="nsxiv -a" \
-  iv="nsxiv -a" \
+  iv="imv" \
   sv="sudo $EDITOR" \
   z="zathura" \
-  ot="setsid -f st" \
+  ot="setsid -f $TERMINAL" \
   dr="dragon -s 40 *" \
   duh="du -hd1 ." \
 	mk='make && sudo make clean install' \
 	lo='kill -9 -1' \
 	mo='mk && lo' \
-  lf="lfrun" \
+  lf="lfub" \
 	off="sudo systemctl poweroff" \
 	reboot="sudo systemctl reboot" \
   nstart="rfkill unblock wifi" \
   nstop="rfkill block wifi" \
+  km="kill-matching" \
 
 # Main aliases
 alias \

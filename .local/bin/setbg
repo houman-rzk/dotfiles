@@ -1,26 +1,41 @@
 #!/bin/sh
 
+
 WALLPAPER_LINK="$XDG_DATA_HOME/bg"
 WALLPAPERS_FILE="$XDG_DATA_HOME/wallpapers-file"
+WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
+DELETED_DIR="$WALLPAPERS_DIR/Deleted"
 
-pywal_setbg() {
-    xwallpaper --zoom "$WALLPAPER_LINK"
 
-    # COURTESY OF LUKE SMITH'S VOIDRICE
-    # If pywal is installed, use it.
-    if command -v wal >/dev/null 2>&1 ; then
-        touch /tmp
-        wal -ni "$(readlink -f "$WALLPAPER_LINK")" -o "$XDG_CONFIG_HOME/wal/postrun" > /dev/null 2>&1
+set_background() {
+    [ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
+    
+    if [ "$1" != "" ] ; then
+        if [ "$1" != "${1#/}" ] ; then
+            ln -s "$1" "$WALLPAPER_LINK"
+        else
+            ln -s "$(pwd)/$1" "$WALLPAPER_LINK"
+        fi
     else
-    # If pywal is not installed, return config files to normal.
-        dunstconf="$XDG_CONFIG_HOME/dunst/dunstrc"
-        zathuraconf="$XDG_CONFIG_HOME/zathura/zathurarc"
-
-    	[ -f "$dunstconf.bak" ] && unlink "$dunstconf" && mv "$dunstconf.bak" "$dunstconf"
-    	[ -f "$zathuraconf.bak" ] && unlink "$zathuraconf" && mv "$zathuraconf.bak" "$zathuraconf"
+        { [ ! -f "$WALLPAPERS_FILE" ] || [ "$(wc -l "$WALLPAPERS_FILE" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && create_wallpapers_file
+    
+        if [ "$(wc -l "$WALLPAPERS_FILE" | awk '{print $1}')" -eq 0 ]
+        then
+            ln -s "$XDG_DATA_HOME/space.jpg" "$WALLPAPER_LINK"
+        else
+            ln -s "$(sed '1q' "$WALLPAPERS_FILE")" "$WALLPAPER_LINK"
+            sed '1d' "$WALLPAPERS_FILE" > "$WALLPAPERS_FILE".tmp && mv "$WALLPAPERS_FILE".tmp "$WALLPAPERS_FILE"
+        fi
     fi
+    
+    setsid -f swaybg -m fill -i "$WALLPAPER_LINK" >/dev/null 2>&1
+}
 
-    killall -HUP dwm >/dev/null 2>&1
+delete_current_bg() {
+    CURRENT="$(readlink -f "$XDG_DATA_HOME/bg")"
+    del_dir="$DELETED_DIR/$(dirname "$(echo "$CURRENT" | sed -e "s/.*$(basename "$WALLPAPERS_DIR")//g" -e 's/^\///g')")"
+    [ ! -d "$del_dir" ] && mkdir -p "$del_dir" > /dev/null 2>&1
+    mv "$CURRENT" "$del_dir" && set_background
 }
 
 create_wallpapers_file(){
@@ -28,30 +43,10 @@ create_wallpapers_file(){
 }
 
 
-if [ "$#" -eq 1 ] && [ "$1" = "-r" ] ; then
-    pywal_setbg
+if [ "$1" = "-d" ]; then
+    delete_current_bg
     exit
-fi
-
-[ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
-
-if [ "$#" -eq 1 ] ; then
-    if [ "$1" != "${1#/}" ] ; then
-        ln -s "$1" "$WALLPAPER_LINK"
-    else
-        ln -s "$(pwd)/$1" "$WALLPAPER_LINK"
-    fi
 else
-    { [ ! -f "$WALLPAPERS_FILE" ] || [ "$(wc -l "$WALLPAPERS_FILE" 2>/dev/null | awk '{print $1}')" -eq 0 ] ;} && create_wallpapers_file
-
-    if [ "$(wc -l "$WALLPAPERS_FILE" | awk '{print $1}')" -eq 0 ]
-    then
-        ln -s "$XDG_DATA_HOME/space.jpg" "$WALLPAPER_LINK"
-        pywal_setbg
-    else
-        ln -s "$(sed '1q' "$WALLPAPERS_FILE")" "$WALLPAPER_LINK"
-        sed '1d' "$WALLPAPERS_FILE" > "$WALLPAPERS_FILE".tmp && mv "$WALLPAPERS_FILE".tmp "$WALLPAPERS_FILE"
-    fi
+    set_background "$1"
 fi
 
-pywal_setbg

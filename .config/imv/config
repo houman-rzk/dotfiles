@@ -1,0 +1,27 @@
+[options]
+background = 24273a
+overlay_text_color = cad3f5
+overlay_background_color = 363A4F
+overlay_background_alpha = ff
+overlay = true
+overlay_font = JetBrains Mono Nerd Font:11
+overlay_position_bottom = true
+suppress_default_binds = true
+
+[binds]
+j = next
+#l = next
+#n = next
+k = prev
+#p = prev
+#h = prev
+q = quit
+<plus> = zoom 1
+<minus> = zoom -1
+r = rotate by 90
+f = fullscreen
+o = overlay
+gg = goto 1
+<Shift+G> = goto -1
+p = next_frame
+<space> = toggle_playing

@@ -1,0 +1,55 @@
+@import "themes/macchiato.css";
+
+
+* {
+  color: @text;
+  font-family: JetBrains Mono Nerd Font, Noto Sans Mono;
+  font-size: 15px;
+  border-radius: 15px;
+  padding: 0;
+}
+
+window#waybar {
+  /*background-color: alpha(@base, 0.0);
+  border: 3px solid alpha(@crust, 0.3);*/
+  background-color: alpha(@crust, 0.8);
+}
+
+.modules-right {
+  /*background-color: rgba(0,43,51,0.85);*/
+}
+
+.modules-center {
+  background-color: @surface0;
+  padding: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+}
+
+#right * {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.modules-right > * {
+  background-color: @surface0;
+  padding: 3px;
+  margin: 5px;
+}
+
+#test {
+  background-color: @surface0;
+}
+
+#workspaces button {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+#workspaces button.active {
+  background-color: @surface1;
+}

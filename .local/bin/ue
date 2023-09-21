@@ -1,9 +1,7 @@
 #!/bin/sh
 
-dunstify -u low -t 3000 "Starting Update"
+notify 3000 "Starting Update"
 
-yay -Syu --noconfirm || exit 1
+yay -Syu --noconfirm || notify 5000 "Error while updating" && exit 1
 
-dunstify -u low -t 10000 "Update Complete"
-
-exit
+notify 10000 "Update Complete"

@@ -26,6 +26,7 @@ application/zip=archive.desktop
 application/x-rar=archive.desktop
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
 x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/eclipse+command=_usr_lib_dbeaver_.desktop
 
 [Added Associations]
 text/plain=text.desktop;libreoffice-writer.desktop;org.gnome.gedit.desktop;

@@ -1,0 +1,40 @@
+#!/bin/sh
+
+if [ "$(mpc | wc -l)" -ne 1 ]; then
+    song="$(mpc -f '%title%' | head -n 1)"
+
+    if [ -z "$song" ]; then
+        f1="$(mpc -f '%file%' | head -n 1)"
+        f2="${f1##*/}"
+        song="${f2%.*}"
+    else
+        song="$(mpc -f '%title% (%album%) - %artist%' | head -n 1)"
+    fi
+
+    song="$(printf "\n%s" "$song")"
+fi
+
+case $BLOCK_BUTTON in
+    1) music-control toggle ;;
+    #1) mpc toggle >/dev/null 2>&1 ;;
+    2) setsid -f "$TERMINAL" -e ncmpcpp ; pkill -RTMIN+7 dwmblocks ;;
+    #2) xdotool key super+shift+m ;;
+    3) dunstify -u low -r 1 -t 5000 "Music Module$song" "\- Left click to play/pause
+\- Middle click to open ncmpcpp
+\- Scroll up to go to next song
+\- Scroll down to go to previous song" ;;
+    4) music-control next ;;
+    5) music-control prev ;;
+    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+status="$(mpc | head -n 2 | tail -n 1 | cut -d '[' -f2 | cut -d ']' -f1)"
+
+case "$status" in
+    "playing") icon="" ;;
+    "paused") icon="" ;;
+    *) icon="" ;;
+esac
+
+echo "  $icon  "
+#pkill -RTMIN+7 dwmblocks

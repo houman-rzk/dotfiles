@@ -1,9 +1,0 @@
-#!/bin/sh
-
-random=$(head -n 1 /dev/*random | md5sum | awk '{print $1}')
-
-url="https://meet.jit.si/$random"
-
-printf "%s" "$url" | xclip -sel c
-
-{ pidof -q "$BROWSER" && "$BROWSER" "$url" > /dev/null 2>&1 ;} || setsid -f "$BROWSER" "$url" > /dev/null 2>&1

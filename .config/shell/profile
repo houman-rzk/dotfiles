@@ -2,10 +2,10 @@
 export PATH="$(find $HOME/.local/bin -type d -exec echo -n '{}': ';')$PATH"
 
 # Default programs
-export TERMINAL="st"
+export TERMINAL="footclient"
 export EDITOR="nvim"
 export BROWSER="firefox"
-export SYSTEMMONITOR="gtop"
+#export SYSTEMMONITOR="gtop"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -15,18 +15,19 @@ export XDG_DOCUMENTS_DIR="$HOME/Home/Documents"
 export XDG_DOWNLOAD_DIR="$HOME/Home/Downloads"
 export XDG_MUSIC_DIR="$HOME/Home/Music"
 export XDG_PICTURES_DIR="$HOME/Home/Pictures"
+export GRIM_DEFAULT_DIR="$XDG_PICTURES_DIR/Screenshots"
 
 export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
+#export LESSHISTFILE="-"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH="$ZDOTDIR/oh-my-zsh"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
 export HISTFILE="$XDG_DATA_HOME/shell/history"
 export XAUTHORITY="$XDG_CONFIG_HOME/x11/Xauthority"
-export LESSHISTFILE="-"
 export ALIASRC="$XDG_CONFIG_HOME/shell/aliasrc"
-export GNUPGHOME="$XDG_CONFIG_HOME/gnupg" export WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch"
 export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/mbsyncrc"
@@ -74,5 +75,5 @@ eval "$(ssh-agent -s)" >/dev/null 2>&1
 #export GPG_TTY=$(tty)
 
 #Start X; this line should always be the last one
-#exec startx "$XINITRC" >/dev/null 2>&1
-startx "$XINITRC" >/dev/null 2>&1
+#startx "$XINITRC" >/dev/null 2>&1
+Hyprland >/dev/null 2>&1
