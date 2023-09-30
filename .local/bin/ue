@@ -2,6 +2,7 @@
 
 notify 3000 "Starting Update"
 
-yay -Syu --noconfirm || notify 5000 "Error while updating" && exit 1
+#yay -Syu --noconfirm || notify 5000 "Error while updating" && exit 1
+yay -Syu --noconfirm
 
 notify 10000 "Update Complete"

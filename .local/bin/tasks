@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+icon=""
+
+tasks="$(task 2>/dev/null | tail -n 1 | awk '{print $1}')"
+
+[ "$tasks" -ge 1 ] && output="$icon $tasks"
+[ "$tasks" = "" ] || [ "$tasks" -lt 1 ] && output="$icon"
+
+tooltip="$(task | head -n -2 | tail -n +4 | cut -c -90 | awk 'NR>1{printf "\\n"};1' | tr -d "\n")"
+
+
+case $1 in
+    open) $TERMINAL taskwarrior-tui ; pkill -RTMIN+1 waybar ;;
+    edit) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+    wb) printf '{"text": "%s", "tooltip": "%s"}\n' "$output" "$tooltip" ;;
+    *) $TERMINAL taskwarrior-tui ; pkill -RTMIN+1 waybar ;;
+esac

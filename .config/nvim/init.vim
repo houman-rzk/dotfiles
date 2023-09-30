@@ -85,9 +85,9 @@ call plug#end()
     " Shell commands
     map <leader>sh :!
     map <leader>sls :!ls<CR>
-    map <leader>sst :!unset LF_LEVEL ; st >/dev/null 2>&1 & <Enter><Enter>
+    map <leader>sst :!unset LF_LEVEL ; $TERMINAL >/dev/null 2>&1 & <Enter><Enter>
     map <leader>sof :!setsid -f firefox "%" <Enter><Enter>
-    map <leader>slf :!unset LF_LEVEL ; setsid -f st -e lfrun >/dev/null 2>&1 & <Enter><Enter>
+    map <leader>slf :!unset LF_LEVEL ; setsid -f $TERMINAL -e lfrun >/dev/null 2>&1 & <Enter><Enter>
 	" Split view, tab and buffer navigation shortcuts
 	map <leader>vh <C-w>h
 	map <leader>vj <C-w>j

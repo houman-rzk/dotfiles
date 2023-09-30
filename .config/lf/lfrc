@@ -102,7 +102,7 @@ cmd create-symlink ${{
 }}
 
 cmd share-file ${{
-    curl -F "file=@$f" 0x0.st 2>/dev/null | tr -d "\n" | xclip -sel c
+    curl -F "file=@$f" 0x0.st 2>/dev/null | tr -d "\n" | wl-copy -p
 }}
 
 cmd rename-file ${{

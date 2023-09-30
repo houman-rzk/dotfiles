@@ -10,3 +10,5 @@ pidof -s swaybg >/dev/null 2>&1 || swaybg -i ~/.local/share/bg &
 pidof -s foot >/dev/null 2>&1 || foot --server &
 pidof -s wl-paste >/dev/null 2>&1 || wl-paste -p --watch cliphist store &
 pidof -s wl-clip-persist >/dev/null 2>&1 || wl-clip-persist --clipboard both &
+
+rm $XDG_CACHE_HOME/cliphist/* >/dev/null 2>&1

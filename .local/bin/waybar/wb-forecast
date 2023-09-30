@@ -2,7 +2,7 @@
 
 weatherreport="$XDG_CACHE_HOME/weatherreport"
 
-getforecast () { while ! curl --max-time 10 -sf "wttr.in" > "$weatherreport" ; do echo W ; sleep 10s; done ;}
+getforecast () { echo " " ; while ! curl -sf "wttr.in" > "$weatherreport" ; do echo " " ; sleep 10s; done ;}
 
 showweather () { echo "$icon $temp°" ;}
 
