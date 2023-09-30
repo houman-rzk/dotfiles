@@ -1,8 +1,9 @@
 # This should come first
 export PATH="$(find $HOME/.local/bin -type d -exec echo -n '{}': ';')$PATH"
 
+export WM="dwm"
+
 # Default programs
-export TERMINAL="footclient"
 export EDITOR="nvim"
 export BROWSER="firefox"
 #export SYSTEMMONITOR="gtop"
@@ -74,5 +75,10 @@ eval "$(ssh-agent -s)" >/dev/null 2>&1
   # for gpg-agent
 #export GPG_TTY=$(tty)
 
-#startx "$XINITRC" >/dev/null 2>&1
-Hyprland >/dev/null 2>&1
+if [ "$WM" = "dwm" ]; then
+  export TERMINAL="st"
+  startx "$XINITRC" >/dev/null 2>&1
+elif [ "$WM" = "Hyprland" ]; then
+  export TERMINAL="footclient"
+  Hyprland >/dev/null 2>&1
+fi
