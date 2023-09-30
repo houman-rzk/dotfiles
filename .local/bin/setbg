@@ -6,10 +6,30 @@ WALLPAPERS_FILE="$XDG_DATA_HOME/wallpapers-file"
 WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
 DELETED_DIR="$WALLPAPERS_DIR/Deleted"
 
+pywal() {
+    xwallpaper --zoom "$WALLPAPER_LINK"
 
-set_background() {
+    # COURTESY OF LUKE SMITH'S VOIDRICE
+    # If pywal is installed, use it.
+    if command -v wal >/dev/null 2>&1 ; then
+        touch /tmp
+        #wal -ni "$(readlink -f "$WALLPAPER_LINK")" -o "$XDG_CONFIG_HOME/wal/postrun" > /dev/null 2>&1
+        wal -ni "$(readlink -f "$WALLPAPER_LINK")" > /dev/null 2>&1
+    else
+    # If pywal is not installed, return config files to normal.
+        dunstconf="$XDG_CONFIG_HOME/dunst/dunstrc"
+        zathuraconf="$XDG_CONFIG_HOME/zathura/zathurarc"
+
+    	[ -f "$dunstconf.bak" ] && unlink "$dunstconf" && mv "$dunstconf.bak" "$dunstconf"
+    	[ -f "$zathuraconf.bak" ] && unlink "$zathuraconf" && mv "$zathuraconf.bak" "$zathuraconf"
+    fi
+
+    killall -HUP dwm >/dev/null 2>&1
+}
+
+set_link() {
     [ -L "$WALLPAPER_LINK" ] && rm "$WALLPAPER_LINK"
-    
+
     if [ "$1" != "" ] ; then
         if [ "$1" != "${1#/}" ] ; then
             ln -s "$1" "$WALLPAPER_LINK"
@@ -27,8 +47,15 @@ set_background() {
             sed '1d' "$WALLPAPERS_FILE" > "$WALLPAPERS_FILE".tmp && mv "$WALLPAPERS_FILE".tmp "$WALLPAPERS_FILE"
         fi
     fi
-    
-    setsid -f swaybg -m fill -i "$WALLPAPER_LINK" >/dev/null 2>&1
+
+}
+
+set_background() {
+    if [ "$WM" = "dwm" ]; then
+        pywal
+    elif [ "$WM" = "Hyprland" ]; then
+        setsid -f swaybg -m fill -i "$WALLPAPER_LINK" >/dev/null 2>&1
+    fi
 }
 
 delete_current_bg() {
@@ -42,11 +69,11 @@ create_wallpapers_file(){
     find "$WALLPAPERS_DIR" -not -path "$WALLPAPERS_DIR/Deleted/*" -type f -size +6k | shuf > "$WALLPAPERS_FILE"
 }
 
-
 if [ "$1" = "-d" ]; then
     delete_current_bg
-    exit
-else
-    set_background "$1"
+    set_link
+elif [ "$1" != "-r" ]; then
+    set_link "$1"
 fi
 
+set_background

@@ -7,7 +7,7 @@ cpu=" $(uptime | grep -o --color=never "average:.*" | awk '{print $2}' | tr -
 
 case $BLOCK_BUTTON in
     2) setsid -f "$TERMINAL" -e "$SYSTEMMONITOR" ;;
-    3) dunstify -u low -r 1 "Resources Module" "$mem
+    3) notify -u low -t 3000 -h "Resources Module" -b "$mem
 $cpu
 \-Middle click to open system monitor ($SYSTEMMONITOR)" ;;
     6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;

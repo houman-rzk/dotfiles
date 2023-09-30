@@ -9,7 +9,7 @@ if [[ $1 == "--type" ]]; then
 fi
 
 if [[ -n $WAYLAND_DISPLAY ]]; then
-	dmenu=dmenu-wl
+	dmenu="rofi -dmenu"
 	xdotool="ydotool type --file -"
 elif [[ -n $DISPLAY ]]; then
 	dmenu=dmenu
@@ -24,13 +24,13 @@ password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | "$dmenu" -i -l 15 -p 'Select password: ' "$@")
+password=$(printf '%s\n' "${password_files[@]}" | $dmenu -i -l 15 -p 'Select password: ' "$@")
 
 [[ -n $password ]] || exit
 
 if ! echo "" | gpg --sign --batch --no-tty --pinentry-mode cancel --local-user "$(cat "$PASSWORD_STORE_DIR/.gpg-id")" -o /dev/null >/dev/null 2>&1; then
   pass generate -f passmenu.tmp 20 >/dev/null 2>&1
-  st -e pass passmenu.tmp
+  $TERMINAL -e pass passmenu.tmp
 	pass rm -f passmenu.tmp >/dev/null 2>&1
 fi
 

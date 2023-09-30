@@ -7,7 +7,7 @@ status="$(cat "$BATTERY"/status)"
 
 case $BLOCK_BUTTON in
     2) power-profile ;;
-    3) dunstify -u low -r 1 -t 5000 "Battery Module" "Current profile: $(sed -e 's/./\L&/g' -e 's/./\U&/1' /tmp/current_power_profile)" ;;
+    3) notify -u low -t 5000 -h "Battery Module" -b "Current profile: $(sed -e 's/./\L&/g' -e 's/./\U&/1' /tmp/current_power_profile)" ;;
     6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
@@ -31,7 +31,7 @@ else
     pad=""
 fi
 
-[ "$level" -le 25 ] && [ "$status" = "Discharging" ] && dunstify -u critical -r 1 -t 10000 "Battery dangerously low: $level%"
+[ "$level" -le 25 ] && [ "$status" = "Discharging" ] && notify -u critical -t 10000 -h "Battery dangerously low: $level%"
 
 sign=" " ; [ ! "$(cat "$BATTERY/status")" = "Discharging" ] && [ "$level" -lt 100 ] && sign="+"
 

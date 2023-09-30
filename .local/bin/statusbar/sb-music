@@ -16,10 +16,8 @@ fi
 
 case $BLOCK_BUTTON in
     1) music-control toggle ;;
-    #1) mpc toggle >/dev/null 2>&1 ;;
     2) setsid -f "$TERMINAL" -e ncmpcpp ; pkill -RTMIN+7 dwmblocks ;;
-    #2) xdotool key super+shift+m ;;
-    3) dunstify -u low -r 1 -t 5000 "Music Module$song" "\- Left click to play/pause
+    3) notify -u low -t 5000 -h "Music Module$song" -b "\- Left click to play/pause
 \- Middle click to open ncmpcpp
 \- Scroll up to go to next song
 \- Scroll down to go to previous song" ;;
@@ -37,4 +35,3 @@ case "$status" in
 esac
 
 echo "  $icon  "
-#pkill -RTMIN+7 dwmblocks

@@ -1,15 +1,11 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) dunstify -u low -r 1 -t 10000 "Tasks:" "$(task | head -n -2 | tail -n +4 | cut -c -45)" ;;
-	2) "$TERMINAL" -e taskwarrior-tui ;;
-	3) dunstify -u low -r 1 -t 5000 "Tasks Module" "\- Left-click to show tasks
+	1) notify -u low -t 10000 -h "Tasks:" -b "$(task | head -n -2 | tail -n +4 | cut -c -45)" ;;
+	2) tasks open ;;
+	3) notify -u low -t 5000 -h "Tasks Module" -b "\- Left-click to show tasks
 \- Middle-click to run task manager" ;;
-    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+  6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-tasks="$(task 2>/dev/null | tail -n 1 | awk '{print $1}')"
-
-[ "$tasks" != "" ] && [ "$tasks" -ge 1 ] && tasks=" $tasks"
-
-echo "  $tasks  "
+echo "  $(tasks)  "

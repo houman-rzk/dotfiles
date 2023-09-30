@@ -6,7 +6,7 @@ for p in $programs; do
 	pidof -s "$p" || "$p" &
 done >/dev/null 2>&1
 
-pidof -s swaybg >/dev/null 2>&1 || swaybg -i ~/.local/share/bg &
+pidof -s swaybg >/dev/null 2>&1 || setbg -r &
 pidof -s foot >/dev/null 2>&1 || foot --server &
 pidof -s wl-paste >/dev/null 2>&1 || wl-paste -p --watch cliphist store &
 pidof -s wl-clip-persist >/dev/null 2>&1 || wl-clip-persist --clipboard both &

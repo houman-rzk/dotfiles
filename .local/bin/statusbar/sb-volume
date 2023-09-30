@@ -1,18 +1,13 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-    #1) pulsemixer --toggle-mute ;;
     1) volume-control -t ;;
-    #2) setsid -f "$TERMINAL" -e pulsemixer ;;
     2) volume-control -c ;;
-    #2) xdotool key super+shift+v ;;
-	3) dunstify -u low -r 1 -t 5000 "Volume Module" "\- Left-click to toggle mute
+	  3) notify -u low -t 5000 -h "Volume Module" -b "\- Left-click to toggle mute
 \- Middle-click to open pulsemixer
 \- Scroll up to increase volume
 \- Scroll down to decrease volume" ;;
-    #4) pulsemixer --change-volume +5 ; pkill -RTMIN+6 dwmblocks;;
     4) volume-control -i ;;
-    #5) pulsemixer --change-volume -5 ; pkill -RTMIN+6 dwmblocks;;
     5) volume-control -d ;;
     6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac

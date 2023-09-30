@@ -7,6 +7,21 @@
 # ERROR = 3
 # CONFUSED = 4
 # OK = 5
-
 # hyprctl notify [ICON] [TIME_MS] [COLOR] [MESSAGE]
-hyprctl notify -1 "$1" "rgb(f4dbd6)" "$2"
+
+while getopts "u:t:h:b:" opt; do
+  case $opt in
+    u ) urgency="$OPTARG" ;;
+    t ) time="$OPTARG" ;;
+    h ) header="$OPTARG" ;;
+    b ) body="$OPTARG" ;;
+    * ) notify -u critical -t 10000 -h "INCORRECT NOTIFICATION CALL" ;;
+  esac
+done
+
+
+if [ "$WM" = "dwm" ]; then
+  dunstify -u "$urgency" -r 1 -t "$time" "$header" "$body" >/dev/null 2>&1
+elif [ "$WM" = "Hyprland" ]; then
+  hyprctl notify -1 "$time" "rgb(f4dbd6)" "$header" >/dev/null 2>&1
+fi

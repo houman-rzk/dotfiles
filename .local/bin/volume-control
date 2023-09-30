@@ -17,6 +17,6 @@ else
 fi
 
 #pgrep "mpv" && dunstify -u low -r 1 "$(printf "$icon:%7s\n" "$volume%  " )"
-notify 3000 "$(printf "$icon:%7s\n" "$volume%  " )"
+notify -u low -t 3000 -h "$(printf "$icon:%7s\n" "$volume%  " )"
 
 pkill -RTMIN+6 dwmblocks

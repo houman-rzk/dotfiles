@@ -15,12 +15,11 @@ test
 #logo=""
 
 case $BLOCK_BUTTON in
-	1) dunstify -u low -r 1 -t 5000 "Internet module" "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;
-    2) setsid -f "$TERMINAL" -e nmtui && pkill -RTMIN+4 dwmblocks;;
-	#2) xdotool key super+shift+n ;;
-	3) dunstify -u low -r 1 -t 5000 "Internet module" "\- Left-click to get public IP address
+	1) notify -u low -t 5000 -h "Internet module" -b "IP: $(curl -sf ifconfig.me 2>/dev/null)" ;;
+  2) setsid -f "$TERMINAL" -e nmtui && pkill -RTMIN+4 dwmblocks;;
+	3) notify -u low -t 5000 -h "Internet module" -b "\- Left-click to get public IP address
 \- Middle-click to open connection manager (nmtui)" ;;
-    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+	6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 echo "  $logo  "

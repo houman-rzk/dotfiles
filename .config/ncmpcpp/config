@@ -33,7 +33,8 @@ show_hidden_files_in_local_browser = no
 search_engine_default_search_mode = 2
 
 
-execute_on_player_state_change=music-control notify
+#execute_on_player_state_change=pkill -RTMIN+7 dwmblocks
+#execute_on_player_state_change="music-control notify"
 #execute_on_song_change=music-control notify
 
 visualizer_data_source = /tmp/mpd.fifo

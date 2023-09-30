@@ -2,11 +2,21 @@
 export PATH="$(find $HOME/.local/bin -type d -exec echo -n '{}': ';')$PATH"
 
 export WM="dwm"
+export WM="Hyprland"
+
+if [ "$WM" = "dwm" ]; then
+  WM_TERM="st"
+  WM_CMD="startx \$XINITRC"
+elif [ "$WM" = "Hyprland" ]; then
+  WM_TERM="footclient"
+  WM_CMD="Hyprland"
+fi
 
 # Default programs
+export TERMINAL="$WM_TERM"
 export EDITOR="nvim"
 export BROWSER="firefox"
-#export SYSTEMMONITOR="gtop"
+export SYSTEMMONITOR="gtop"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -75,10 +85,4 @@ eval "$(ssh-agent -s)" >/dev/null 2>&1
   # for gpg-agent
 #export GPG_TTY=$(tty)
 
-if [ "$WM" = "dwm" ]; then
-  export TERMINAL="st"
-  startx "$XINITRC" >/dev/null 2>&1
-elif [ "$WM" = "Hyprland" ]; then
-  export TERMINAL="footclient"
-  Hyprland >/dev/null 2>&1
-fi
+eval "$WM_CMD >/dev/null 2>&1"

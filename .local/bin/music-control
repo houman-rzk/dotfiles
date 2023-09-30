@@ -14,5 +14,7 @@ else
 fi
 
 case "$status" in
-    "playing") notify 3000 "$song" ;;
+    "playing") notify -u low -t 2000 -h "$song" ;;
 esac
+
+pkill -RTMIN+7 dwmblocks >/dev/null 2>&1

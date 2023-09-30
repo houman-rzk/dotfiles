@@ -10,10 +10,16 @@ tasks="$(task 2>/dev/null | tail -n 1 | awk '{print $1}')"
 
 tooltip="$(task | head -n -2 | tail -n +4 | cut -c -90 | awk 'NR>1{printf "\\n"};1' | tr -d "\n")"
 
+if [ "$WM" = "dwm" ]; then
+    bar="dwmblocks"
+elif [ "$WM" = "Hyprland" ]; then
+    bar="waybar"
+fi
+
 
 case $1 in
-    open) $TERMINAL taskwarrior-tui ; pkill -RTMIN+1 waybar ;;
-    edit) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
+    open) $TERMINAL taskwarrior-tui ; pkill -RTMIN+1 $bar ;;
+    edit) setsid -f "$TERMINAL" -e "$EDITOR" "$0" >/dev/null 2>&1 ;;
     wb) printf '{"text": "%s", "tooltip": "%s"}\n' "$output" "$tooltip" ;;
-    *) $TERMINAL taskwarrior-tui ; pkill -RTMIN+1 waybar ;;
+    *) echo "$output"
 esac
