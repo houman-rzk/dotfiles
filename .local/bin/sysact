@@ -8,7 +8,7 @@ esac
 
 lock="waylock -fork-on-lock -init-color 0x24273a -input-color 0xf4dbd6 -fail-color 0xed8796"
 
-case "$(printf "⭘ hibernate\n lock\n󰍃 logout\n reboot\n shutdown\n⏾ sleep" | rofi -dmenu -i -n -p 'Action: ')" in
+case "$(printf "⭘ hibernate\n lock\n󰍃 logout\n reboot\n shutdown\n⏾ sleep" | $(selector) -i -n -p 'Action: ')" in
 	' lock') music-control pause ; $lock ;;
 	'󰍃 logout') kill -9 -1 ;;
 	'⏾ sleep') music-control pause ; $lock ; $ctl suspend -i ;;

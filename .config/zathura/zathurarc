@@ -1,1 +1,18 @@
-/home/hache/.cache/wal/zathurarc
+# Main settings
+set selection-clipboard primary
+#set sandbox normal
+set statusbar-basename true
+set window-title-home-tilde true
+
+set font "JetBrainsMono NF 11"
+
+# Mappings and shortcuts
+map b navigate previous
+map <Space> navigate next
+map T exec "setsid -f footclient"
+map F exec "setsid -f footclient -e lf"
+unmap f
+map L follow
+
+# Colors
+include catppuccin/catppuccin-macchiato

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$WM" = "dwm" ]; then
+    echo "dmenu"
+elif [ "$WM" = "Hyprland" ]; then
+    echo "rofi -dmenu"
+fi

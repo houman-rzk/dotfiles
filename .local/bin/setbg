@@ -6,6 +6,7 @@ WALLPAPERS_FILE="$XDG_DATA_HOME/wallpapers-file"
 WALLPAPERS_DIR="$XDG_PICTURES_DIR/Wallpapers"
 DELETED_DIR="$WALLPAPERS_DIR/Deleted"
 
+
 pywal() {
     xwallpaper --zoom "$WALLPAPER_LINK"
 
@@ -13,8 +14,7 @@ pywal() {
     # If pywal is installed, use it.
     if command -v wal >/dev/null 2>&1 ; then
         touch /tmp
-        #wal -ni "$(readlink -f "$WALLPAPER_LINK")" -o "$XDG_CONFIG_HOME/wal/postrun" > /dev/null 2>&1
-        wal -ni "$(readlink -f "$WALLPAPER_LINK")" > /dev/null 2>&1
+        wal -ni "$(readlink -f "$WALLPAPER_LINK")" -o "$XDG_CONFIG_HOME/wal/postrun" > /dev/null 2>&1
     else
     # If pywal is not installed, return config files to normal.
         dunstconf="$XDG_CONFIG_HOME/dunst/dunstrc"

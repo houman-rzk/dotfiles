@@ -1,17 +1,19 @@
 #!/bin/bash
 
-dunstconf="$XDG_CONFIG_HOME/dunst/dunstrc"
-zathuraconf="$XDG_CONFIG_HOME/zathura/zathurarc"
 
-source "$XDG_CACHE_HOME/wal/colors.sh"
+zathura_color_config() {
+        zathuraconf="$XDG_CONFIG_HOME/zathura/zathurarc"
+        mkdir -p "${zathuraconf%/*}"
+        mv -n "$zathuraconf" "$zathuraconf.bak"
+        ln -sf "$XDG_CACHE_HOME/wal/zathurarc" "$zathuraconf"
+}
 
-mkdir -p "${dunstconf%/*}" "${zathuraconf%/*}"
-
-mv -n "$dunstconf" "$dunstconf.bak"
-mv -n "$zathuraconf" "$zathuraconf.bak"
-
-ln -sf "$XDG_CACHE_HOME/wal/dunstrc" "$dunstconf"
-ln -sf "$XDG_CACHE_HOME/wal/zathurarc" "$zathuraconf"
+dunst_color_config() {
+        dunstconf="$XDG_CONFIG_HOME/dunst/dunstrc"
+        mkdir -p "${dunstconf%/*}"
+        mv -n "$dunstconf" "$dunstconf.bak"
+        ln -sf "$XDG_CACHE_HOME/wal/dunstrc" "$dunstconf"
+}
 
 fix_sequences() {
         e=$'\e'
@@ -26,6 +28,12 @@ fix_sequences() {
 		echo -e "\e]4;259;${foreground_color}\a\c" > "${term}" 2>/dev/null
 	done
 }
+
+
+source "$XDG_CACHE_HOME/wal/colors.sh"
+
+#zathura_color_config
+dunst_color_config
 
 fix_sequences <"$XDG_CACHE_HOME/wal/sequences"
 
