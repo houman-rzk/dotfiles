@@ -51,8 +51,8 @@ bindkey '^[[4~' end-of-line
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 bindkey '^[.' insert-last-word
-bindkey '^P' up-history
-bindkey '^N' down-history
+#bindkey '^P' up-history
+#bindkey '^N' down-history
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^F' history-incremental-pattern-search-forward
 bindkey -M vicmd '^R' history-incremental-pattern-search-backward

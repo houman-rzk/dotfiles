@@ -25,3 +25,4 @@ gg = goto 1
 <Shift+G> = goto -1
 p = next_frame
 <space> = toggle_playing
+<Ctrl+d> = exec mv $imv_current_file $TRASH_DIR && notify -t 1000 -h "Trashed"

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-notify 3000 "Starting Update"
+notify -t 3000 -h "Starting Update"
 
 #yay -Syu --noconfirm || notify 5000 "Error while updating" && exit 1
 yay -Syu --noconfirm
 
-notify 10000 "Update Complete"
+notify -t 10000 -h "Update Complete"
