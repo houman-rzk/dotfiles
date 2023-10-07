@@ -13,7 +13,7 @@ Alpha (8-14Hz): Relax and focus, Reduce Stress, Maintain positive thinking, Incr
 Beta (14-30Hz): Keeping your attention focused, Analytical thinking and problem solving, Stimulating energy and action, High-level cognition
 Gamma (30-100Hz): Increased cognitive enhancement, Attention to detail, Better memory recall, Creative thinking.
 40Hz: Enhanced training and learning" \
-  | dmenu -i -l 10 -p "Range: ")"
+  | $(selector) -i -l 10 -p "Range: ")"
 
 case "$sel" in
   Delta*) n=2;;

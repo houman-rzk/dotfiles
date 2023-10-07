@@ -21,6 +21,7 @@ export SYSTEMMONITOR="gtop"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+#export XDG_RUNTIME_DIR="$XDG_CACHE_HOME/runtime"
 
 export XDG_DOCUMENTS_DIR="$HOME/Home/Documents"
 export XDG_DOWNLOAD_DIR="$HOME/Home/Downloads"
@@ -73,12 +74,6 @@ export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
 # AUDIO CONFIG
 export DEFAULT_AUDIO_PROFILE="INTERNAL_ONLY"
 export AUDIO_PROFILE_FILE="/tmp/current_audio_profile"
-
-# POWER CONFIG
-export DEFAULT_POWER_PROFILE="PERFORMANCE"
-export POWER_PROFILE_FILE="/tmp/current_power_profile"
-
-# Other config
 
 # Run commands
 [ ! -f "$XDG_CONFIG_HOME/shell/shortcutrc" ] && shortcuts >/dev/null 2>&1 &

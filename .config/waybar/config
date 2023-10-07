@@ -16,8 +16,7 @@
 
     "group/right": {
         "orientation": "horizontal",
-        "modules": ["tray", "custom/weather", "mpd", "memory", "custom/tasks", "pulseaudio", "network", "backlight", "battery"]
-        //"modules": ["pulseaudio", "custom/sep", "network", "custom/sep", "memory", "custom/sep", "backlight", "custom/sep", "battery"]
+        "modules": ["tray", "custom/weather", "mpd", "memory", "custom/tasks", "pulseaudio", "network", "backlight", "custom/battery"]
     },
 
     "custom/sep": { "format": "|", },
@@ -31,6 +30,15 @@
         "on-click-right": "tasks edit",
         "interval": "once",
         "signal": 1,
+    },
+
+    "custom/battery": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "wb-battery",
+        "on-click-right": "wb-battery edit",
+        "on-click-middle": "power-profile",
+        "interval": 5,
     },
 
     "group/center-right": {
@@ -180,7 +188,8 @@
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         //"format-icons": [" ", " ", " ", " ", " "]
-        "format-icons": ["󰁻", "󰁽", "󰁿", "󰂁", "󰁹"]
+        "format-icons": ["󰁻", "󰁽", "󰁿", "󰂁", "󰁹"],
+        "exec": "notify -u low -t 10000 -h hola"
     },
     "battery#bat2": {
         "bat": "BAT2"

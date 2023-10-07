@@ -14,4 +14,4 @@ selection="$(cliphist list | rofi -dmenu -p "Clipboard:" | cliphist decode)"
 wl-copy "$selection"
 wl-copy -p "$selection"
 
-notify 2000 "Copied: $(echo "$selection" | head -n 1 | cut -c 1-20)..."
+notify -t 2000 -h "Copied: $(echo "$selection" | head -n 1 | cut -c 1-20)..."

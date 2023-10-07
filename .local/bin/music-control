@@ -13,6 +13,8 @@ else
     song="$(mpc -f '%title% (%album%) - %artist%' | head -n 1)"
 fi
 
+song="$song | $(mpc -f '%time%' | head -n 1)"
+
 case "$status" in
     "playing") notify -u low -t 2000 -h "$song" ;;
 esac
