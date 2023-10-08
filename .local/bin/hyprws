@@ -22,5 +22,3 @@ elif [ "$1" == "p" ]; then
 elif [ "$1" == "mp" ]; then
 	hyprctl dispatch movetoworkspace "$prev"
 fi
-
-socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do handle "$line"; done
