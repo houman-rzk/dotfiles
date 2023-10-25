@@ -13,12 +13,11 @@ elif [ "$current" -eq 1 ]; then
 	prev=$workspaces
 fi
 
-if [ "$1" == "n" ]; then
-	hyprctl dispatch workspace "$next"
-elif [ "$1" == "mn" ]; then
-	hyprctl dispatch movetoworkspace "$next"
-elif [ "$1" == "p" ]; then
-	hyprctl dispatch workspace "$prev"
-elif [ "$1" == "mp" ]; then
-	hyprctl dispatch movetoworkspace "$prev"
-fi
+case "$1" in
+	n) hyprctl dispatch workspace "$next" ;;
+	mn) hyprctl dispatch movetoworkspace "$next" ;;
+	mns) hyprctl dispatch movetoworkspacesilent "$next" ;;
+	p) hyprctl dispatch workspace "$prev" ;;
+	mp) hyprctl dispatch movetoworkspace "$prev" ;;
+	mps) hyprctl dispatch movetoworkspacesilent "$prev" ;;
+esac

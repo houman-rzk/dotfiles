@@ -38,7 +38,7 @@
         "exec": "wb-battery",
         "on-click-right": "wb-battery edit",
         "on-click-middle": "power-profile",
-        "interval": 5,
+        "interval": 120,
     },
 
     "group/center-right": {

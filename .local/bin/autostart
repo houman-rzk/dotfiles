@@ -3,12 +3,12 @@
 programs="waybar mpd shortcuts"
 
 for p in $programs; do
-	pidof -s "$p" || "$p" &
+	pidof -s "$p" || setsid -f "$p"
 done >/dev/null 2>&1
 
-rm $XDG_CACHE_HOME/cliphist/* >/dev/null 2>&1
+rm "$XDG_CACHE_HOME"/cliphist/* >/dev/null 2>&1
 
-pidof -s swaybg >/dev/null 2>&1 || setbg -r &
-pidof -s foot >/dev/null 2>&1 || foot --server &
-pidof -s wl-paste >/dev/null 2>&1 || wl-paste -p --watch cliphist store &
-pidof -s wl-clip-persist >/dev/null 2>&1 || wl-clip-persist --clipboard both &
+pidof -s swaybg >/dev/null 2>&1 || setsid -f setbg -r
+pidof -s foot >/dev/null 2>&1 || setsid -f foot --server
+pidof -s wl-paste >/dev/null 2>&1 || setsid -f wl-paste -p --watch cliphist store
+pidof -s wl-clip-persist >/dev/null 2>&1 || setsid -f wl-clip-persist --clipboard both

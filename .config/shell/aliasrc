@@ -63,6 +63,5 @@ alias \
   dmcd="source $(which disk-mount-cd)" \
   crontab="crontab -i" \
   hst='instr=$(fzf < "$HISTFILE") ; xdotool type "$instr" ; xdotool key Return'  \
-  share='curl -F "file=@$(find . -maxdepth 2 -type f | dmenu -l 15)" 0x0.st 2>/dev/null | xclip -sel c' \
 
 source "$XDG_CONFIG_HOME/shell/otherAliases"

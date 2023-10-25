@@ -1,8 +1,9 @@
 #!/bin/sh
 
-chosen=$($(selector) -p "Emoji: " -i -l 30 < ~/.local/share/emoji | sed "s/ .*//")
+chosen="$($(get selector) -p "Emoji: " -i -l 30 < ~/.local/share/emoji | sed "s/ .*//")"
 
 [ -z "$chosen" ] && exit
 
-wl-copy "$chosen"
-notify -u low -t 3000 -h "'$chosen' copied to clipboard." &
+$(get clipboard) "$chosen"
+
+notify -u low -t 3000 -h "'$chosen' copied to clipboard"

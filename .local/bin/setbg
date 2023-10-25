@@ -54,6 +54,7 @@ set_background() {
     if [ "$WM" = "dwm" ]; then
         pywal
     elif [ "$WM" = "Hyprland" ]; then
+        killall swaybg
         setsid -f swaybg -m fill -i "$WALLPAPER_LINK" >/dev/null 2>&1
     fi
 }

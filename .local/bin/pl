@@ -8,7 +8,7 @@ if [ "$1" = "-d" ]; then
     exit
 fi
 
-playlist="$(mpc lsplaylists | sort | $(selector) -i -l 10 -p "Select playlist: ")"
+playlist="$(mpc lsplaylists | sort | $(get selector) -i -l 10 -p "Select playlist: ")"
 
 if [ -n "$playlist" ] ; then
     mpc clear 1>/dev/null

@@ -3,19 +3,19 @@
 freqL="150"
 file="/tmp/binaural.wav"
 
-[ "$1" = "-s" ] && { pgrep -f "$file" | xargs kill >/dev/null 2>&1 ; exit ;}
-
 # According to https://www.webmd.com/balance/what-are-binaural-beats
 sel="$(printf \
-"Delta (1-4Hz): Deep sleep, Healing and pain relief, Meditation, Cortisol reduction/DHEA increase.
+"STOP
+Delta (1-4Hz): Deep sleep, Healing and pain relief, Meditation, Cortisol reduction/DHEA increase.
 Theta (4-8Hz): Meditation, deep relaxation, creativity.
 Alpha (8-14Hz): Relax and focus, Reduce Stress, Maintain positive thinking, Increase in learning capabilities, State of flow.
 Beta (14-30Hz): Keeping your attention focused, Analytical thinking and problem solving, Stimulating energy and action, High-level cognition
 Gamma (30-100Hz): Increased cognitive enhancement, Attention to detail, Better memory recall, Creative thinking.
 40Hz: Enhanced training and learning" \
-  | $(selector) -i -l 10 -p "Range: ")"
+  | $(get selector) -i -l 10 -p "Range: ")"
 
 case "$sel" in
+  STOP) pgrep -f "$file" | xargs kill >/dev/null 2>&1 ; exit ;;
   Delta*) n=2;;
   Theta*) n=6;;
   Alpha*) n=11;;

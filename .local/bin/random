@@ -4,5 +4,5 @@ len=$1
 
 [ -z "$1" ] && len=10
 
-tr -dc A-Za-z0-9 </dev/urandom | head -c "$len" | xclip -sel primary
-echo "Copied to primary clipboard"
+tr -dc A-Za-z0-9 </dev/urandom | head -c "$len" | eval "$(get clipboard)"
+notify -u low -t 1000 -b "Copied to clipboard"

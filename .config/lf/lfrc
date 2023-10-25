@@ -86,7 +86,7 @@ cmd create-symlink ${{
 }}
 
 cmd share-file ${{
-    curl -F "file=@$f" 0x0.st 2>/dev/null | tr -d "\n" | wl-copy -p
+		share "$f"
 }}
 
 cmd rename-file ${{
