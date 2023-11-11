@@ -67,6 +67,10 @@ export REDSHIFT_FILE="/tmp/current_redshift_value"
 # Sets the default GPU to be used (1:NVIDIA, 2:Intel). To switch between these profiles: Change the value and log back in. Check current GPU with 'glxinfo | grep "OpenGL renderer"'
 export DRI_PRIME=2
 
+# Wayland fix
+#export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORM=wayland
+
 # For DBMS's
 export SQLITE_HISTORY="$XDG_CACHE_HOME/sqlite_history"
 export MYSQL_HISTFILE="$XDG_CACHE_HOME/mysql_history"
