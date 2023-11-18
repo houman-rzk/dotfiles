@@ -7,10 +7,10 @@ filenameNoExt="${filename%.*}"
 ext="${file##*.}"
 
 case "$ext" in
-    java) java -cp "$dir" "$filenameNoExt" ;;
+    java) java -cp "$dir" "$dir/$filenameNoExt" ;;
     c|cpp) "$dir/$filenameNoExt" ;;
-    py) python3 "$filename" || "$filename";;
-    tex|ms) setsid -f xdg-open "$filenameNoExt.pdf" ;;
-    lisp) clisp "$filename" ;;
+    py) python3 "$dir/$filename" || "$filename";;
+    tex|ms) setsid -f xdg-open "$dir/$filenameNoExt.pdf" ;;
+    lisp) clisp "$dir/$filename" ;;
     *) "$dir/$filename" ;;
 esac
