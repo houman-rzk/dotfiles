@@ -8,6 +8,16 @@
 # CONFUSED = 4
 # OK = 5
 # hyprctl notify [ICON] [TIME_MS] [COLOR] [MESSAGE]
+ 
+if [ "$#" = 1 ];
+then
+  if [ "$WM" = "dwm" ]; then
+    dunstify -u critical -r 1 -t 3000 "$1" >/dev/null 2>&1
+  elif [ "$WM" = "Hyprland" ]; then
+    hyprctl notify -1 3000 "rgb(f4dbd6)" "$1" >/dev/null 2>&1
+  fi
+  exit
+fi
 
 while getopts "u:t:h:b:" opt; do
   case $opt in

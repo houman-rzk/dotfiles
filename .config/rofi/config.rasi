@@ -1,5 +1,6 @@
 configuration{
-    modi: "run,drun,filebrowser";
+    //modi: "run,drun,filebrowser";
+    modi: "run,drun";
     icon-theme: "Oranchelo";
     show-icons: true;
     terminal: "foot";
@@ -25,5 +26,6 @@ configuration{
     kb-remove-word-back: "";
 }
 
-@theme "catppuccin-macchiato"
+//@theme "catppuccin-macchiato"
+@theme "catppuccin-mocha"
 

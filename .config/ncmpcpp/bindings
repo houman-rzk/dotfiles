@@ -5,10 +5,10 @@ def_key "="
   show_clock
 
 def_key ">"
-  next
+  dummy
 
 def_key "<"
-  previous
+  dummy
 
 def_key "c"
     clear_main_playlist

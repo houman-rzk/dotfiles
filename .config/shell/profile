@@ -9,6 +9,7 @@ if [ "$WM" = "dwm" ]; then
   WM_CMD="startx \$XINITRC"
 elif [ "$WM" = "Hyprland" ]; then
   WM_TERM="footclient"
+  WM_TERM="foot"
   WM_CMD="Hyprland"
 fi
 
@@ -47,6 +48,8 @@ export TRASH_DIR="$XDG_DATA_HOME/Trash" ; mkdir -p $TRASH_DIR >/dev/null 2>&1
 export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc
 
 export GTK_THEME="Adwaita:dark"
+
+export TESSDATA_PREFIX=/usr/share/tessdata
 
 # For Java GUI Programs
 export AWT_TOOLKIT=MToolkit
