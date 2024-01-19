@@ -1,6 +1,7 @@
 [Desktop Entry]
-Name=lf
-Exec=footclient lf %U
-Terminal=true
 Type=Application
+Name=lf
+Terminal=true
+Exec=foot lf %U
 Categories=FileManager
+MimeType=inode/directory;

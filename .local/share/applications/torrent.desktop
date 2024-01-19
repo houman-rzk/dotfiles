@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Torrent
-Exec=transmission-gtk %U
+Exec=deluge-console add %U

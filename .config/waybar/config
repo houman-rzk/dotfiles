@@ -20,7 +20,7 @@
     },
 
     "custom/sep": { "format": "|", },
-    "custom/weather": { "exec": "wb-forecast", "interval": "1800"},
+    "custom/weather": { "exec": "wb-forecast", "interval": 1800},
 
     "custom/tasks": {
         "format": "{}",

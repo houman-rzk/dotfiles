@@ -48,6 +48,8 @@ export TRASH_DIR="$XDG_DATA_HOME/Trash" ; mkdir -p $TRASH_DIR >/dev/null 2>&1
 export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc
 
 export GTK_THEME="Adwaita:dark"
+export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+export QT_STYLE_OVERRIDE=adwaita-dark.
 
 export TESSDATA_PREFIX=/usr/share/tessdata
 

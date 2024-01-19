@@ -26,7 +26,7 @@ audio/flac=audio.desktop
 audio/x-hx-aac-adts=audio.desktop
 application/zip=archive.desktop
 application/x-rar=archive.desktop
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice.desktop
 x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/eclipse+command=_usr_lib_dbeaver_.desktop
 application/x-subrip=text.desktop
@@ -34,8 +34,5 @@ inode/x-empty=text.desktop
 application/zip=archive.desktop
 application/x-7z=archive.desktop
 application/x-rar=archive.desktop
-application/vnd.oasis.opendocument.spreadsheet=libreoffice
-application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice
-
-[Added Associations]
-text/plain=text.desktop;libreoffice-writer.desktop;org.gnome.gedit.desktop;
+application/vnd.oasis.opendocument.spreadsheet=libreoffice.desktop
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice.desktop
