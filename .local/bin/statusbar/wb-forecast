@@ -1,47 +1,36 @@
 #!/bin/sh
 
-weatherreport="$XDG_CACHE_HOME/weatherreport"
+rm -rf /tmp/forecast >/dev/null 2>&1
 
-getforecast () { echo " " ; while ! curl -Lsf "wttr.in" > "$weatherreport" ; do echo " " ; sleep 10s; done ;}
-
-gettemp() {
-    temp="$(sed '4q;d' "$weatherreport" sed '4q;d' wr | sed -r -e "s,\x1B\[[0-9;]*[a-zA-Z],,g" | grep --color=never -o "+*[0-9][0-9]*" | sed 's/\+//g' | head -n 1)"
-}
-
-setforecasticon () {
-    case "$(sed '3q;d' "$weatherreport" | sed -r -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's,\x1B\[[0-9;]*[a-zA-Z],,g' -e 's/^[^a-zA-Z]+//g')" in
-        "Partly cloudy"|"Overcast") icon="" ;;
-        "Cloudy") icon="" ;;
-        "Clear"|"Sunny") icon="󰖨" ;;
-        *hunderstorm*) icon="" ;;
-        *rain*|*Rain*) icon="" ;;
-        *mist*|*Mist*|*fog*|*Fog*) icon="" ;;
-        *) icon="X" ;;
-    esac;
-}
-
-# get max/min/precip
-extractforecast() { 
-	maxtemp="$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 's/m//g;$!d')"
-	mintemp="$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 's/m//g;1q')"
-	precip="$(sed '16q;d' "$weatherreport" | grep -o "[0-9]*%" | sort -rn | sed -e '1q')"
-}
-
-
-if [ ! "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d ':' -f 1)" = "$(date '+%F %H')" ] || [ "$(wc -l < "$weatherreport")" -eq 0 ] ; then
-    getforecast
+if ! curl -Ls "wttr.in/?format=j2" >/tmp/forecast; then
+    echo " "
+    exit
 fi
 
-gettemp
-setforecasticon
+info="$(jq -r ".current_condition[].FeelsLikeC,
+.weather[0].maxtempC,
+.weather[0].mintempC,
+.current_condition[].humidity,
+.current_condition[].precipMM,
+.current_condition[].weatherDesc[].value" /tmp/forecast)"
 
-case $BLOCK_BUTTON in
-	1) getforecast && gettemp && echo "$temp" ;; 
-	2) setsid -f "$TERMINAL" -e less -Srf "$weatherreport" ;;
-	3) extractforecast && dunstify -u low -r 1 -t 5000 "Weather module" " $maxtemp   $mintemp   $precip
-- Left click to update forecast.
-- Middle click for full forecast" ;;
-    6) setsid -f "$TERMINAL" -e "$EDITOR" "$0" ;;
-esac
+temperature="$(echo "$info" | sed '1q;d')"
+mintemp="$(echo "$info" | sed '2q;d')"
+maxtemp="$(echo "$info" | sed '3q;d')"
+humidity="$(echo "$info" | sed '4q;d')"
+precipitation="$(echo "$info" | sed '5q;d')"
+description="$(echo "$info" | sed '6q;d')"
 
-echo "$icon $temp°"
+case "$(echo "$description" | tr "[:upper:]" "[:lower:]")" in
+    "partly cloudy"|"overcast") icon="" ;;
+    "cloudy") icon="" ;;
+    "clear"|"sunny") icon="󰖨" ;;
+    *thunderstorm*) icon="" ;;
+    *rain*) icon="" ;;
+    *mist*|*fog*) icon="" ;;
+    *) icon="X" ;;
+esac;
+
+output="$icon $temperature°"
+tooltip=" $maxtemp   $mintemp   $precipitation"
+printf '{"text": "%s", "tooltip": "%s"}\n' "$output" "$tooltip"

@@ -111,6 +111,7 @@ cmd q quit
 #cmd setbg $setbg "$f"
 
 #map o open
+map se
 map e edit
 map <enter> shell
 map <c-r> reload
@@ -139,10 +140,16 @@ map L create-symlink
 map V ${{ "$EDITOR" . }}
 map sn ${{ setsid -f nautilus . ; clear }}
 map sd ${{ dragon * }}
-map sb ${{ setbg "$f" }}
+map setbg ${{ setbg "$f" }}
+map mkx ${{ chmod u+x "$f" }}
+
+
+#set previewer ~/.config/lf/previewer.sh
+#set cleaner ~/.config/lf/clear_img.sh
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
+
 
 # Source shortcuts
 source "~/.config/lf/shortcutrc"

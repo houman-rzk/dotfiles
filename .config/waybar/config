@@ -20,7 +20,11 @@
     },
 
     "custom/sep": { "format": "|", },
-    "custom/weather": { "exec": "wb-forecast", "interval": 1800},
+    "custom/weather": {
+        "return-type": "json",
+        "exec": "wb-forecast",
+        "interval": 300
+        },
 
     "custom/tasks": {
         "format": "{}",
