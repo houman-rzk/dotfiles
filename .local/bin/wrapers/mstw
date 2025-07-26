@@ -1,9 +1,0 @@
-#!/bin/sh
-
-DIR="$XDG_DATA_HOME/teams"
-
-[ ! -d "$DIR" ] && mkdir -p "$DIR" > /dev/null 2>&1
-
-HOME="$DIR"
-
-teams

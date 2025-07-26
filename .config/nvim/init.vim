@@ -53,9 +53,15 @@ Plug 'KabbAmine/vCoolor.vim'
 " Multiple cursors
 "Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
+" WimWiki
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
+
 " Some basiscs
 	set number relativenumber
+	set nocompatible
+	filetype plugin on
 	syntax on
 	set backspace=indent,eol,start
 	set encoding=utf-8
@@ -87,7 +93,7 @@ call plug#end()
     map <leader>sls :!ls<CR>
     map <leader>sst :!unset LF_LEVEL ; $TERMINAL >/dev/null 2>&1 & <Enter><Enter>
     map <leader>sof :!setsid -f firefox "%" <Enter><Enter>
-    map <leader>slf :!unset LF_LEVEL ; setsid -f $TERMINAL -e lfub >/dev/null 2>&1 & <Enter><Enter>
+    map <leader>slf :!unset LF_LEVEL ; setsid -f $TERMINAL -e lf >/dev/null 2>&1 & <Enter><Enter>
 	" Split view, tab and buffer navigation shortcuts
 	map <leader>vh <C-w>h
 	map <leader>vj <C-w>j
@@ -212,3 +218,24 @@ call plug#end()
 
 " This was in old vimrc
 ":set autochdir
+
+map <C-l> 080l? <CR>r<CR>0
+
+" VimWiki
+let g:vimwiki_list = [{'path': '$XDG_DOCUMENTS_DIR/vimwiki/', 'syntax': 'markdown', 'ext': 'wiki'}]
+let g:vimwiki_key_mappings = { 'all_maps': 0 }
+" See :h vimwiki-local-mappings for suggestions
+nmap <leader>vww :VimwikiIndex<CR>
+nmap <leader>vwt :VimwikiTabIndex<CR>
+nmap <leader>vws :VimwikiUISelect<CR>
+nmap <leader>vwd :VimwikiDeleteFile<CR>
+nmap <leader>vwr :VimwikiRenameFile<CR>
+nmap <leader>vwn :VimwikiGoto<CR>
+nmap <leader>vwi :VimwikiDiaryIndex<CR>
+nmap <CR> :VimwikiFollowLink<CR>
+nmap <Backspace> :VimwikiGoBackLink<CR>
+nmap <Tab> :VimwikiNextLink<CR>
+nmap <S-Tab> :VimwikiPrevLink<CR>
+nmap <leader>vws :VimwikiSearch<space>
+nmap <leader>vwn :lnext<CR>
+nmap <leader>vwp :lprevious<CR>

@@ -1,0 +1,88 @@
+#!/bin/sh
+
+
+# Excluded drives
+exclude="
+/dev/sda
+/dev/mapper/cryptlvm
+"
+
+# Dependency check
+if ! command -v udisksctl >/dev/null 2>&1;
+then
+  notify "You must install udisks2 (udisksctl)"
+  exit
+fi
+
+
+# Functions
+automount() {
+  dir="$(udisksctl mount -b "$drive" | cut -d ' ' -f4- | head -n 1)"
+  open_terminal_in_dir "$dir"
+}
+
+open_terminal_in_dir() {
+  #echo "$1"
+  if [ "$WM" = "dwm" ]; then
+    setsid -f st -e sh -c "cd $1 ; $SHELL"
+  elif [ "$WM" = "Hyprland" ]; then
+    setsid -f "$TERMINAL" -D "$1"
+  fi
+}
+
+select_mountpoint() {
+  dir="$($(get selector) -p "Select mountpoint:" )"
+  mkdir -p "$dir" >/dev/null 2>&1
+  udisksctl mount -b "$drive" "$dir"
+  open_terminal_in_dir "$dir"
+}
+
+unmount() {
+  if udisksctl unmount -b "$drive" >/dev/null 2>&1; then
+    notify "Unmounted $drive";
+    #udisksctl power-off -b "$drive"
+    power_off
+  else
+    notify "Error unmounting $drive";
+  fi
+}
+
+power_off() {
+  if udisksctl power-off -b "$drive" >/dev/null 2>&1; then
+    notify "Powered off $drive";
+  else
+    notify "Error powering off $drive";
+  fi
+}
+
+
+# The script
+formatted_exclude="$(echo "$exclude" | sed -z -e 's/\n/|/g' -e 's/..$//g' -e 's/^.//g')"
+
+options="$(lsblk -nrpo "name,type,size,mountpoint" | awk -v excl="$formatted_exclude" '$1 !~ excl && $4 !~ /^(\/home|\/boot|\[SWAP\]|\/)$/ {printf "%-35s%-10s%-10s%s\n", substr($1,1,30), $2, $3, $4}')"
+
+selected="$(echo "$options" | tac | $(get selector) -p "Select drive:")"
+[ -z "$selected" ] && exit
+echo "$options" | grep -q "$selected" || exit
+
+drive="$(echo "$selected" | awk '{print $1}')"
+mountpoint="$(echo "$selected" | awk '{print $4}')"
+
+if [ "$mountpoint" = "" ]
+then
+  # Selected is not mounted
+  selection="$(printf "Automount\nPower off" | $(get selector) -i -p "$drive")"
+  case "$selection" in
+    "Automount") automount ;;
+    "Power off") power_off ;;
+    *) exit ;;
+  esac
+else
+  # Selected is mounted
+  selection="$(printf "Go to mountpoint\nUnmount" | $(get selector) -i -p "$drive")"
+  case "$selection" in
+    "Unmount") unmount ;;
+    "Go to mountpoint") open_terminal_in_dir "$mountpoint" ;;
+    *) exit ;;
+  esac
+fi

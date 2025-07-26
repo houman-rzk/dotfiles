@@ -1,0 +1,14 @@
+#!/bin/sh
+
+artist="$1"
+
+find . -type f > /tmp/set-artist.files
+
+
+cat /tmp/set-artist.files | while read -r f
+do
+  tmp_file="/tmp/$(basename "$f")"
+  mv "$f" "$tmp_file"
+  ffmpeg -i "$tmp_file" -metadata artist="$artist" -acodec copy "$f"
+  rm "$tmp_file"
+done

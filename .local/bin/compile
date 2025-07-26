@@ -4,17 +4,20 @@ file=$(readlink -f "$1")
 dir=${file%/*}
 basename="${file%.*}"
 ext="${file##*.}"
+file_name="$(basename "$basename")"
 
 tex_cleanup () {
 	rm "$basename.aux" >/dev/null 2>&1
-	#rm "$basename.toc" >/dev/null 2>&1 # The table of contents
+	rm "$basename.toc" >/dev/null 2>&1 # The table of contents
 	rm "$basename.nav" >/dev/null 2>&1
 	rm "$basename.out" >/dev/null 2>&1
 	rm "$basename.snm" >/dev/null 2>&1
+	rm "$basename.bbl" >/dev/null 2>&1
+	rm "$basename.blg" >/dev/null 2>&1
 
     # Bibliography-related
-	#rm "$basename.bcf" >/dev/null 2>&1
-	#rm "$basename.bbl" >/dev/null 2>&1
+	rm "$basename.bcf" >/dev/null 2>&1
+	rm "$basename.bbl" >/dev/null 2>&1
 	rm "$basename.run.xml" >/dev/null 2>&1
 
     if [ "$1" = "--keep-log" ]
@@ -29,7 +32,20 @@ tex_cleanup () {
 # Compile a latex file
 tex_compile () {
     #{ xelatex --output-directory="$dir" "$file" >/dev/null 2>&1 && tex_cleanup ;} || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log ;}
-    pdflatex --output-directory="$dir" "$file" >/dev/null 2>&1 || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log && cat "$basename.log" ;}
+
+    # LAST ONE
+    #pdflatex --output-directory="$dir" "$file" >/dev/null 2>&1 || { echo "ERROR: Could not compile. Check the log." && tex_cleanup --keep-log && cat "$basename.log" ;}
+
+    cd "$dir"
+    if pdflatex "$file_name.tex"; then
+        biber "$file_name"
+        pdflatex "$file_name.tex"
+        pdflatex "$file_name.tex"
+        tex_cleanup
+    else
+        tex_cleanup --keep-log
+        cat "$file_name.log"
+    fi
 
     #if [ -f "$basename.bcf" ]
     #then
@@ -40,8 +56,6 @@ tex_compile () {
     #        echo "ERROR: Could not compile bibliography. Check the log." && tex_cleanup --keep-log && exit
     #    fi
     #fi
-
-    tex_cleanup
 }
 
 # Compile a groff file

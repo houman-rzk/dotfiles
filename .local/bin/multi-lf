@@ -4,9 +4,9 @@ BASE="multi-lf"
 
 SES="$BASE-$(head -n 1 /dev/*random* | md5sum | cut -c 1-5)"
 
-tmux new-session -s "$SES" -d lfub "$1" > /dev/null 2>&1
+tmux new-session -s "$SES" -d lf "$1" > /dev/null 2>&1
 
-tmux new-window -t "$SES" lfub "$2" > /dev/null 2>&1
+tmux new-window -t "$SES" lf "$2" > /dev/null 2>&1
 
 tmux rename-window -t "$SES":0 'main' > /dev/null 2>&1
 tmux rename-window -t "$SES":1 'aux' > /dev/null 2>&1

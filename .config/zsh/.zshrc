@@ -93,7 +93,7 @@ precmd() {print -nP "\033k%n@%M:%~\033\134"}
 
 # Source command and directory aliases and shortcuts
 [[ -f "$ALIASRC" ]] && source "$ALIASRC"
-[ -f "$XDG_CONFIG_HOME/shell/zshnameddirrc" ] && source "$XDG_CONFIG_HOME/shell/zshnameddirrc"
+#[ -f "$XDG_CONFIG_HOME/shell/zshnameddirrc" ] && source "$XDG_CONFIG_HOME/shell/zshnameddirrc"
 [ -f "$XDG_CONFIG_HOME/shell/shortcutrc" ] && source "$XDG_CONFIG_HOME/shell/shortcutrc"
 
 # Load other plugins
@@ -106,3 +106,10 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev
 
 # Case-insensitive autocomplete
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+

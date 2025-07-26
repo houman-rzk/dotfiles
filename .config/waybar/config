@@ -23,7 +23,7 @@
     "custom/weather": {
         "return-type": "json",
         "exec": "wb-forecast",
-        "interval": 300
+        "interval": 600
         },
 
     "custom/tasks": {
@@ -32,7 +32,7 @@
         "exec": "tasks wb",
         "on-click": "tasks open",
         "on-click-right": "tasks edit",
-        "interval": "once",
+        "interval": 600,
         "signal": 1,
     },
 

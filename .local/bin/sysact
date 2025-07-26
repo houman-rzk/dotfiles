@@ -6,7 +6,9 @@ case "$(readlink -f /sbin/init)" in
 	*) ctl='loginctl' ;;
 esac
 
+lock="waylock -init-color 0x24273a -input-color 0xf4dbd6 -fail-color 0xed8796"
 lock="waylock -fork-on-lock -init-color 0x24273a -input-color 0xf4dbd6 -fail-color 0xed8796"
+lock="hyprctl dispatch exec hyprlock"
 
 case "$(printf "⭘ hibernate\n lock\n󰍃 logout\n reboot\n shutdown\n⏾ sleep" | $(get selector) -i -n -p 'Action: ')" in
 	' lock') music-control pause ; $lock ;;

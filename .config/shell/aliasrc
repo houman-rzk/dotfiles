@@ -13,6 +13,7 @@ alias \
 	ls="ls -hN --color=auto --group-directories-first" \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
+  locate="locate -i" \
 	l='ls' \
 	la='ls -la' \
 	ll='ls -l' \
@@ -47,12 +48,11 @@ alias \
   z="zathura" \
   ot="setsid -f $TERMINAL" \
   dr="dragon -s 40 *" \
-  duh="du -hd1 ." \
+  duh="du -hd1 . | sort -rh" \
 	mk='make && sudo make clean install' \
 	lo='kill -9 -1' \
 	mo='mk && lo' \
-  lf="lfub" \
-	off="sudo systemctl poweroff" \
+	off="systemctl poweroff" \
 	reboot="sudo systemctl reboot" \
   nstart="rfkill unblock wifi" \
   nstop="rfkill block wifi" \

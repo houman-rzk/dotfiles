@@ -16,6 +16,7 @@ cmd open ${{
 		image/x-xcf) setsid -f gimp "$f" ;;
 		application/gzip) setsid -f xournalpp "$f" > /dev/null 2>&1 ;;
     application/octet-stream) setsid -f gpg -dq "$f" ;;
+		image/vnd.djvu) echo "$fx" | while read -r f ; do setsid -f xdg-open "$f" >/dev/null 2>&1 ; done ;;
 
 		image/*) imgs="$(echo "$fx" | tr "\n" "'" | sed "s/'/' '/g" | sed "s/^/'/g" | sed "s/' '$/'/g")" ; eval "setsid -f imv $imgs >/dev/null 2>&1" ;;
 		text/*) echo "$fx" | tr "\n" '"' | sed 's/"/" "/g' | sed 's/^/"/g' | sed 's/" "$/"/g' | xargs $EDITOR ;; text/*|application/json) echo "$fx" | tr "\n" '|' | sed -e 's/|$/"/g' -e 's/|/|-c "tabe /g' -e 's/|-c/" -c/g' -e 's/^/"/' | xargs $EDITOR ;;
@@ -39,6 +40,7 @@ cmd extract ${{
 		application/zip) unzip "$f" ;;
 		application/gzip) tar -xvf "$f" ;;
 		application/x-rar) unrar x "$f" ;;
+		application/vnd.rar) unrar x "$f" ;;
 		application/x-bzip2) tar -xvf "$f" ;;
 	esac
 }}
@@ -48,7 +50,8 @@ cmd extract ${{
 #    echo "$fx" | while read -r l ; do { t="$(echo "$l" | sed 's/^.*\///g')" ; { { [ -f "$XDG_DATA_HOME/Trash/$t" ] || [ -d "$XDG_DATA_HOME/Trash/$t" ] ;} && t="${t}-$(head -n 1 /dev/*random* | md5sum | cut -c 1-4)" ;} ; mv "$l" "$XDG_DATA_HOME/Trash/$t" ;} ; done
 #}}
 
-cmd trash push $[<space>!<space>-d<space>"$TRASH_DIR"<space>]<space>&&<space>mkdir<space>-p<space>"$TRASH_DIR"<space>><space>/dev/null<space>2>&1<space>;<space>echo<space>"$fx"<space>|<space>while<space>read<space>-r<space>l<space>;<space>do<space>{<space>t="$(echo<space>"$l"<space>|<space>sed<space>'s/^.*\///g')"<space>;<space>{<space>{<space>[<space>-f<space>"$TRASH_DIR/$t"<space>]<space>||<space>[<space>-d<space>"$TRASH_DIR/$t"<space>]<space>;}<space>&&<space>t="${t}_$(date<space>"+%Y%m%d-%H%M%S")_$(head<space>-n<space>1<space>/dev/*random*<space>|<space>md5sum<space>|<space>cut<space>-c<space>1-4)"<space>;}<space>;<space>mv<space>"$l"<space>"$TRASH_DIR/$t"<space>;}<space>;<space>done<space>#
+cmd trash push $[<space>!<space>-d<space>"$TRASH_DIR"<space>]<space>&&<space>mkdir<space>-p<space>"$TRASH_DIR"<space>><space>/dev/null<space>2>&1<space>;<space>echo<space>"$fx"<space>|<space>while<space>read<space>-r<space>l<space>;<space>do<space>{<space>t="$(echo<space>"$l"<space>|<space>sed<space>'s/^.*\///g')"<space>;<space>{<space>{<space>[<space>-e<space>"$TRASH_DIR/$t"<space>]<space>||<space>[<space>-L<space>"$TRASH_DIR/$t"<space>]<space>;}<space>&&<space>t="${t}_$(date<space>"+%Y%m%d-%H%M%S")_$(head<space>-n<space>1<space>/dev/*random*<space>|<space>md5sum<space>|<space>cut<space>-c<space>1-4)"<space>;}<space>;<space>mv<space>"$l"<space>"$TRASH_DIR/$t"<space>;}<space>;<space>done<space>#
+
 
 cmd file-type ${{
     file -i "$f" ; read a
@@ -60,8 +63,8 @@ cmd file-type ${{
 cmd touch-file ${{
     printf "File name: "
     read name
-    touch "$name"
-    #[ ! -f "$name" ] && printf "\n\n" > "$name"
+    #touch "$name"
+    [ ! -f "$name" ] && printf "\n\n" > "$name"
 		clear
 }}
 
@@ -139,9 +142,11 @@ map of ${{ setsid -f firefox "$f" >/dev/null 2>&1 }}
 map L create-symlink
 map V ${{ "$EDITOR" . }}
 map sn ${{ setsid -f nautilus . ; clear }}
-map sd ${{ dragon * }}
+map sdo ${{ dragon "$f" }}
+map sda ${{ dragon * }}
 map setbg ${{ setbg "$f" }}
 map mkx ${{ chmod u+x "$f" }}
+map sw ${{ setsid -f mpv "https://youtube.com/watch?v=$(cat "$f")" >/dev/null 2>&1 }}
 
 
 #set previewer ~/.config/lf/previewer.sh

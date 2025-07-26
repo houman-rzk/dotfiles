@@ -1,36 +1,48 @@
 #!/bin/sh
 
-rm -rf /tmp/forecast >/dev/null 2>&1
+#rm -rf /tmp/forecast >/dev/null 2>&1
+LOADING_SIGN=" "
 
 if ! curl -Ls "wttr.in/?format=j2" >/tmp/forecast; then
-    echo " "
+    echo "$LOADING_SIGN"
     exit
 fi
 
-info="$(jq -r ".current_condition[].FeelsLikeC,
+info="$(jq -r ".current_condition[].temp_C,
 .weather[0].maxtempC,
 .weather[0].mintempC,
 .current_condition[].humidity,
 .current_condition[].precipMM,
-.current_condition[].weatherDesc[].value" /tmp/forecast)"
+.current_condition[].weatherDesc[].value,
+.current_condition[].FeelsLikeC" /tmp/forecast)"
 
 temperature="$(echo "$info" | sed '1q;d')"
-mintemp="$(echo "$info" | sed '2q;d')"
-maxtemp="$(echo "$info" | sed '3q;d')"
-humidity="$(echo "$info" | sed '4q;d')"
+maxtemp="$(echo "$info" | sed '2q;d')"
+mintemp="$(echo "$info" | sed '3q;d')"
+#humidity="$(echo "$info" | sed '4q;d')"
 precipitation="$(echo "$info" | sed '5q;d')"
 description="$(echo "$info" | sed '6q;d')"
+feels_like="$(echo "$info" | sed '7q;d')"
 
-case "$(echo "$description" | tr "[:upper:]" "[:lower:]")" in
+
+formatted_description="$(echo "$description" | tr "[:upper:]" "[:lower:]" | sed -e 's/^ //g' -e 's/ $//g')"
+
+case "$formatted_description" in
     "partly cloudy"|"overcast") icon="" ;;
-    "cloudy") icon="" ;;
+    "cloudy"|*drizzle*) icon="" ;;
     "clear"|"sunny") icon="󰖨" ;;
-    *thunderstorm*) icon="" ;;
+    *thunder*) icon="" ;;
     *rain*) icon="" ;;
     *mist*|*fog*) icon="" ;;
     *) icon="X" ;;
 esac;
 
 output="$icon $temperature°"
-tooltip=" $maxtemp   $mintemp   $precipitation"
+tooltip="󰔏$feels_likeº   $maxtempº   $mintempº   ${precipitation}mm"
+
+if [ -z "$description" ]; then
+    output="$LOADING_SIGN"
+    tooltip="$LOADING_SIGN"
+fi
+
 printf '{"text": "%s", "tooltip": "%s"}\n' "$output" "$tooltip"

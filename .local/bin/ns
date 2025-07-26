@@ -1,0 +1,7 @@
+#!/bin/sh
+
+[ -f "$1" ] && echo "ERROR: File exists" && exit 1
+
+printf "#!/bin/sh\n\n\n" > "$1"
+chmod u+x "$1"
+nvim -c "startinsert" + "$1"

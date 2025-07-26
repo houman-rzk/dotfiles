@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Audio player
+Exec=mpv --player-operation-mode=pseudo-gui %f

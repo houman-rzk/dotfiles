@@ -1,0 +1,4 @@
+#!/bin/sh
+
+pidof -s foot >/dev/null 2>&1 || setsid -f foot --server
+pidof -s waybar >/dev/null 2>&1 || setsid -f waybar

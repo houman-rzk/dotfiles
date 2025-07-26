@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ebook-convert "$2" "${2%.*}.$1"

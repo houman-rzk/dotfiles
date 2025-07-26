@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Mail
-Exec=footclient neomutt %u
+Exec=foot neomutt %u

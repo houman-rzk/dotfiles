@@ -7,7 +7,7 @@ if [ "$1" = "clear" ]; then
   exit
 fi
 
-selection="$(cliphist list | rofi -dmenu -p "Clipboard:" | cliphist decode)"
+selection="$(cliphist list | rofi -dmenu -i -p "Clipboard:" | cliphist decode)"
 
 [ -z "$selection" ] && exit 1
 

@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=EBook Viewer
+Exec=ebook-viewer %f

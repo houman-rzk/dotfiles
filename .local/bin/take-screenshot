@@ -6,7 +6,11 @@ NAME="Screenshot_$(date "+%4Y-%m-%d_%H-%M-%S").png"
 if [ "$WM" = "dwm" ]; then
   ffmpeg -f x11grab -video_size "$RES" -i "$DISPLAY" -vframes 1 "$XDG_PICTURES_DIR/Screenshots/$NAME"
 elif [ "$WM" = "Hyprland" ]; then
-  grim
+  if [ "$1" = "--fullscreen" ]; then
+    grim
+  elif [ "$1" = "--selection" ]; then
+    grim -g "$(slurp)" - | wl-copy
+  fi
 fi
 
 notify -u low -t 3000 -h "Screenshot taken"

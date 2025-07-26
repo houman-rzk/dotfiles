@@ -1,0 +1,5 @@
+#!/bin/sh
+
+$(get clipboard) "$(curl -Ls https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_https.txt)"
+
+notify -u low -t 3000 -h "Got trackers"

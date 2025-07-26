@@ -1,14 +1,19 @@
 #!/bin/sh
 
+TASKS_FILE="$XDG_DOCUMENTS_DIR/vimwiki/todo.wiki"
 
 icon=""
 
-tasks="$(task 2>/dev/null | tail -n 1 | awk '{print $1}')"
+not_indented="$(grep -cv "^\s" "$TASKS_FILE")"
+empty="$(grep -c "^$" "$TASKS_FILE")"
+titles="$(grep -c "^#" "$TASKS_FILE")"
+tasks="$(( not_indented - empty - titles))"
+
 
 [ "$tasks" -ge 1 ] && output="$icon $tasks"
 [ "$tasks" = "" ] || [ "$tasks" -lt 1 ] && output="$icon"
 
-tooltip="$(task | head -n -2 | tail -n +4 | cut -c -90 | awk 'NR>1{printf "\\n"};1' | tr -d "\n")"
+#tooltip="$(task | head -n -2 | tail -n +4 | cut -c -90 | awk 'NR>1{printf "\\n"};1' | tr -d "\n")"
 
 if [ "$WM" = "dwm" ]; then
     bar="dwmblocks"
@@ -18,8 +23,8 @@ fi
 
 
 case $1 in
-    open) $TERMINAL taskwarrior-tui ; pkill -RTMIN+1 $bar ;;
-    edit) setsid -f "$TERMINAL" -e "$EDITOR" "$0" >/dev/null 2>&1 ;;
+    open) $TERMINAL -e "$EDITOR $TASKS_FILE" ; pkill -RTMIN+1 $bar ;;
+    edit) setsid -f "$TERMINAL" -e "$EDITOR $0" >/dev/null 2>&1 ;;
     wb) printf '{"text": "%s", "tooltip": "%s"}\n' "$output" "$tooltip" ;;
     *) echo "$output"
 esac

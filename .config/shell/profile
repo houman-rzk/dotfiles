@@ -10,6 +10,7 @@ if [ "$WM" = "dwm" ]; then
 elif [ "$WM" = "Hyprland" ]; then
   WM_TERM="footclient"
   WM_TERM="foot"
+  WM_TERM="terminator"
   WM_CMD="Hyprland"
 fi
 

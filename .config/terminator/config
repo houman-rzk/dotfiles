@@ -1,0 +1,99 @@
+[global_config]
+  focus = mouse
+  scroll_tabbar = True
+  inactive_color_offset = 0.75
+  inactive_bg_color_offset = 0.5075757575757576
+  ask_before_closing = never
+[keybindings]
+  zoom_normal = <Primary>period
+  new_tab = <Alt>t
+  cycle_next = ""
+  cycle_prev = ""
+  go_next = ""
+  go_prev = ""
+  go_up = <Alt>k
+  go_down = <Alt>j
+  go_left = <Alt>h
+  go_right = <Alt>l
+  rotate_cw = ""
+  rotate_ccw = ""
+  split_auto = ""
+  split_horiz = <Shift><Alt>j
+  split_vert = <Shift><Alt>l
+  close_term = ""
+  toggle_scrollbar = ""
+  search = ""
+  close_window = ""
+  resize_up = ""
+  resize_down = ""
+  resize_left = ""
+  resize_right = ""
+  move_tab_right = ""
+  move_tab_left = ""
+  toggle_zoom = ""
+  scaled_zoom = ""
+  next_tab = <Alt>n
+  prev_tab = <Alt>p
+  full_screen = ""
+  reset = ""
+  reset_clear = ""
+  hide_window = ""
+  group_all = ""
+  ungroup_all = ""
+  ungroup_win = ""
+  group_tab = ""
+  ungroup_tab = ""
+  new_window = ""
+  new_terminator = ""
+  insert_number = ""
+  insert_padded = ""
+  edit_window_title = ""
+  edit_tab_title = ""
+  edit_terminal_title = ""
+  layout_launcher = ""
+  preferences_keybindings = ""
+  help = ""
+[profiles]
+  [[default]]
+    audible_bell = True
+    visible_bell = True
+    urgent_bell = True
+    background_color = "#24273a"
+    background_darkness = 0.82
+    background_type = transparent
+    background_image = None
+    font = JetBrains Mono 11
+    foreground_color = "#cad3f5"
+    show_titlebar = False
+    scrollback_infinite = True
+    disable_mousewheel_zoom = True
+    palette = "#494d64:#ed8796:#a6da95:#eed49f:#8aadf4:#f5bde6:#8bd5ca:#b8c0e0:#5b6078:#ed8796:#a6da95:#eed49f:#8aadf4:#f5bde6:#8bd5ca:#a5adcb"
+    use_system_font = False
+  [[default_old]]
+    background_type = transparent
+    show_titlebar = False
+    scrollback_infinite = True
+  [[Catppuccin_Latte]]
+    background_color = "#eff1f5"
+    background_image = None
+    foreground_color = "#4c4f69"
+    palette = "#5c5f77:#d20f39:#40a02b:#df8e1d:#1e66f5:#ea76cb:#179299:#acb0be:#6c6f85:#d20f39:#40a02b:#df8e1d:#1e66f5:#ea76cb:#179299:#bcc0cc"
+  [[Catppuccin_Frappe]]
+    background_color = "#303446"
+    background_image = None
+    foreground_color = "#c6d0f5"
+    palette = "#51576d:#e78284:#a6d189:#e5c890:#8caaee:#f4b8e4:#81c8be:#b5bfe2:#626880:#e78284:#a6d189:#e5c890:#8caaee:#f4b8e4:#81c8be:#a5adce"
+  [[Catppuccin_Mocha]]
+    background_color = "#1e1e2e"
+    background_image = None
+    foreground_color = "#cdd6f4"
+    palette = "#45475a:#f38ba8:#a6e3a1:#f9e2af:#89b4fa:#f5c2e7:#94e2d5:#bac2de:#585b70:#f38ba8:#a6e3a1:#f9e2af:#89b4fa:#f5c2e7:#94e2d5:#a6adc8"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]

@@ -17,6 +17,7 @@ window#waybar {
 
 .modules-right {
   /*background-color: rgba(0,43,51,0.85);*/
+  margin: 5px;
 }
 
 .modules-center {
@@ -34,8 +35,8 @@ window#waybar {
 
 .modules-right > * {
   background-color: @surface0;
-  padding: 3px;
-  margin: 5px;
+  /*padding: 3px;
+  margin: 5px;*/
 }
 
 #test {

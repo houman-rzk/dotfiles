@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -z "$1" ] && file="$(find . -maxdepth 2 -type f | $(get selector) -l 15)" || file="$1"
+
+curl -F "file=@$file" 0x0.st 2>/dev/null | eval "$(get clipboard)"

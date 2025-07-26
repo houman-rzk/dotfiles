@@ -28,7 +28,7 @@ password=$(printf '%s\n' "${password_files[@]}" | $(get selector) -i -l 15 -p 'S
 
 if ! echo "" | gpg --sign --batch --no-tty --pinentry-mode cancel --local-user "$(cat "$PASSWORD_STORE_DIR/.gpg-id")" -o /dev/null >/dev/null 2>&1; then
   pass generate -f passmenu.tmp 20 >/dev/null 2>&1
-  $TERMINAL -e pass passmenu.tmp
+  $TERMINAL -e "pass passmenu.tmp"
 	pass rm -f passmenu.tmp >/dev/null 2>&1
 fi
 

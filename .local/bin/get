@@ -1,0 +1,23 @@
+#!/bin/sh
+
+get_selector() {
+    if [ "$WM" = "dwm" ]; then
+        echo "dmenu"
+    elif [ "$WM" = "Hyprland" ]; then
+        echo "rofi -dmenu"
+    fi
+}
+
+get_clipboard() {
+    if [ "$WM" = "dwm" ]; then
+        echo "xclip -selection clipboard"
+    elif [ "$WM" = "Hyprland" ]; then
+        echo "wl-copy"
+    fi
+}
+
+case $1 in
+    selector) get_selector ;;
+    clipboard) get_clipboard ;;
+    *) notify -u critical -t 5000 -h "Incorrect call to getter" ;;
+esac

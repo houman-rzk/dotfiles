@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ip="$(curl -sf ifconfig.me 2>/dev/null)"
+
+echo "$ip"
+
+echo "$ip" | tr -d "\n" | eval "$(get clipboard)"
