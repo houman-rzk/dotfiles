@@ -27,3 +27,4 @@ p = next_frame
 <space> = toggle_playing
 <Ctrl+d> = exec mv $imv_current_file $TRASH_DIR && notify -t 1000 -h "Trashed"
 <Ctrl+t> = exec mkdir trash | ls && mv $imv_current_file trash && notify -t 1000 -h "Trashed"
+<Ctrl+s> = exec cp $imv_current_file /tmp/imv.save && notify -t 1000 -h "Saved in /tmp/imv.save"

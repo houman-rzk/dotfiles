@@ -1,0 +1,23 @@
+#!/bin/sh
+
+script="$(basename "$0")"
+
+random="$(od -An -N2 -i /dev/urandom | awk '{print $1}')"
+
+fich="/tmp/$script.$random"
+
+if [ -n "$1" ]; then
+  p="$1"
+elif [ -n "$(wl-paste -p)" ]; then
+  p="$(wl-paste -p)"
+elif [ -n "$(wl-paste)" ]; then
+  p="$(wl-paste)"
+else
+  notify -t 3000 -h "Nothing copied"
+fi
+
+printf "%s\n\n\n" "$p" > "$fich"
+
+curl -sSXGET "https://rae-api.com/api/words/$p" | jq -r '.data.meanings[].senses[].raw + "\n"' >> "$fich"
+
+$TERMINAL -e "$EDITOR $fich"
